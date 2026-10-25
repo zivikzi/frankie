@@ -1,0 +1,34 @@
+# FRANKIE
+
+FRANKIE is an attempt to grow silicon-based life with real intelligence, rather than intelligence faked by training on the answers. It is also an attempt to build a fair way of proving that intelligence.
+
+The core test idea: after tasting one apple, a creature should recognise every variety as an apple without being trained on them. It should keep doing so when the next apple is sour, and it should still refuse a poison berry that looks just like the first apple.
+
+## What is here
+
+| Folder | Contents |
+|---|---|
+| [`charter/`](charter/) | The claims charter, frozen before any of Frankie's code existed. It covers what each claim means, how a log proves it, which cheating bots must fail, the pass marks, what may never go into Frankie's mind, and every design choice with its origin. Start with [`charter/README.md`](charter/README.md). |
+| [`charter/KILL_TEST.md`](charter/KILL_TEST.md) | A 6-week go/no-go bench test of the core idea, which runs before anything else gets built. |
+| [`freeze/`](freeze/) | Fingerprints (SHA-256) of every frozen file, their first OpenTimestamps proofs, and the upgrades of those proofs in `freeze/upgrades/`. |
+
+## How the freeze works
+
+The charter is tagged `charter-v1`. Every file's SHA-256 fingerprint is listed in `freeze/charter-v1.sha256`. That list is anchored in the Bitcoin blockchain with [OpenTimestamps](https://opentimestamps.org), a free public timestamp, by the `Timestamp frozen files` GitHub Action.
+
+Any later change to a claim, pass mark, control or rule shows up in the git history. It is flagged "changed after seeing results", and it comes with fresh test material.
+
+To check the freeze yourself:
+
+```sh
+git checkout charter-v1
+sha256sum -c freeze/charter-v1.sha256
+```
+
+The proofs are added to `main` by the Action after the tag, so they are not inside the tag itself. `freeze/charter-v1.sha256.ots` is the first proof. The files in `freeze/upgrades/` are fresh upgrades of it, one every 6 hours for the first week. Drop `freeze/charter-v1.sha256` and the latest upgrade onto [opentimestamps.org](https://opentimestamps.org) to see the Bitcoin block it was anchored in.
+
+The kill test uses the same Action to pick its test sets: each set's key comes from the Bitcoin block 6 after the lowest attestation in these proofs (KILL_TEST.md section 3), so nobody can choose or preview a set before the code is frozen.
+
+## Status
+
+Stage 0 (the charter) is frozen. Next is the kill test, then a trimmed version 1 if the kill test passes.

@@ -1,0 +1,101 @@
+name: Timestamp frozen files
+
+# Anchors every freeze manifest in freeze/ with OpenTimestamps (a free,
+# public Bitcoin timestamp), as KILL_TEST.md section 3 (KT-14) describes.
+#
+# - When a manifest is pushed, it is stamped once, and that first proof is
+#   committed as freeze/<manifest>.ots. Only that first proof counts.
+# - Every 6 hours, a fresh copy of each first proof is upgraded against its
+#   calendars and committed as a new file in freeze/upgrades/, named for the
+#   run, whether or not it changed. This goes on for 7 days after the
+#   manifest was pushed, and after that only until some upgrade holds a
+#   Bitcoin attestation. The kill-run key is read from these files.
+
+on:
+  push:
+    branches: [main]
+    paths: ['freeze/*.sha256']
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: timestamp
+  cancel-in-progress: false
+
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install the OpenTimestamps client
+        run: pip install opentimestamps-client==0.7.2
+
+      - name: Stamp new manifests (first proof)
+        run: |
+          shopt -s nullglob
+          for f in freeze/*.sha256; do
+            if [ ! -e "$f.ots" ]; then
+              ots stamp "$f"
+              echo "Stamped $f"
+            fi
+          done
+
+      - name: Upgrade a fresh copy of each first proof
+        run: |
+          shopt -s nullglob
+          mkdir -p freeze/upgrades
+          now=$(date -u +%s)
+          run=$(date -u +%Y%m%dT%H%M%SZ)
+          for proof in freeze/*.sha256.ots; do
+            manifest="${proof%.ots}"
+            name=$(basename "$manifest")
+            pushed=$(git log --diff-filter=A --format=%ct -- "$manifest" | tail -n 1)
+            [ -n "$pushed" ] || pushed=$now
+            age_days=$(( (now - pushed) / 86400 ))
+            if [ "$age_days" -ge 7 ]; then
+              attested=no
+              for u in freeze/upgrades/"$name".*.ots; do
+                if ots info "$u" 2>/dev/null | grep -q BitcoinBlockHeaderAttestation; then
+                  attested=yes
+                  break
+                fi
+              done
+              if [ "$attested" = yes ]; then
+                echo "$name: past 7 days and attested; no more upgrades"
+                continue
+              fi
+            fi
+            work="$RUNNER_TEMP/$name.$run"
+            mkdir -p "$work"
+            cp "$proof" "$work/proof.ots"
+            (cd "$work" && ots upgrade proof.ots) || echo "$name: not every calendar has a Bitcoin attestation yet"
+            cp "$work/proof.ots" "freeze/upgrades/$name.$run.ots"
+          done
+
+      - name: Commit proofs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add freeze/
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit"
+          else
+            git commit -m "OpenTimestamps: first proofs and upgrades ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4; do
+              git pull --rebase origin main && git push origin main && exit 0
+              sleep $((2 ** i))
+            done
+            exit 1
+          fi

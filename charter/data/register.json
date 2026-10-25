@@ -1,0 +1,1232 @@
+{
+ "forbidden": [
+  {
+   "mechanism": "Any large language model or pretrained model inside Frankie's mind",
+   "plain_explanation": "No chatbot, no model trained on internet data and no pre-trained vision or language network may run inside Frankie, even as a small helper. Claude helps only from outside, by writing code and describing logs.",
+   "why_forbidden": "P1 (no LLM inside) and Aitzaz's core argument: today's AI 'fakes' intelligence because it was trained on the mark schemes beforehand. Anything pretrained brings the answers in with it.",
+   "how_checked": "Automatic: the import guard fails the build if the mind package imports anything but NumPy and Numba. Automatic: a scan for model weight files (.pt, .onnx, .safetensors, or .npz files loaded at start-up) inside the mind package. Review: every mind design note."
+  },
+  {
+   "mechanism": "Gradient training of any kind (backpropagation, gradient descent on a loss)",
+   "plain_explanation": "Frankie's connections may not be adjusted by computing how to reduce an error score over many examples, which is how standard neural networks are trained.",
+   "why_forbidden": "Hard rule: no gradient training. Learning must come from Aitzaz's rules (blame moves outward, stretch on a right guess) within one lifetime (D3). Spike-timing learning, if it is ever added, must not become a disguised gradient rule (PLACEHOLDER-18).",
+   "how_checked": "Automatic: the import guard (no torch, jax, tensorflow or autograd). Automatic: a scan of mind code for words such as 'grad', 'backward', 'loss' and 'optimizer', with every hit sent to review. Review: the write rule is checked against D3, and the weight and reliability steps (PLACEHOLDER-02, PLACEHOLDER-05) must be fixed steps, never sizes computed from an error score."
+  },
+  {
+   "mechanism": "Machine-learning or reinforcement-learning libraries",
+   "plain_explanation": "Ready-made toolkits such as scikit-learn, gym or reinforcement-learning frameworks may not be used in the mind.",
+   "why_forbidden": "Hard rule, and P2 (conventional methods for the world's plumbing only). These libraries carry textbook 'best method from A to B' solutions, which Aitzaz fears Claude will slip in.",
+   "how_checked": "Automatic: the import guard allows only NumPy and Numba in the mind package. Review: the lockfile is reviewed for every new dependency."
+  },
+  {
+   "mechanism": "Novelty bonus or visit-count bonus",
+   "plain_explanation": "Frankie may not get extra reward or extra value just because something is new, or because it has rarely visited a place or object.",
+   "why_forbidden": "Hard rule and D4: untried options are valued at the average of Frankie's own first encounters (PLACEHOLDER-34), starting from the newborn value (M25), with no novelty bonus. Curiosity must grow out of the energy economy as insurance (P6), or be reported as absent.",
+   "how_checked": "Automatic: a scan of mind code for 'novel', 'bonus', 'visit' and 'count' near value calculations, with hits sent to review. Behavioural: B3 (count-based novelty agent) must stay stuck on the glimmer stone in C8 (T9); if Frankie behaves like B3, that is flagged. G02 (eat-novel-first) must fail the claims that list it. Review: option valuation is checked against D4."
+  },
+  {
+   "mechanism": "Prediction-error or surprise reward",
+   "plain_explanation": "Frankie may not be rewarded for being surprised, or for seeing something its own predictions got wrong.",
+   "why_forbidden": "Hard rule: no curiosity reward. This is the textbook curiosity method that falls into the noisy-TV trap. Aitzaz wants 'patience, not persistence' to arise without it (P8).",
+   "how_checked": "Review: every place a mismatch is computed (objection mismatch values, wrong guesses after eating) must be shown to change only memory (D3), never the value of an option or the satisficing bar. Behavioural: C8 (T9) compares Frankie with B3 on the glimmer stone."
+  },
+  {
+   "mechanism": "Learning-progress or competence reward",
+   "plain_explanation": "Frankie may not be rewarded for improving, or for being in situations where it is learning fast.",
+   "why_forbidden": "Hard rule: no learning-progress reward. Curiosity must be insurance for path A failing, following Aitzaz's path B idea (P6).",
+   "how_checked": "Review: each design note is checked against this list. Automatic: a scan for 'progress', 'improvement' and 'competence' in value code."
+  },
+  {
+   "mechanism": "Uncertainty or information-gain bonus (including 'optimism in the face of uncertainty' and posterior sampling)",
+   "plain_explanation": "Frankie may not value an option more because it is unsure about it. A sharp look is worth paying for only when it could change a predicted energy outcome.",
+   "why_forbidden": "D4 and D8: no bonus for novelty or uncertainty, ever. Sharp looks are an energy spend judged by the drive.",
+   "how_checked": "Review: the sharp-look rule (D8, PLACEHOLDER-33) and option valuation (D4). The 'less reliable' mark (PLACEHOLDER-05) may raise the predicted chance of a wrong guess, and so change a predicted energy outcome; it may never add value for being unsure in itself. Automatic: a scan for 'uncertainty', 'entropy', 'ucb' and 'thompson' in mind code."
+  },
+  {
+   "mechanism": "Optimistic starting values, and undeclared starting beliefs",
+   "plain_explanation": "New, untried things may not start with a high hopeful value that pulls Frankie toward them. Any starting belief the designers choose, such as how often food sources fail, must be declared and logged.",
+   "why_forbidden": "D4: newborns start neutral (expected change zero, M25); a cautious start (PLACEHOLDER-35) is also reported. Optimism is a hidden novelty bonus. A starting failure belief chosen by the designers would make exploring come from the designers rather than from what Frankie lived through.",
+   "how_checked": "Automatic: a test reads the newborn default from the ledger (M25) and asserts it equals the logged neutral or cautious value (newborn_start). Automatic: a test asserts that the newborn failure belief equals its ledger value, zero under M48 [Aitzaz Q3, 24 Oct]; any non-zero value is printed on the priors card as a designed prior. Review."
+  },
+  {
+   "mechanism": "Habituation or boredom counters (per object, kind, place or global)",
+   "plain_explanation": "Frankie may not keep any number that goes up or down just because it looked at, visited or met something again, whatever happened. Losing interest must come from fading memories of what happened ('looked here, nothing came of it'), not from a tally of looks.",
+   "why_forbidden": "D10: loss of interest must come from ordinary fading place-and-time memory. A counter would hand-build the patience result in C8 and make it worthless as evidence.",
+   "how_checked": "BOUNDARY (PLACEHOLDER-109) [Aitzaz Q2, 24 Oct]. FORBIDDEN: any stored mind quantity, at any grain (per object, per kind, per place or cell, or one global number), that grows or shrinks with the number of looks, visits or exposures whatever their outcome. This includes a per-place look count for an object that never moves, a global 'looks since last food' number, a familiarity or habituation trace bumped on each look, a novelty trace that shrinks on exposure, and any sighting tally used to discount a value. ALLOWED: (1) fading place-and-time records, each written only when an outcome is observed and carrying that outcome (for example 'investigated here, nothing came of it' or 'ate here, +14'); such records may add up; (2) a sighting record that holds what was seen where, where a repeat sighting of the same recognised kind (or 'unknown') in the same cell refreshes the existing record instead of adding a new one (PLACEHOLDER-31); (3) the sensory buffer of the current tick and the settling state inside one decision; (4) memory bookkeeping that changes only on outcomes, such as confirmed wins (PLACEHOLDER-07) and the 'less reliable' mark (PLACEHOLDER-05). Counts kept on the world side of the log (for example teacher_demonstrations_seen or visit_events) are not mind state and are allowed. REVIEWER TEST: for each stored mind quantity, imagine every write that records an observed outcome switched off, and ask 'would one more look, visit or exposure still change this value?' If yes, and the quantity is not in the allowed list, it is a counter. HOW CHECKED: Automatic, the T0(e) code check: two scripted runs end with an identical last look at the same tick and differ only in how many earlier looks they made, with the outcome-record write intercepted; any difference in mind state, apart from the sensory buffer, flags a counter. Automatic: no mind data structure is keyed by object identity (the mind never receives IDs). Review of place-and-time memory code against D10 and PLACEHOLDER-109. Behavioural: G15 (fading-everything bot) must fail C8. C8-S4 memory-slot and forget-event logs."
+  },
+  {
+   "mechanism": "Built-in 'becomes' links (for example seed becomes tree)",
+   "plain_explanation": "Frankie may not be told that a seed turns into a tree, or that a spot will later have fruit.",
+   "why_forbidden": "D10: the seed-to-fruit connection must be noticed from ordinary place-and-time records, or the patience test fails honestly.",
+   "how_checked": "Review of memory design notes. Automatic: a scan for 'seed', 'tree' and 'grow' in mind code (the mind should have no names for world things)."
+  },
+  {
+   "mechanism": "Temporal-difference errors, value tables and Q-learning",
+   "plain_explanation": "The standard reinforcement-learning machinery that estimates the long-run value of each situation and action, by passing value backward from one situation to the ones before it, is not allowed in the mind. Plain tallies of what actually happened to Frankie are allowed.",
+   "why_forbidden": "Hard rule: no reinforcement learning. Choice must come from Aitzaz's spend-or-conserve drive plus satisficing (D6). Habits (M34) and the drive's counting estimator (PLACEHOLDER-21) look like value tables, so the line has to be drawn exactly.",
+   "how_checked": "BOUNDARY (Aitzaz confirms at initialling). ALLOWED: a stored quantity is allowed only if ALL of these hold: (1) it is a tally (a count, a sum or a ratio of counts) of Frankie's OWN observed outcomes, such as energy changes it experienced, sources it saw fail, or first-eat outcomes; (2) each update is written from an outcome observed within a fixed credit window after the choice or situation it is credited to, with the window a registered constant (30 ticks for habits, PLACEHOLDER-30; the drive horizon of 200 ticks, PLACEHOLDER-21; 300 ticks after the watched event for the trust and influence updates, PLACEHOLDER-40 and PLACEHOLDER-41); (3) there is no discounting: an outcome inside the window counts in full and one outside counts zero; (4) the update's inputs are only the observed outcome, the tally's own previous value and a registered fading rate, never another stored estimate or prediction. Computing a prediction at choice time by reading tallies (for example 'in how many similar past situations did E stay above R') is allowed, as long as that prediction is never written back into any tally. This covers M34's habit weights (logged as habit_weight_updates), PLACEHOLDER-21's counting estimator, the untried-value average (PLACEHOLDER-34) and the trust and influence updates (PLACEHOLDER-40, PLACEHOLDER-41). BANNED: anything that updates one situation's or option's value from another situation's value or estimate, including TD errors, Bellman backups, bootstrapped targets, discount factors, Q-tables, learned value functions, advantage estimates, and eligibility traces that pass value backward across situations or beyond the fixed window. REVIEWER TEST: for every write to a stored quantity in drive, habit or social code, list its inputs; if any input is another stored estimate or a predicted value, it is banned. HOW CHECKED: Review checks the habit (M34) and drive (PLACEHOLDER-21) design notes against this line. Automatic: a scan for 'td', 'q_table', 'value_function', 'bellman', 'discount', 'gamma', 'bootstrap', 'eligibility' and 'advantage'. Automatic: with every outcome event intercepted, no drive or habit tally may change except by its registered fading. Behavioural: comparison with the conventional twins (TW3, TW4)."
+  },
+  {
+   "mechanism": "Softmax or epsilon-greedy action selection inside Frankie",
+   "plain_explanation": "Frankie may not choose by the textbook 'mostly best, sometimes random' rules. Randomness only proposes; character decides.",
+   "why_forbidden": "Aitzaz: 'character always insisting, randomness is discovery' (P5). D5 sets energy-dependent proposals and D6 sets satisficing. Epsilon-greedy exists only as an outside twin (TW4).",
+   "how_checked": "Automatic: a scan for 'softmax', 'epsilon', 'boltzmann' and 'temperature'. Automatic: the mind may not import from the twins package. Review: randomness may set only how many proposals are drawn and which menu entries they are (PLACEHOLDER-25, PLACEHOLDER-96), never which option is chosen. C13 (T14) reports Frankie next to TW4. OS18 (trust locked at full), OS19 (character off) and OS23 (tower off, random choice) are test-only flags kept in a test-fixtures module, never in the mind package; the harness refuses any of them in a run labelled 'full', and the 'randomness never chooses' rule applies to version full only."
+  },
+  {
+   "mechanism": "Best-score (argmax) chooser as Frankie's main choice rule",
+   "plain_explanation": "Frankie's main chooser must take the first option that keeps it safely above reserve, not the best-scoring one. The single exception is when no option is safe: then it takes the option with the best chance of staying above reserve, and every such tick is flagged.",
+   "why_forbidden": "D6, and Aitzaz's point that a less-optimal path is worth more to life in the long run (P2). The fallback is allowed only because some rule is needed when nothing clears the bar (M47) [Aitzaz Q3, 24 Oct].",
+   "how_checked": "Review: the main chooser is checked against D6 and M29. Automatic: the configuration test asserts the chooser mode is 'satisficing' in every claim run. Automatic: a best-score rule is allowed only as the M47 fallback when no option clears the bar; every use is logged with action_provenance=no-safe-option-fallback and no_safe_option=true, and a test asserts that on every such tick each entry in options_considered has cleared_bar=false. Its share is reported in C7, and the backups-don't-count gate (OS13) covers it. Automatic: the replayed drive trace (M53) is log-only; the interface test fails the build if the mind reads it."
+  },
+  {
+   "mechanism": "Copy urge, imitation channel or dedicated teacher slot",
+   "plain_explanation": "Frankie has no built-in desire to copy, no special input for 'what the teacher is doing', and no memory set aside for the teacher.",
+   "why_forbidden": "Aitzaz: 'urge to copy is too artificial; failing and watching success looks better' (P7). D9: watching enters as ordinary events with zero starting influence.",
+   "how_checked": "Review against D9. Automatic: the observation packet schema test (the teacher appears only as raw visual features, with no action labels). Behavioural: C9 (T10) must beat B8 (copycat) and B9 (hard-wired watcher), with OS16 (social path off) as the floor."
+  },
+  {
+   "mechanism": "Replaying observed action sequences as Frankie's own proposals",
+   "plain_explanation": "Frankie may not take a sequence it watched another creature perform and feed it into its own list of things to try.",
+   "why_forbidden": "D9 and the novelty definition (D14): copying would make 'novel' approaches secondhand.",
+   "how_checked": "Review of the proposal code: proposals may draw only from the frozen menu and Frankie's own habits. Automatic: the novelty certificates check every motif, cut with the X40 tokenizer, against the teacher closure library (T17) and that lifetime's teacher log. Behavioural: C11's copy-leak mocks (MK6, MK7) must be caught at their stated rates, which shows the check can see copying."
+  },
+  {
+   "mechanism": "Social influence that starts above zero",
+   "plain_explanation": "Records of what others did may not affect Frankie's choices until they have predicted Frankie's own outcomes.",
+   "why_forbidden": "D9: influence is earned per creature (M37).",
+   "how_checked": "Automatic: a test that a newborn's social influence and trust values are all exactly zero (PLACEHOLDER-40, PLACEHOLDER-41). OS18 (trust locked at full) is a test-only flag in the test-fixtures module, and the import guard keeps it out of Frankie; the harness refuses it in any run labelled 'full'. Review."
+  },
+  {
+   "mechanism": "Built-in meanings for taste, glow or tint",
+   "plain_explanation": "Frankie may not be told that sweet is good, bitter is bad, or that glowing means a creature ate well.",
+   "why_forbidden": "Hard rule, D9 and D16: meanings must be learned from Frankie's own energy outcomes.",
+   "how_checked": "Behavioural: the reversed-sign world in C9 (glow follows poison) must invert Frankie's reading. Review: no sign or taste input has a fixed weight in the drive; taste enters only as a detail trait in candidates and in the verdict after eating (PLACEHOLDER-92, M51) [Aitzaz Q2, 24 Oct]."
+  },
+  {
+   "mechanism": "Access to object IDs, hidden natures, kind names or the world's essence/surface split",
+   "plain_explanation": "The mind may never see which object is which in the world's books, whether something is poison, or which traits the world calls 'core'.",
+   "why_forbidden": "Aitzaz's contamination argument: if the mind sees the answers, nothing it does is real.",
+   "how_checked": "Automatic: the interface test fails the build if an ID or nature field reaches the mind package. It checks by name every world-side log field in the schema (PLACEHOLDER-64), including gaze_target, verdict_subject, probe_role, hidden_nature, kind_id and creature_id. Automatic: the leak test (swapped natures give identical observations until the first eat). Automatic: a code check for references to essence, core or free labels in mind code. Behavioural: B6 (contamination canary) must be flagged by T0 every time."
+  },
+  {
+   "mechanism": "Recognition caches keyed on world objects",
+   "plain_explanation": "Frankie may not remember 'object number 17 is food'; it may only remember what it observed.",
+   "why_forbidden": "Keying on identity would let Frankie skip recognition.",
+   "how_checked": "Automatic: follows from the interface test (no IDs reach the mind). Review of any cache."
+  },
+  {
+   "mechanism": "Designer-chosen essence weights or a pre-loaded memory",
+   "plain_explanation": "Claude or Aitzaz may not set which traits matter. Hand-set perception must be neutral, and memory starts empty.",
+   "why_forbidden": "Designer knowledge of the answer may not become the starting point. Essence must come from evolution and lifetime learning (P3, P4).",
+   "how_checked": "Automatic: a test that hand-set relevance weights are all equal (PLACEHOLDER-88, cohort PC1) and that memory is empty at birth. Evolution starts from random genomes, checked against the run log."
+  },
+  {
+   "mechanism": "Textbook best-split attention ('check whichever trait best separates the candidates')",
+   "plain_explanation": "Inner layers may not pick the most informative trait the way a decision tree does. The outer layers' guesses fix which traits get checked.",
+   "why_forbidden": "D13 chose Aitzaz's outside-in option over the textbook optimum.",
+   "how_checked": "Review of the tower design note against PLACEHOLDER-14. Automatic: a scan for 'information_gain', 'gini' and 'entropy' in tower code."
+  },
+  {
+   "mechanism": "Shortest-path planners, or a conventional planner patched in",
+   "plain_explanation": "Frankie moves by greedy steps. No route-finding algorithm (such as A* or breadth-first search) and no multi-step planner may be added.",
+   "why_forbidden": "D11 leaves plan elimination open for Aitzaz to design. The hard rule says a missing property is reported, never rescued with a conventional mechanism (P2).",
+   "how_checked": "Automatic: a scan for 'astar', 'dijkstra', 'bfs' and 'plan'. Review: any new mechanism needs its own ledger row and Aitzaz's approval."
+  },
+  {
+   "mechanism": "Macro actions in the proposal menu",
+   "plain_explanation": "The menu holds only small primitive moves, with no ready-made routines such as 'push X toward Y' or 'go around the barrier'.",
+   "why_forbidden": "Macros would let a single proposal draw count as a 'novel approach'. D14 excludes anything one menu draw can produce (PLACEHOLDER-66).",
+   "how_checked": "Automatic: the proposal menu is listed in a frozen file, and a test compares the code's menu with it. Review."
+  },
+  {
+   "mechanism": "Evolved or inherited choice settings (temperament, reserve, sharp-look spending, randomness curve, creature-observation channels)",
+   "plain_explanation": "Evolution may tune only perception. It may not shape how Frankie chooses, its temperament, when it pays for a look, or how it perceives other creatures.",
+   "why_forbidden": "Aitzaz: 'evolution only shapes our recognition systems' (P4). D7 and D8. M49 keeps creature-observation channels out of the genome.",
+   "how_checked": "Automatic: the genome schema test lists the allowed fields, and any other field fails the build. Stage 7 gate: temperament must matter more than genome."
+  },
+  {
+   "mechanism": "Fitness terms other than net food energy",
+   "plain_explanation": "Evolution may score creatures only by food energy gained minus poison energy lost, and nothing else.",
+   "why_forbidden": "Hard rule. A curiosity, imitation or novelty term would breed the very behaviours the tests are meant to discover.",
+   "how_checked": "Automatic: the fitness function is fingerprinted before the first run and its fingerprint is checked every run. Review."
+  },
+  {
+   "mechanism": "Promoting a baseline, twin, off-switch version or test fixture into Frankie",
+   "plain_explanation": "Comparison minds and cheating mocks may never become part of Frankie, even if they work better.",
+   "why_forbidden": "Guardrail: conventional twins can never be promoted by default, and any fallback after a failed gate needs Aitzaz's approval.",
+   "how_checked": "Automatic: the import guard forbids the mind from importing the baselines (B0-B9, G01-G18), twins (TW1-TW7) or test-fixtures (MK1-MK10) packages. Automatic: off-switch versions (OS01-OS21 and OS23; OS22 retired) exist only as configuration flags recorded in the version field, and a claim run labelled 'full' is refused if any flag is set. OS18 (trust locked at full), OS19 (character off) and OS23 (tower off, random choice) are test-only flags kept in a test-fixtures module, never in the mind package; the harness refuses any of them in a run labelled 'full', and the 'randomness never chooses' rule applies to version full only. Review: any fallback is logged with Aitzaz's initials. The test-only flags OS18, OS19 and OS23 are applied by a wrapper on the test side of the mind's interface, never by code inside the mind package."
+  },
+  {
+   "mechanism": "Automatic switch from spiking to rate-based neurons",
+   "plain_explanation": "If spiking neurons fail a check, the code may not quietly swap to ordinary neurons.",
+   "why_forbidden": "D12: Aitzaz decides what happens next.",
+   "how_checked": "Automatic: claim runs record the neuron type in the log header, and the harness refuses a rate-based mind (TW7) for claims unless the ledger holds Aitzaz's approval. Review."
+  },
+  {
+   "mechanism": "Unlisted constants or rules in the mind",
+   "plain_explanation": "No number or rule may appear in mind code unless it has a ledger row or a register row.",
+   "why_forbidden": "Aitzaz's fear that Claude fills gaps with textbook defaults. The register of unspecified details is the defence.",
+   "how_checked": "Automatic: the test that no unlisted constants appear in mind code (from the proposal); each constant must cite its register row (PLACEHOLDER-nn or KT-nn) or ledger row. Review against the register."
+  },
+  {
+   "mechanism": "A cheap taste action (nibble), or any taste without a real eat",
+   "plain_explanation": "Frankie may not learn taste without the full risk of eating.",
+   "why_forbidden": "D16.",
+   "how_checked": "Automatic: the action-set test lists the allowed actions; taste values appear in the observation packet only on the tick after an eat."
+  },
+  {
+   "mechanism": "Tuning the mind on sealed test material",
+   "plain_explanation": "No one may adjust Frankie after seeing how it does on real test kinds.",
+   "why_forbidden": "Aitzaz's contamination argument; D1.",
+   "how_checked": "Automatic: the vault-open log (each vault opened once, with its seed revealed publicly). 'Changed after seeing test X' flags in the ledger. The mind and genomes are frozen before the final vault is generated. No pass mark, N or design constant changes after results are seen (X39)."
+  },
+  {
+   "mechanism": "Forced eats or harness energy changes outside the registered policy",
+   "plain_explanation": "The test harness may force Frankie to eat something, or change its energy, only at the points listed in advance. There is no hidden help, and no energy reset to keep a struggling Frankie alive.",
+   "why_forbidden": "A forced eat makes 'Frankie chose to eat' untrue and plants an experience Frankie did not choose; an unlisted energy change does the same for hunger. Both would blur what Frankie earned by itself (D1, contamination argument).",
+   "how_checked": "Automatic: the harness refuses a designed exposure unless its test and point are on the PLACEHOLDER-85 list (T7, T9, T10 and T13 may never force an eat), and refuses any energy change that is not one of the injections listed in W45 (type and point: energy-set at probes, including C1's R + 40 repeat, at T9 arena entry for C8 HIGH/LOW, at C13-M2 energy clamps and at T13 room entry; yoke-adjust; top-up). Every forced eat is logged with action_provenance=designed-exposure and every energy change as an injection_events row with vault provenance; both are printed on the priors card. There is no survival floor (W46): energy is never reset at 0. T0 audit: the log is compared with the frozen spec. On the kill-test bench, the only injection allowed is the kill-test energy-set listed in W45."
+  }
+ ],
+ "unspecified": [
+  {
+   "id": "PLACEHOLDER-01",
+   "detail": "Similarity measure: how a perceived feature value 'fits' a remembered kind's stored range, and how per-feature fits combine into the evidence that excites a candidate.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-01 (Claude, untested): count of features falling inside the stored range widened by the detector width, each weighted by its relevance weight. Textbook alternative to avoid by default: exponential distance (Nosofsky GCM).",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-02",
+   "detail": "How much a relevance weight goes up (on the explaining layer's differing traits) or down (on traits that varied without changing the outcome), and whether weights are capped.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-02 (Claude, untested): fixed step of +0.2 up and -0.1 down, weights kept between 0 and 1. The steps are fixed sizes, never computed from an error score (forbidden list, gradient training).",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-03",
+   "detail": "What 'a layer explains the mistake' means: how far outside a kind's usual range a trait must be before that layer gets the blame.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-03 (Claude, untested): any trait in that layer more than one detector width outside the stored range.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-04",
+   "detail": "When a new kind splits off: what its starting ranges, weights, count and outcome record are.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-04 (Claude, untested): ranges are the single observed values plus one detector width; weights copied from the parent kind; count 1; outcome the one just experienced.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-05",
+   "detail": "The 'less reliable' mark: its scale, how it raises the drive's willingness to pay for a sharp look, and whether it ever recovers.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-05 (Claude, untested): reliability from 0 to 1, starts at 1, drops by 0.25 per unexplained mistake and rises by 0.05 per right guess; the drive multiplies the predicted chance of being wrong by (2 minus reliability). The mark changes only on outcome-confirmed mistakes and right guesses, so it is not a look counter (PLACEHOLDER-109), and it may never add value for uncertainty itself (forbidden list).",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-06",
+   "detail": "How far a kind 'stretches' after a right guess: exactly to include the new value, or with a margin.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-06 (Claude, conventional): exactly to include the new value, no margin.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-07",
+   "detail": "Forgetting tie-break: how 'oldest' and 'least-used' combine, and what counts as a 'use' (being recognised, being eaten, being a candidate).",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-07 (Claude, conventional; restated in Stage 0 to stay inside the boredom-counter boundary): a 'use' is a confirmed win, meaning a verdict for the kind that was followed by an eat whose energy outcome matched the kind's record. Evict the kind with the fewest confirmed wins; ties are broken by the oldest last confirmed win, then by the lowest slot number. Verdicts that no outcome confirmed are not counted, so forgetting never counts looks (PLACEHOLDER-109).",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-08",
+   "detail": "Exact memory capacity (32 or 64 or other) and whether capacity is fixed or evolved.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-08 (Claude, untested): 48 slots plus 'unknown', fixed, not evolved.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-09",
+   "detail": "When an 'unknown' verdict creates a new kind in memory: on first sight, only after eating, or after the new-kind threshold is passed some number of times. Also whether watched events can create kinds.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-09 (Claude, untested): a new kind is created only when Frankie eats something judged 'unknown', or a watched creature eats it (memory_write_events trigger=watched). Seeing alone creates none, which protects memory from the glimmer stone. A forced eat with no verdict follows PLACEHOLDER-93 (trigger=designed-exposure).",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-10",
+   "detail": "How the 'unknown' unit gets its activation and how it wins the contest.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-10 (Claude, untested): constant input equal to the evolved new-kind threshold; wins when no candidate beats it by the margin.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-11",
+   "detail": "Number of settling steps is inconsistent: about 16 per tick (mind section), a dummy 120-step loop for timing (Stage 1), and 'commit within 30 steps' (Stage 5 gate). Also whether a decision can span several ticks.",
+   "needed_by_stage": "Stage 1 (timing stub) and Stage 5",
+   "placeholder": "PLACEHOLDER-11 (Claude, untested): up to 16 steps per tick; a decision may carry over up to 2 ticks (32 steps total, inside the 30-step gate only if the gate is restated as 32); Stage 1 stub keeps 120 as a worst-case timing margin.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-12",
+   "detail": "What 'one candidate clearly leads' means for committing: margin size, how long it must lead.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-12 (Claude, conventional): leader ahead of the runner-up by the evolved margin threshold for 2 consecutive steps.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-13",
+   "detail": "Objection reset cap value, and how long 'recently eliminated' lasts (which candidates come back after a reset).",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-13 (Claude, untested): at most 2 resets per decision; candidates eliminated in the current tick come back, older ones do not.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-14",
+   "detail": "Option A attention: how the outer layer's guess is turned into the set of parts and details the inner layer may check. Is the mapping learned from Frankie's own mistakes, evolved, or read from the leading candidate's stored weights? And how it combines with the evolved trait-check order.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-14 (Claude, untested): the inner layer checks the traits with the highest relevance weights in the currently surviving candidates, in the evolved check order, up to a fixed number of traits (3). Must not be best-split.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-15",
+   "detail": "What exactly is 'carried between layers': the surviving candidate list only, or also attention to particular traits and partial activations.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-15 (Claude, untested): the surviving candidate list and their activations, plus the trait set from PLACEHOLDER-14.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-16",
+   "detail": "What happens to recognition when the sharp view is not on an object (parts and details unavailable): verdict from scene and object only, or 'not decided'.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-16 (Claude, untested): a provisional verdict from the outer layers only, logged with verdict_scope=blurry, which the drive may act on or pay to sharpen.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-17",
+   "detail": "Spiking design: how many neurons per candidate, how trait values are turned into spikes (rate or first-spike timing), the neuron time-step, and how many neuron steps fit in one settling step.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-17 (Claude, conventional): a small group of 8 leaky integrate-and-fire neurons per candidate; trait values coded by firing rate from the coarse-coded detectors; 1 neuron step per settling step.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-18",
+   "detail": "STDP's role: does spike timing implement the blame-outward write rule, act alongside it, or not exist in v1? STDP must not become a disguised gradient rule.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-18 (Claude, untested): no STDP in v1; the write rule is applied directly to stored ranges and weights. STDP is an option to raise later.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-19",
+   "detail": "Energy cost per spike, and how it relates to the stated thinking cost of 0.001 per candidate-feature check (the two rules conflict).",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-19 (Claude, untested): thinking cost charged per spike, value tuned so that a typical decision costs about the same as the per-check rule would, and thinking stays 10-30% of spending.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-20",
+   "detail": "Stage 10 still says 'swap in spiking units', but D12 made spiking the main neuron type. What, if anything, the Stage 10 swap now means.",
+   "needed_by_stage": "Stage 0",
+   "placeholder": "PLACEHOLDER-20 (Claude): delete the spiking swap from Stage 10; spiking is built from Stage 5.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-21",
+   "detail": "Drive scoring horizon: how long 'the coming stretch' is; how the chance of staying above reserve is estimated from Frankie's records of source failures and blind-search durations; and what a newborn believes about how often food sources fail.",
+   "needed_by_stage": "Before the Wave 1 freeze (Stage 4), because C7 and C13 cite it; built in Stage 6",
+   "placeholder": "PLACEHOLDER-21 (Claude, conventional): horizon of 200 ticks; the chance is estimated by simple counting from Frankie's own past records of similar situations ('similar' as in PLACEHOLDER-98 unless Aitzaz sets a separate rule). The estimator works within the value-table boundary in the forbidden list: undiscounted tallies of own outcomes inside the 200-tick window, never updated from another estimate. Before Frankie has seen any food source fail, its estimated failure rate is zero (ledger M48) [Aitzaz Q3, 24 Oct]; any non-zero starting value is logged as a designed prior. Backups (remembered sources and the expected value of untried things) enter this estimate, and OS13 removes them.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-22",
+   "detail": "What 'safely above reserve' means for the satisficing chooser: the required chance of staying above R over the horizon (the bar).",
+   "needed_by_stage": "Before the Wave 1 freeze (Stage 4), because C7 and C13 cite it; built in Stage 6",
+   "placeholder": "PLACEHOLDER-22 (Claude, restated in Stage 0): the bar comes from PLACEHOLDER-27. There is no separate fixed bar; the earlier fixed value of 0.8 is retired.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-23",
+   "detail": "Order in which options are considered by the satisficing chooser. 'First acceptable' depends entirely on this order (habit first? proposals in draw order?).",
+   "needed_by_stage": "Before the Wave 1 freeze (Stage 4), because C7 and C13 cite it; built in Stage 6",
+   "placeholder": "PLACEHOLDER-23 (Claude, untested): the habit option is considered first, then proposals in the order drawn [Aitzaz Q3, 24 Oct]. If no option clears the bar, Frankie takes the option with the best chance of staying above R, under ledger M47 [Aitzaz Q3, 24 Oct]; that choice is logged with action_provenance=no-safe-option-fallback and no_safe_option=true. This is the only best-score rule allowed inside Frankie (forbidden list). The alternative fallback is to keep the habit.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-24",
+   "detail": "What the 'habit option' is when several habits match, or none does.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-24 (Claude, untested; restated in Stage 0): the habit option is the habit with the largest weight among habits whose origin scores 3 of 3 on habit similarity (PLACEHOLDER-98). If no habit matches, there is no habit option: the chooser considers proposals only, and the tick is logged with habit_contribution=zero. (The earlier default of 'wait' is retired, because a 'wait' option placed first would be accepted whenever waiting is safe and would act as a hidden habit.)",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-25",
+   "detail": "Randomness-versus-energy curve: its exact shape, the minimum and maximum number of proposals, where 'near reserve', 'comfortably rich' and 'desperate' begin, and how it ties to the desperation slope, fractional counts and hysteresis.",
+   "needed_by_stage": "Stage 6 (frozen before T14 first runs)",
+   "placeholder": "PLACEHOLDER-25 (Claude, untested; below-R side restated in Stage 0): within 10 units of R, 1 proposal. Above R+10 the count rises in a straight line to 4 at R+40, and stays at 4 above that; at R+20 it is 2, which is the FIXED-RANDOMNESS value (OS14). Below R-10 the count is 1 + s x (R-10-E), where s is that Frankie's desperation slope (PLACEHOLDER-26), capped at N_max (PLACEHOLDER-97, placeholder 6). The separate fixed 'rising to 5 at R-10 and below' is deleted. A fractional count is rounded stochastically (PLACEHOLDER-96). There is no hysteresis (PLACEHOLDER-100). Logged as proposal_count_target and proposals_drawn_count.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-26",
+   "detail": "What the 'desperation slope' temperament number does and its range.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-26 (Claude, untested): the desperation slope s sets how steeply the proposal count rises below R-10 under the one rule in PLACEHOLDER-25; range 0.05 to 0.3 extra proposals per unit below R-10, with the total capped at N_max (PLACEHOLDER-97). C13-M5's temperament swap changes s only through this rule.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-27",
+   "detail": "What boldness b (0.1-0.6) changes. This is its only role; C7's boldness split and C13 cite this row.",
+   "needed_by_stage": "Before the Wave 1 freeze (Stage 4), because C7 and C13 cite it; built in Stage 6",
+   "placeholder": "PLACEHOLDER-27 (Claude, untested): boldness lowers the satisficing bar: required chance of staying above R = 0.9 - 0.3 x b, so the bar runs from 0.87 (b = 0.1) to 0.72 (b = 0.6) [Aitzaz Q3, 24 Oct]. Boldness does not reweight losses, and has no other role. Ledger M33 cites this row.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-28",
+   "detail": "Shape of the temperament spread (uniform or other), and the fixed temperament grid used during evolution.",
+   "needed_by_stage": "Stage 6 and Stage 7",
+   "placeholder": "PLACEHOLDER-28 (Claude, conventional): uniform over the stated ranges; evolution grid of 3 values each for R and b (9 combinations). During evolution the desperation slope is held at the middle of its range, 0.175 (added in Stage 0 so that no evolution setting is left unstated).",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-29",
+   "detail": "How 'similar situation' is measured for habits.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-29 (REPLACED by PLACEHOLDER-98): was 'same scene, same top recognised kind in view, and energy in the same band relative to R', a yes/no match whose bands did not match C7's. The row is kept with this pointer.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-30",
+   "detail": "Habit credit window ('pays off soon after'), the size of the weight increase, and whether unused habits fade.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-30 (Claude, conventional): a net energy gain within 30 ticks of a choice that came from a proposal adds 1 to that habit's weight; weights fade by 1% per 100 ticks unused. Each change is logged as habit_weight_updates. These are habit weights inside the value-table boundary in the forbidden list (an undiscounted tally of own outcomes within a fixed 30-tick credit window, never updated from another estimate), not a value table.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-31",
+   "detail": "Place-and-time memory: fade rate, noise level, spatial resolution, capacity, and what exactly gets recorded (objects seen, eats, outcomes, 'investigated, nothing came of it').",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-31 (Claude, conventional): one record per (cell, recognised kind or 'unknown', tick, outcome); position noise of 1 cell; records fade linearly over 2,000 ticks; 500 records, and when memory is full the most faded record is dropped. Records written on an observed outcome ('ate here, +14', 'investigated here, nothing came of it') may add up [Aitzaz Q2, 24 Oct]. A repeat sighting of the same recognised kind (or 'unknown') in the same cell refreshes the existing record instead of adding a new one, so nothing grows with the number of looks (PLACEHOLDER-109).",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-32",
+   "detail": "How 'investigated here, nothing came of it' records affect choices about an object that keeps changing (the glimmer stone). The proposal says this is an Aitzaz decision.",
+   "needed_by_stage": "Stage 5 (flicker bench) and Stage 6",
+   "placeholder": "PLACEHOLDER-32 (Claude, untested): such records lower the predicted energy value of sharp looks at that place, through the drive's ordinary value-of-information rule (PLACEHOLDER-33). No counter of any kind (forbidden list; PLACEHOLDER-109) [Aitzaz Q2, 24 Oct].",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-33",
+   "detail": "How the drive computes whether a sharp look 'could change a predicted energy outcome'.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-33 (Claude, conventional): look if the top two candidates differ in predicted energy by more than the cost of the look, and neither has already won by the commit margin. This is the value-of-information rule that OS12 switches off; sharp looks it makes are logged with gaze_provenance=drive-sharp-look.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-34",
+   "detail": "What counts as a 'first encounter' for the untried-option average (a new 'unknown' verdict, a new kind split, or a first eat), and whether the average is over all of life or recent encounters.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-34 (Claude, untested): the energy outcome of each first eat of something judged 'unknown'; average over all of life.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-35",
+   "detail": "Value of the 'slightly cautious' newborn start used for comparison.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-35 (Claude, untested): expected change of -3 units. Under ledger M25 the cautious-start replicate is run for C7 (50 T7 pairs, 50 T8 sets), C8 (50 matched sets; S1, S6, S7) and C12 (50 Frankies; step 1), effect parts only, outside every Holm family and never a pass condition. A result that passes at the neutral start only is labelled 'supported at neutral start only'. Logged as newborn_start.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-36",
+   "detail": "Proposal menu details: how many steps 'a few steps' is, which remembered places can be targets, and how many proposals appear at baseline ('a few').",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-36 (Claude, untested): 3 steps; any place with a record in place-and-time memory; the count drawn each tick comes from PLACEHOLDER-25.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-37",
+   "detail": "Threshold for 'clearly bad' when the chooser strikes an option by prediction, and what a struck option can still do.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-37 (Claude, untested): an option whose predicted energy change is below -5 units is struck. It is removed from consideration, including from the M47 fallback, and logged as a struck-option event in struck_options, never as an action or a provenance value. Tower elimination among candidates is a different thing (elimination_events).",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-38",
+   "detail": "How a strike is classed as 'reasoned' (generalisation to a never-tried kind) or 'rote', the same way for C3, C7 and C12 and for every agent.",
+   "needed_by_stage": "Stage 4 (frozen in wave 1 specs)",
+   "placeholder": "PLACEHOLDER-38 (Claude; restated in Stage 0, world-side rule): decided on the world side of the log. Rote if this agent's ledger shows at least one own eat of, or sickness from, any instance of the same world kind before the strike. Reasoned only if that kind has zero own eats. No-kind if the option has no object kind (a route move); no-kind strikes never count as reasoned. Watched exposures of the kind are logged alongside the strike. Logged as struck_options strike_class. The earlier noise-width rule is retired, because it logged avoiding a fresh instance of a known poison kind as 'reasoned'. Ledger M31 is restated the same way.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-39",
+   "detail": "How Frankie tells individual creatures apart for per-creature trust, given that it never receives IDs and sees only raw visual features; how long a creature can be out of view and still be the same one; and how trust is shared across signs, food and seeds.",
+   "needed_by_stage": "Stage 6 (before Stage 8)",
+   "placeholder": "PLACEHOLDER-39 (Claude, untested; restated in Stage 0): creatures are told apart by tracking their position from tick to tick in view, and a creature is remembered across short gaps out of view; the gap length is set here before the Wave 2 freeze, after a pilot on stand-in kinds that measures how often a slot resets for a creature that is still the same one (creature_id versus creature_slot) [Aitzaz Q2, 24 Oct]. One trust per creature, applying to food and seeds alike, with choice-trust and sign-meaning tracked separately [Aitzaz Q2, 24 Oct]. Teacher and Frankie look identical, so position tracking is the only cue. Ledger M50 cites this row. The earlier rule ('out-of-view creatures are treated as new') is retired, because the teacher's earned trust would keep resetting.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-40",
+   "detail": "How a watched event is encoded, the time window for 'later it showed feature G', and the rule that raises or lowers a creature's influence when its records predicted Frankie's own outcome.",
+   "needed_by_stage": "Stage 6 (before Stage 8)",
+   "placeholder": "PLACEHOLDER-40 (Claude, conventional): event = (creature slot, recognised kind at that spot, disappeared yes/no, glow or tint within 30 ticks). Influence starts at exactly zero; it goes up by 0.1 when Frankie's own eat of that kind within the registered credit window matched the record and down by 0.1 when it did not. Credit window (Claude placeholder): Frankie's own eat must fall within 300 ticks after the watched event, the same window as C9's watch-paid eats (PLACEHOLDER-110); an own eat after that counts zero, and there is no discounting inside it; range 0 to 1. Logged as social_record_events. This is an outcome tally inside the value-table boundary.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-41",
+   "detail": "How trust in a creature's choices is updated, separately from what its signs mean.",
+   "needed_by_stage": "Stage 6 (before Stage 8)",
+   "placeholder": "PLACEHOLDER-41 (Claude, conventional): choice-trust is a running fraction of the creature's eaten kinds that turned out good for Frankie, starting at zero; a watched eat counts only if Frankie's own eat of that kind falls within the registered credit window of 300 ticks after the watched event (Claude placeholder, same window as PLACEHOLDER-40), and counts zero otherwise; kept separately from sign-meaning (PLACEHOLDER-39).",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-42",
+   "detail": "Greedy movement edge cases: what happens when the greedy step hits rock or a wall, and how ties are broken.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-42 (Claude, conventional): try the other direction that reduces distance; if both blocked, turn at random; ties broken by the proposal random stream.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-43",
+   "detail": "Eat target when there is both an object in front and one underfoot.",
+   "needed_by_stage": "Stage 3",
+   "placeholder": "PLACEHOLDER-43 (Claude): underfoot first.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-44",
+   "detail": "Wide view geometry: number of directions (4 or 8 sectors), distance band boundaries, blur function and noise size. Must agree with PLACEHOLDER-95.",
+   "needed_by_stage": "Stage 3",
+   "placeholder": "PLACEHOLDER-44 (Claude, conventional): 8 sectors; bands at 1-2, 3-4 and 5-7 cells; hue and size rounded to 4 levels; fixed noise of 10% of trait range. Under PLACEHOLDER-95 each visible object is listed one by one, placed by its sector and distance band; roundness and lobes are not in the wide view.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-45",
+   "detail": "Sharp-view sensor noise size. This is also the unit for the 'never seen' distance rule (10 noise widths), so it shapes the whole vault design.",
+   "needed_by_stage": "Stage 2",
+   "placeholder": "PLACEHOLDER-45 (Claude): noise standard deviation of 1% of each trait's range; one 'noise width' = one standard deviation.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-46",
+   "detail": "Smell physics: how ambient smell mixes from nearby objects, how intensity falls with distance, and its noise.",
+   "needed_by_stage": "Stage 3",
+   "placeholder": "PLACEHOLDER-46 (Claude, conventional): intensity falls as 1 / (1 + distance squared), summed over objects within 7 cells, 5% noise.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-47",
+   "detail": "Taste dimensions are inconsistent: objects carry 2 taste traits (sweet-sour, bitter), but the body reports 4 taste numbers. Also how taste is generated per kind.",
+   "needed_by_stage": "Stage 2",
+   "placeholder": "PLACEHOLDER-47 (Claude): 4 taste numbers (sweet, sour, bitter, salty); taste is always a free trait, so it never predicts nature. Taste is known only after a real eat (D16) and enters recognition as in PLACEHOLDER-92. Each taste number runs from 0 to 1, like every other trait (PLACEHOLDER-57).",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\"); addition: Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes) (README pre-freeze tidy-up)"
+  },
+  {
+   "id": "PLACEHOLDER-48",
+   "detail": "'Recent gain' in interoception: over what window.",
+   "needed_by_stage": "Stage 3",
+   "placeholder": "PLACEHOLDER-48 (Claude): net energy change over the last 20 ticks.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-49",
+   "detail": "Stomach delay schedule: 3 ticks 'at first' and 10 in tests. When does it change, and which value do ancestral lives use?",
+   "needed_by_stage": "Stage 3",
+   "placeholder": "PLACEHOLDER-49 (Claude, untested): 3 ticks in ancestral lives and in the first 2,000 ticks of test lives, then 10; except protocol eats, which always use d = 10 (PLACEHOLDER-102). The applied value is logged in eat_events.stomach_delay_d.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-50",
+   "detail": "Stomach rules: can Frankie try to eat while the stomach is full, and does a poison during sickness extend sickness?",
+   "needed_by_stage": "Stage 3",
+   "placeholder": "PLACEHOLDER-50 (Claude): eat fails but still costs 0.05 while full; a new sickness restarts the 60-tick timer.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-51",
+   "detail": "Energy values per object: are the +12 to +18 and -15 to -30 ranges drawn per kind or per object, and what do 'nothing' objects and slow-pay non-seed objects do when eaten?",
+   "needed_by_stage": "Stage 2",
+   "placeholder": "PLACEHOLDER-51 (Claude, untested): drawn per object, uniform; 'nothing' gives 0; slow-pay is used only by seeds in v1. A seed or sprout can be eaten until it is a tree, giving +1 and destroying it, up to growth tick 400 (ledger W50) [Aitzaz Q2, 24 Oct]. The edibility part is Aitzaz's decision.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-52",
+   "detail": "Energy above the 100-unit cap and a dead creature's energy: where they go in the closed books.",
+   "needed_by_stage": "Stage 1",
+   "placeholder": "PLACEHOLDER-52 (Claude, conventional): both return to the soil of the current patch.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-53",
+   "detail": "When the fed glow triggers, given the stomach delay: on the tick the energy lands, or on the eat.",
+   "needed_by_stage": "Stage 3",
+   "placeholder": "PLACEHOLDER-53 (Claude): on the tick the net gain lands.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-54",
+   "detail": "World ecology numbers: seepage rate, regrowth rates per kind, where new fruit appears, fruit rot time, object density.",
+   "needed_by_stage": "Stage 1 and Stage 2",
+   "placeholder": "PLACEHOLDER-54 (Claude, untested): seepage 0.1% per tick between neighbouring patches; other values set by Stage 2 calibration, then frozen and fingerprinted.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-55",
+   "detail": "Costs are said to be tuned in Stage 2, but the body (and its costs) is only built in Stage 3. When are costs actually tuned and frozen?",
+   "needed_by_stage": "Stage 2",
+   "placeholder": "PLACEHOLDER-55 (Claude): tune costs with the Stage 2 bots (which already pay costs), re-check in Stage 3, freeze at the end of Stage 3.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-56",
+   "detail": "Scene patch generation method (how irregular patches are drawn) and the exact stray rate within 10-20%.",
+   "needed_by_stage": "Stage 1",
+   "placeholder": "PLACEHOLDER-56 (Claude, conventional): grow patches from random seed points by random flood fill; stray rate 15%.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-57",
+   "detail": "Trait scales: the numeric range of each trait, how narrow a 'narrow' core band is, and how wide 'widely varying' free traits are.",
+   "needed_by_stage": "Stage 2",
+   "placeholder": "PLACEHOLDER-57 (Claude, untested): every trait from 0 to 1; core band width 0.05; free traits spread over at least 0.6.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-58",
+   "detail": "In the regular world, how often core traits come from each structural group versus elsewhere.",
+   "needed_by_stage": "Stage 2",
+   "placeholder": "PLACEHOLDER-58 (Claude, untested): 80% from parts, host or smell; 20% from any group.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-59",
+   "detail": "T1 look-alikes are 'within 10% of h1 on surface traits': 10% of what (the trait's full range, h1's value)?",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-59 (Claude): within 10% of each trait's full range.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-60",
+   "detail": "Glimmer stone: what distribution it redraws from, whether it has parts, whether its hue redraws stay outside reserved test bands, and whether it can be eaten.",
+   "needed_by_stage": "Stage 2",
+   "placeholder": "PLACEHOLDER-60 (Claude): uniform over each trait's full range except reserved bands; no parts. It cannot be eaten: an attempt costs the normal eat energy, gives a flat taste and leaves the stone in place (ledger W49) [Aitzaz Q2, 24 Oct]. The edibility part is Aitzaz's decision.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-61",
+   "detail": "Host objects: their own traits, and whether a host can be eaten or blocks movement.",
+   "needed_by_stage": "Stage 2",
+   "placeholder": "PLACEHOLDER-61 (Claude): hosts have scene-typical traits, cannot be eaten, and block movement only if a tree.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-62",
+   "detail": "Vault security: which hash function, who generates and keeps the secret master seed, and whether Claude may ever see it before a vault opens.",
+   "needed_by_stage": "Stage 0",
+   "placeholder": "PLACEHOLDER-62 (Claude, conventional): HMAC-SHA256; Aitzaz generates the master seed offline and keeps it; Claude never sees it until each vault is opened.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-63",
+   "detail": "How the kind budget (the number of distinct sealed kinds the whole battery uses, W35) is split across claims, and when a kind may be reused.",
+   "needed_by_stage": "Stage 0 (filled before initialling)",
+   "placeholder": "PLACEHOLDER-63 (Claude): filled claim by claim before initialling. Current counts (Claude placeholders, for Aitzaz to initial): C1 about 190, C2 0 new, C3 about 120, C4 about 20, C5 about 250, C6 about 55, C7 about 175, C8 about 100, C9 and C10 teaching vault about 24 (counted once), C11 0, C12 0, C13 0. Total about 934, which is within the 1,000 budget, so the budget is not raised. Reuse rule: where a claim's novelty condition is per Frankie and the ledger certifies it per life, a kind may be reused across Frankies and across matched sets; never within a life, within a matched set, or between a lineage's ancestral pool and its tested lives (T8's untried kinds follow PLACEHOLDER-107). If the total passes 1,000, the budget is raised; N is never cut. C5's stock cut to 12 per target is allowed only as a pre-freeze design choice.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-64",
+   "detail": "Exact log row fields, their allowed values, and the format of the verdict trace.",
+   "needed_by_stage": "Stage 0 (written before any claim is frozen); implemented in Stage 1",
+   "placeholder": "PLACEHOLDER-64 (Claude, conventional): one canonical schema file (ledger I11) holding the charter glossary's log_fields dictionary, fingerprinted with the charter and written before any claim is frozen; every claim's log list uses only its names. One fixed-width row per creature per tick. The dictionary now includes every former '[schema addition]' and 'PROPOSED SCHEMA ADDITIONS' entry from the claims, starting with tick; no claim may log a field outside it.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-65",
+   "detail": "Motif abstraction for novelty: what an 'abstracted situation' is, the action alphabet, whether repeated waits or turns are collapsed, and whether matching is exact or fuzzy. Now held by ledger X40.",
+   "needed_by_stage": "Stage 4 (frozen before the closure library is built)",
+   "placeholder": "PLACEHOLDER-65 (RETIRED as primary; kept as a reported sensitivity check): step = (scene, target in front yes/no, barrier ahead yes/no, energy band) plus action; runs of the same action collapsed with a count of 1, 2 or 3+; exact matching. The primary tokenizer is ledger X40 (placeholder: C12's world-side token, which is the direction relative to heading of the next object this agent eats, judged in hindsight, or 'none', plus a blocked-ahead flag and a food-in-wide-view flag, plus the action with turn direction, with no collapsing and exact matching). Aitzaz picks at initialling; it is frozen before the closure library (T17) is built.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-66",
+   "detail": "What 'producible by a single draw of the proposal menu' means for a motif of 4+ steps (for example, is 'walk a few steps in a random direction' a 3-step motif?).",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-66 (Claude): enumerate every action sequence one menu item can expand into, cut with the X40 tokenizer, and add them to the fourth reference set.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-67",
+   "detail": "T14 'decision ticks': how small the 'small margin' between the top two options is.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-67 (REPLACED by PLACEHOLDER-99): was 'top two options within 0.05 of each other', a best-score idea that a satisficing chooser cannot use. The row is kept with this pointer.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-68",
+   "detail": "Teacher fuzzy rule table: the full rules, membership functions, what 'hungry' means, how long 'pause' is, and the edge-gate positions.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-68 (Claude, conventional): triangular memberships; hungry below 50 units; pause 3 ticks; gates at the middle of each wall. Full table written as a design note for approval.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-69",
+   "detail": "Teacher route: how the 'fixed foraging route through patches around where Frankie was' is generated, and how 'about every 50 ticks' seed visits and 'about 4,000 ticks' stay are made exact.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-69 (Claude): visit the 3 patches nearest Frankie's arrival-time position in a loop; seed visit every 50 ticks exactly; stay exactly 4,000 ticks.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-70",
+   "detail": "Teacher fallibility mechanics: on a wrong choice, which look-alike it eats or which food it skips, drawn how.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-70 (Claude): each eat decision flips with chance 1-p, using the teacher random stream.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-71",
+   "detail": "Failure detection 'walked past nourishing food within 2 cells for 100+ ticks': continuous 100 ticks, or total, and for which food.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-71 (Claude): 100 ticks in total within a 300-tick window with some teaching-set nourishing object within 2 cells and no eat.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-72",
+   "detail": "Exposure check is stated two ways: '10+ events in at least 80% of lives' (teacher section) and 'in 80% or more of lives, a median of 10 or more' (Stage 8).",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-72 (Claude): use the stricter one, 10+ events in at least 80% of lives.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-73",
+   "detail": "Teacher's starting energy, and where it comes from in the closed books when it walks in and goes when it leaves.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-73 (Claude): enters with 60 units taken from the soil of the gate patch; returns its energy there on leaving.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-74",
+   "detail": "Evolution operators: mutation type and size, mutation rate, whether crossover is used, tournament size, number of elites, allowed range of each gene.",
+   "needed_by_stage": "Stage 7",
+   "placeholder": "PLACEHOLDER-74 (Claude, conventional): Gaussian mutation of 5% of each gene's range on 10% of genes; no crossover; tournament size 4; 4 elites.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-75",
+   "detail": "How fitness is combined across a genome's 6 lives (mean, median, worst).",
+   "needed_by_stage": "Stage 7",
+   "placeholder": "PLACEHOLDER-75 (Claude, conventional): mean net food energy.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-76",
+   "detail": "Ancestral life length conflicts: life cap 10,000 ticks in evolution, but the compute estimate uses about 4,000.",
+   "needed_by_stage": "Stage 7",
+   "placeholder": "PLACEHOLDER-76 (Claude): cap at 10,000; the compute estimate is updated after the Stage 7 pilot.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-77",
+   "detail": "Shuffled-world Frankies are used as controls in T1 and T3, but no shuffled-world evolution run is listed (only 3 regular and 2 counter).",
+   "needed_by_stage": "Stage 7",
+   "placeholder": "PLACEHOLDER-77 (Claude): add 2 shuffled-world runs.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-78",
+   "detail": "Which repeatability statistic is used in the evolution pilot (the 0.3 threshold).",
+   "needed_by_stage": "Stage 7",
+   "placeholder": "PLACEHOLDER-78 (Claude, conventional): intraclass correlation of fitness across a genome's lives.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-79",
+   "detail": "Which claims form the primary Holm family, and how strict its levels are. The proposal assumed a fixed count of primaries while labelling only 8 tests primary.",
+   "needed_by_stage": "Stage 0",
+   "placeholder": "PLACEHOLDER-79 (REPLACED by ledger X32) [Aitzaz Q4, 24 Oct]: the primary family is C1, C2-SOUR, C3, C7, C8, C9 and C12 (m = 7; Holm levels 0.05/7 to 0.05/1). If taste never takes part in recognition, C2-SOUR leaves and m = 6 [Aitzaz Q2, 24 Oct]. C4 may join only if its N is raised to 100 before the Wave 1 freeze (m = 8). Membership and m are fixed at the Wave 1 freeze, including C9; Wave 2 may not add or remove members (X32). A separate secondary family (C4, C6, C2-MIRROR, C13-E1) is Holm-corrected at 0.05. The family is fixed at the Wave 1 freeze, and every document cites X32 rather than a hard-coded level.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-80",
+   "detail": "The effect-size floor in T10, and the definition of 'significantly' (which test, which alpha) wherever a test says 'significantly' or 'clearly'.",
+   "needed_by_stage": "Stage 4 and Stage 8",
+   "placeholder": "PLACEHOLDER-80 (REPLACED by the statistics policy, ledger X32, and each claim's floors): was 'alpha 0.05 two-sided before Holm; rank-biserial floor of 0.3; clearly above = 95% interval excludes the comparison'. Under the policy, directions are pre-registered and one-sided, there is no two-sided default and no rank-biserial floor, and any printed bound is taken at the claim's Holm level. The row is kept with this pointer.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-81",
+   "detail": "T10: what 'beat B9 on learning how much to rely on watching' is measured by.",
+   "needed_by_stage": "Stage 8",
+   "placeholder": "PLACEHOLDER-81 (REPLACED by C9-M6 and C10 (4)): was 'lower poisoning than B9 in the uninformative-teacher and p = 0.5 conditions'. The row is kept with this pointer.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-82",
+   "detail": "Definitions of 'matched randomness', 'matched exposures' and 'matched ticks alive' used in T7, T13 and Stage 6.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-82 (REPLACED by the matched sets in ledger X38, used by C7, and C12's matched schedule): was 'compare groups only within equal bins of proposal count, ledger exposures and lifetime ticks'. The row is kept with this pointer.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-83",
+   "detail": "T8 energy-matched control: how and when Frankie is 'topped back up' after source A is removed.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-83 (REPLACED: 50-tick top-up, ledger W45): was 'every 100 ticks'. Now: in TOPPED-UP, every 50 ticks after tick 5,000, E is raised back to its tick-5,000 level if it is below it; yoking removes or adds the difference from the partner evenly over the next 50 ticks. Both are logged injection_events printed on the priors card. The row is kept with this pointer.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-84",
+   "detail": "N for tests that do not state one (T4, T5, T6, T7, T12, T13).",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-84 (Claude; superseded where a claim states its N): each claim's stated sample size holds, under ledger X26 (N = 100 per condition for primary tests, N = 50 for the rest; Holm family and levels per X32) and the joint-power rule X39 (N may only go up, and never after results are seen). This row applies only to a test that still states no N.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-85",
+   "detail": "When designed (forced) exposures are allowed, and in which tests. Overuse would blur 'Frankie chose to eat'.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-85 (Claude; rewritten in Stage 0): only these tests may force an eat, and only at these points. T1: h1 for group O and U for group Z, if not eaten by choice within the 200-tick choice window. T2: h2, the SWEET-CONTROL apple, and the MIRROR and MIRROR-CONTROL look-alikes, if not eaten within the 30-tick window. T4: F and P_F learning-phase eats, after 3,000 ticks without them. T5: one designed eat of a nothing-nature instance per look-alike kind. T6: each of the 3 known kinds once, if needed. T8: the pre-exposed half's designed walk past B at tick 3,000 with exactly one taste. T7, T9, T10 and T13 may never force an eat, and adding any other test needs a register change before the freeze. Every designed exposure is logged with action_provenance=designed-exposure, printed on the priors card, and the chosen and forced subgroups are reported separately. A forced eat with no verdict follows PLACEHOLDER-93. Setting energy at a probe is an energy injection (W45), not an exposure. Kill test (KILL_TEST.md, bench only): forced eats are allowed only for the 40 warm-up tastes and the 8 teaching tastes, and for h2 and SWEET-CONTROL if skipped.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\"); addition: Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes) (KILL_TEST v3 section 13 edit 1)"
+  },
+  {
+   "id": "PLACEHOLDER-86",
+   "detail": "Where and facing which way Frankie starts life.",
+   "needed_by_stage": "Stage 3",
+   "placeholder": "PLACEHOLDER-86 (Claude): random cell in a random patch, random heading, from the world stream.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-87",
+   "detail": "Number of detectors per trait for coarse coding, and the allowed range of evolved detector widths.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-87 (Claude, conventional): 16 detectors per trait; width between 1/32 and 1/4 of the range.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-88",
+   "detail": "The 'neutral' hand-set values for settings other than relevance (inhibition, leak, thresholds, gate strengths).",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-88 (Claude): the middle of each allowed range, documented and fingerprinted.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-89",
+   "detail": "The charter's kill condition: what counts as Aitzaz and Claude 'agreeing' on a log-checkable definition of essence and curiosity.",
+   "needed_by_stage": "Stage 0",
+   "placeholder": "PLACEHOLDER-89 (Claude): Aitzaz initials the claim rows that hold the essence and curiosity definitions: C1 (T1) and C2 (T2) for essence, and C7 (T7, T8) and C8 (T9) for curiosity, including their pass marks [Aitzaz Q1, 24 Oct] [Aitzaz Q5, 24 Oct]. At the same sitting Aitzaz confirms the value-table and boredom-counter boundaries in the forbidden list. Aitzaz initials only the claim versions, never the ledger pointer rows.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-90",
+   "detail": "Specs for the test fixtures (positive-control and cheating mocks).",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-90 (Claude, conventional): one short written spec each for MK1 (serial-scan), MK2 (positive-control accumulator), MK3 (insurance, T7/T8), MK4 (patience, T9), MK5 (free will, T14), MK6 and MK7 (strong and weak copy-leak), MK8 (social, G = 0.15) and MK9 (trust slope), approved before coding. All live in the test-fixtures package (ledger X34). MK10 (kill-test power-check mock, KILL_TEST.md section 7): its spec is KT-15, approved with the addendum, and it lives in the test-fixtures package like MK1 to MK9.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\"); addition: Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes) (KILL_TEST v3 section 13 edit 8)"
+  },
+  {
+   "id": "PLACEHOLDER-91",
+   "detail": "Definition of 'surface distance', used by C1, C2 and C5.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-91 (Claude): the mean absolute difference, in sharp-view noise widths, over the object-layer traits (coarse hue, size, roundness, lobes). Used by B2 and by every surface-distance certificate.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-92",
+   "detail": "Whether taste takes part in the verdict after eating, and whether a surprising taste with the expected energy outcome makes a guess 'wrong'. This decides whether C2 SOUR can be evidence at all.",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-92 (Claude, untested): taste is stored in candidates like any detail trait and takes part in the verdict after eating; a guess counts as wrong only when the energy outcome does not match (ledger M51) [Aitzaz Q2, 24 Oct]. If Aitzaz rules that taste never takes part, C2-SOUR becomes a mechanism check and the primary family shrinks to m = 6 (X32) [Aitzaz Q2, 24 Oct]. Note for the Stage 4 freeze: charter C2's TASTE-NOTICED has the same holes that KT-16 closes in the kill test (its own replica key for each clone, a write clause on SOUR alone, and an undefined verdict after eating), and they must be closed before C2 is frozen.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\"); addition: Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes) (KILL_TEST v3 section 13 edit 7)"
+  },
+  {
+   "id": "PLACEHOLDER-93",
+   "detail": "What the write rule does after a forced eat that had no verdict, or whose verdict was 'unknown' (C1, C2, C4, C5, C6).",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-93 (Claude, untested; for Aitzaz to initial): a designed exposure with no committed verdict, or with verdict 'unknown', is treated as an eat judged 'unknown'. A new candidate is created as in PLACEHOLDER-09, with no blame step, and logged with memory_write_events trigger=designed-exposure. C1, C2, C4, C5 and C6 cite this one rule.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-94",
+   "detail": "Whether, and how, a smell with no object attached enters the tower and can activate 'unknown' (C6).",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-94 (Claude, untested): an ambient smell ratio with no object attached enters the details layer as evidence for every candidate and for 'unknown', with no built-in link to any object (ledger M52). C6 is not testable until this row and PLACEHOLDER-95 are frozen.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-95",
+   "detail": "Whether the wide view lists objects one by one or only per direction and distance band, and through which view and at what range object-layer traits (roundness, lobes) are read (C1, C6, C7 sightings).",
+   "needed_by_stage": "Stage 3",
+   "placeholder": "PLACEHOLDER-95 (Claude): the wide view lists each visible object with blurred hue and size, placed by sector and distance band (PLACEHOLDER-44); roundness and lobes are read only by the sharp view, up to 7 cells away. Ledger B15 is updated to match once this is frozen. C6 must not expect roundness or lobes from the wide view.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-96",
+   "detail": "How a fractional proposal count from the randomness curve becomes a whole number (C7, C13 energy clamps).",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-96 (Claude): a fractional count x becomes floor(x) + 1 with probability equal to its fractional part, else floor(x), drawn from Frankie's own proposal stream. So a T14 redraw also redraws the rounding. The FIXED-RANDOMNESS value (2 at R+20) is a whole number under the placeholder curve. Logged as proposal_count_target (before rounding) and proposals_drawn_count (after).",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-97",
+   "detail": "The upper limit on proposals when desperate, so the desperation slope cannot grow without bound (PLACEHOLDER-25 and 26).",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-97 (Claude, untested): N_max = 6 proposals, the cap on 1 + s x (R-10-E) in PLACEHOLDER-25.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-98",
+   "detail": "Habit similarity as a score with a threshold (C13 M3 and E1), and which energy bands it uses.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-98 (Claude, untested; replaces PLACEHOLDER-29): the habit similarity score counts how many of three parts match between a situation and a habit's origin: scene, top recognised kind in view, and energy band under ledger M54 (well-below E <= R-10; near R-10 < E < R+20; well-above E >= R+20). It runs from 0 to 3; 'similar' means 3 of 3, and C13's window threshold is 3. habit_contribution is 'zero' when no habit weight entered the choice. Logged as habit_similarity_score, habit_similar and habit_contribution.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-99",
+   "detail": "The decision-tick margin delta, in predicted chance of staying above R, and the decision-tick definition for the satisficing chooser (replaces PLACEHOLDER-67).",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-99 (Claude): delta = 0.05. A decision tick is one of two types. Close-call: an option ahead of the chosen one in the chooser's order missed the bar by less than delta, or the chosen option cleared the bar by less than delta; on a no-safe-option tick, where the fallback is a best-score rule, close-call means another option is within delta of the fallback's chance. Choice-change: the choice differs from the previous tick's. Margins come from the replayed drive trace (ledger M53). Logged as decision_tick_type and margin_to_bar.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-100",
+   "detail": "Whether hysteresis exists anywhere in the chooser or the randomness curve.",
+   "needed_by_stage": "Stage 6",
+   "placeholder": "PLACEHOLDER-100 (Claude): no hysteresis exists anywhere in the chooser or the randomness curve. The hysteresis-off control (OS22) is retired and the 'hysteresis state' log field is removed. If Aitzaz defines hysteresis before Stage 6, it gets a ledger row and C13's conditional pass rules return.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-101",
+   "detail": "C1 constants: 200-tick choice window, snapshot 20 ticks after the effect lands, probe 3 cells ahead, 300-tick trial, 7-cell clearance and 7-cell exit, the 10% look-alike band, the matching rule for U, whether reserved trait bands apply to core traits only or to free traits as well, and the coding of 'recognised as the kind'.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-101 (Claude): the values as written in C1; reserved bands apply to core traits only; U is matched to h1 with its energy gain within plus or minus 1 unit of h1's and each of its 4 taste numbers (PLACEHOLDER-47) within plus or minus 0.05 of h1's, that is 5% of that taste number's full range (Claude placeholder, untested), on the same host and in the same scene. Coding [Aitzaz Q1, 24 Oct]: the strict reading, where an eat counts as naming the kind only if Frankie eats AND its last committed verdict names h1's candidate or a descendant in the lineage table; 'some other thing' and 'unknown' both count as correct rejections, reported separately; the D_strict bar stays at 0.40, with group Z (U) as the comparison. d = 10 for all protocol eats (PLACEHOLDER-102); forced eats follow PLACEHOLDER-85 and PLACEHOLDER-93. PC1 in T1 (Claude placeholder): 100 group-O runs plus 100 group-Z runs on the headline families, so C2 can use 100 PC1 group-O snapshots.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-102",
+   "detail": "C2 constants: 30-tick eat window, 0.25 room cut-off, stomach delay for protocol eats, and C2's pass marks.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-102 (Claude): as written in C2. d = 10 applies to every protocol eat: every designed-exposure item (h1, U, h2, the sweet-control apple, L*, T5 look-alike eats, T4 learning-phase F and P_F, T6 known kinds) and every probe eat in a snapshot-and-probe test (T1, T2, T3 checkpoints, T4, T5, T6, the T9 S3/S4 probes, and the T10 and T11 probes). Other eats follow PLACEHOLDER-49. Every frozen spec states its d and the tick it switches. In C2 a split child counts for the behaviour [Aitzaz Q1, 24 Oct]; C2-MIRROR allows at most 0.15 extra caution [Aitzaz Q5, 24 Oct].",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-103",
+   "detail": "C3 constants: the 16x16 arena's 50/50 replenishment rule, the 5,000-tick or 40-eat cap, the checkpoint schedule, the 'stays above at the next checkpoint' rule, the 30% exclusion cap.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-103 (Claude): as written in C3; an eaten object is replaced within 50 ticks by an instance of the same role. Pass mark: Frankie at least 2x as efficient per eat as B1n-mind [Aitzaz Q5, 24 Oct].",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-104",
+   "detail": "C4 constants: 85% home-scene rate, 3,000-tick learning cap, the rule for when sticker K counts as a learned warning, the thinking cap for the flat tower, the 0.30 and 0.15 numbers.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-104 (Claude): as written in C4. The 70% bar for real apples carrying a warning sticker is kept, and a cautious Frankie's rate is reported rather than failed [Aitzaz Q1, 24 Oct]. C4 stays N = 50 in the secondary family unless its N is raised to 100 before the Wave 1 freeze to join the primary family [Aitzaz Q4, 24 Oct].",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-105",
+   "detail": "C5 constants: the 1.5x wilt deadline, 20% exclusion cap, the HIGH/LOW selection rule, stock size per target (16, or 12 if over budget).",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-105 (Claude): as written in C5; stock of 16 per target, cut to 12 only as a pre-freeze design option if the kind budget (PLACEHOLDER-63) requires it.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-106",
+   "detail": "C6 constants: 100-tick response window, ring radius 3, the reserved bands for new smells and novel ground, the wide-view distinguishability margin and salience range.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-106 (Claude): as written in C6; distinguishable means at least one wide-view level apart on hue or size. C6 is not testable until PLACEHOLDER-94 and PLACEHOLDER-95 are frozen. A pass by evolved Frankies only is reported as a prior [Aitzaz Q4, 24 Oct].",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-107",
+   "detail": "C7 schedule: band widths, the failure stretch (2,000-2,800), clearing at tick 4,990, patch B 12 plus or minus 2 cells away with 6 objects, the 500 fed-tick attrition rule, 50-tick yoking, the 90% regrowth calibration, T8's failure, resume and second-failure ticks, the K episode rules, and whether T8's untried kinds (4 every 500 ticks) may be reused across lives.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-107 (Claude): as written in C7. The band widths are frozen as ledger M54 (well-below E <= R-10; near; well-above E >= R+20). Yoking and the TOPPED-UP rule use 50-tick intervals (ledger W45). T8's untried kinds may be reused across matched sets, never within a life or within a set, nor between a lineage's ancestral pool and its tested lives (PLACEHOLDER-63). Attrition: the 500 fed-tick rule applies to T7 only (window 5,000-7,999). In T8 a set is dropped only if a member dies before tick 5,000; later deaths are kept (scored at the claim's worst case in (c) if before 7,500: K = 0 for CHANGE, the highest surviving K of its own condition for comparators; recovery 2,000 in (a)). If a CHANGE life dies, its HUNGER-YOKED partner holds the last yoked energy target for the rest of the window (Claude placeholder); a T8 life with fewer than 500 fed ticks in 7,500-9,999 has K computed per 1,000 scheduled ticks of that window (Claude placeholder). T8 patch B (Claude placeholder): 12 +/- 2 cells from A, outside the wide view from A; 6 objects of the set's one B kind placed at tick 2,900 in every life of the set; B stays for the whole life and each eaten B object regrows in its cell after 200 ticks. TW3 crediting margin (C7): a pass is credited to the conventional chooser if the 90% interval for the log ratio FULL / TW3 of each effect-part measure lies inside plus or minus log 1.25.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\"); addition: Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes) (README pre-freeze tidy-up)"
+  },
+  {
+   "id": "PLACEHOLDER-108",
+   "detail": "C8 arena and constants: stone 4-6 cells from the entry point, the three spots more than 7 cells away at equal distance from food plus or minus 1 cell, the 5-cell food exclusion, the periods and P1', the applicability gates, the 50-tick availability floor, the 20-tick visit merge, the earlier-life seed at tick 1,000, the 15-unit energy gap, the S3 probes.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-108 (Claude): as written in C8. The visit and patient-harvest definitions are the shared ones (a visit is consecutive ticks within 4 cells of a spot or with the sharp view on it, with runs less than 20 ticks apart merged), also used by C10. d = 10 for the S3/S4 probe eats (PLACEHOLDER-102). The record-versus-counter line is PLACEHOLDER-109. C8's HIGH and LOW entry energies are set once at T9 arena entry by a logged energy-set injection (ledger W45); the value follows the 15-unit energy gap above.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-109",
+   "detail": "The record-versus-counter line for place-and-time memory (C8, T0(e)).",
+   "needed_by_stage": "Stage 5",
+   "placeholder": "PLACEHOLDER-109 (Claude, untested) [Aitzaz Q2, 24 Oct]: forbidden is any stored mind quantity, per object, per kind, per place or cell, or global, that grows or shrinks with the number of looks, visits or exposures whatever their outcome, including a per-place look count for an object that never moves. Allowed are fading place-and-time records, each tied to an observed outcome ('investigated here, nothing came of it'), and these may add up; sighting records refresh rather than accumulate (PLACEHOLDER-31). The full reviewer test and the T0(e) intercepted-outcome code check are in the forbidden entry 'Habituation or boredom counters'.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-110",
+   "detail": "C9 and C10 teacher-phase constants: demonstration-only kinds per vault, the 300-tick watch-paid window, the probe arena, 8 + 8 probes, a score of 0 when no qualifying kind exists, an optional late probe, and the list of groups shared between C9 and C10.",
+   "needed_by_stage": "Stage 8 (before the Wave 2 freeze)",
+   "placeholder": "PLACEHOLDER-110 (Claude): as written in C9 and C10. Shared lives, paid for once (5 x 100): C9 main (p = 1.0, signs visible) = C10 (1.0, visible); signs-hidden p = 1.0 = C10 (1.0, hidden); visible p = 0.75 = C10 (0.75, visible); hidden p = 0.75 = C10 (0.75, hidden); C9's uninformative signless creature = C10's uninformative, signs-hidden cell. Not shared: C9 reversed p = 0.75, C9 yoked (Y clones), C9's X clones, C10 p = 0.5 (both sign conditions), C10 uninformative signs-visible, trust-locked, the G12 waiter, and every bot and twin run. d = 10 for probe eats (PLACEHOLDER-102). Pass marks: C9's gain shown 500 ticks after the teacher leaves, a late probe at 3,000 ticks reported, and fail-first reported but not required [Aitzaz Q5, 24 Oct]. The creature-identity pilot (PLACEHOLDER-39) is reported to Aitzaz before the Wave 2 freeze. Twin-crediting margins (Claude placeholders, untested): C9 credits TW5 if the 90% equivalence interval lies inside plus or minus 0.10 for the C9-M1 median G difference and inside plus or minus log 1.25 for the log C9-M4 looking ratio; C10 credits TW6 if the 90% equivalence interval of the dFI(1.0) - dFI(0.5) difference lies inside plus or minus 0.10. The two-sided difference p is reported only.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-111",
+   "detail": "C11 and C12 constants: a wiggle ends at most 2 ticks before an eat, 200-tick barrier episodes, the approach window W = 30, the novel-core and piece rules, the new-situation filter at 20, 2,000-tick rooms, room entry and death rules, and which group T13 tests.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-111 (Claude): as written in C11 and C12. The primary T13 group is 100 evolved, teacher-free Frankies frozen in Wave 1, with reference set (a) the teacher closure library only; a teacher-raised group is secondary, frozen with Wave 2, and never pooled. There is no survival floor (ledger W46): each room is a clone from the room-entry snapshot, entry energy is set once by a logged energy-set injection, each agent type's cohort is the first 100 lives in seed order that reach room age, and the denominator is always the scheduled 2,000 ticks per room. Motifs use the X40 tokenizer. Labels: tier 2 is 'recombination', 'novel' is kept for tier 3, and trial-found approaches count tagged 'found by trial' [Aitzaz Q4, 24 Oct]. C11's 20% cap applies to all wiggles, labelled 'borderline' if the upper bound is above 20% [Aitzaz Q5, 24 Oct]. Twin-crediting margin (Claude placeholder, untested): C12 credits TW3 if the 90% equivalence interval of the log R23 ratio (Frankie over TW3) lies inside plus or minus log 1.25. The two-sided difference p is reported only.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "PLACEHOLDER-112",
+   "detail": "C13 constants: 50 decision ticks (25 of each type), 20 redraws, energy clamps at R-15, R+5 and R+25, pairing thresholds (15 in R or 0.2 in b), sensor redraws starting 50 ticks early, 10 checkpoints x 2,000 ticks, E1's minimum of 100 events across 25 Frankies.",
+   "needed_by_stage": "Stage 4",
+   "placeholder": "PLACEHOLDER-112 (Claude): as written in C13 (C13-M and C13-E). Decision ticks follow PLACEHOLDER-99, habit similarity PLACEHOLDER-98, the proposal curve PLACEHOLDER-25 with rounding PLACEHOLDER-96, and boldness PLACEHOLDER-27; there is no hysteresis (PLACEHOLDER-100). C13-M1 stability band 70-95% [Aitzaz Q5, 24 Oct]. C13-E1 is tested in the secondary family (X32), with no fixed level of its own. The C13-M2 energy clamps (R-15, R+5, R+25) are logged energy-set injections listed in ledger W45. TW4 crediting margin (C13-E): C13-E1 is credited to the conventional mechanism if the 90% interval for the difference in median per-Frankie log(KEPT / REMOVED) between Frankie and TW4 lies inside plus or minus log 1.25.",
+   "who_decides": "Claude with Aitzaz's approval",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\"); addition: Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes) (README pre-freeze tidy-up)"
+  },
+  {
+   "id": "KT-01",
+   "detail": "The 22-trait schema; exact hue tied to coarse hue, with no range of its own; taste (sweet, sour, bitter, salty) counts as a detail trait",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-01 (Claude): see KILL_TEST.md section 2.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-02",
+   "detail": "Exactly 4 core traits from 13 eligible; free-range widths and placement; taste has the full range and is never core; 4 neutral kinds per family",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-02 (Claude): see KILL_TEST.md section 2.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-03",
+   "detail": "Apples redraw every free trait. Look-alikes copy their model's look and taste, keep h1's context and their model's hue offset, with a core shift of 20-30 noise widths. The far-apple distance rule applies only against look-alikes modelled on h1. The draw order, which object is redrawn, the exits when nothing passes, and taste limits and Q's apples drawn inside their limits.",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-03 (Claude): see KILL_TEST.md section 2, section 5.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-04",
+   "detail": "8 look-alike kinds (2 for teaching, 6 for checks) and the M1/M2/M3 halves",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-04 (Claude): see KILL_TEST.md section 2, section 5.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-05",
+   "detail": "Exact bot rules, including B2e, B1n-mind, G06, G07 and G08 (G07 and G08 on teaching items only), G16, G17 and G18; \"exact\" means within 5 noise widths; OS01's thinking cap",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-05 (Claude): see KILL_TEST.md section 4.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-06",
+   "detail": "Warm-up: 40 forced tastes from 1 nourishing, 1 poison and 2 \"nothing\" kinds of 4 other families, each with its own context at least 40 noise widths from h1's",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-06 (Claude): see KILL_TEST.md section 2, section 5.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-07",
+   "detail": "Teaching: 8 forced tastes, apple then look-alike, in the order given",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-07 (Claude): see KILL_TEST.md section 5.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (bulk: \"approve all\")"
+  },
+  {
+   "id": "KT-08",
+   "detail": "How the drive scores eat and skip: own records only, with the reliability factor, never below 0; \"unknown\" is a skip",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-08 (Claude): see KILL_TEST.md section 5.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-09",
+   "detail": "Spiking time base (10 substeps, 10 ms smoothing, no neuron noise, every decision starts from rest); these two constants are fixed, not tuned",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-09 (Claude): see KILL_TEST.md section 6.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-10",
+   "detail": "Settling rule (\"unknown\" can settle, cap 34) and a brand-new candidate's starting values (weights 0.5)",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-10 (Claude): see KILL_TEST.md section 6.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-11",
+   "detail": "TW2's memory rule; the twins live in their own package",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-11 (Claude): see KILL_TEST.md section 6.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-12",
+   "detail": "The H set: kinds made from the teaching apples count, and kinds made from look-alikes never do",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-12 (Claude): see KILL_TEST.md section 8.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-13",
+   "detail": "The closed list of what may be tuned; weights start at 0.5; tuned values never enter M17; tuned values get rows KT-19 to KT-29",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-13 (Claude): see KILL_TEST.md section 7.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-14",
+   "detail": "Kill-run keys from Bitcoin block N + 6, where N is the lowest attestation in the upgraded proof the GitHub Action commits; one manifest per set, pushed only when that set is next",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-14 (Claude): see KILL_TEST.md section 3.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 24 Oct 2026 (\"good idea\"); changed in v3: Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-15",
+   "detail": "Power check (MK10) with every GO value, how its values are drawn, and its families; LookReject 0.60 per half; leak check 0.15; set size in steps of 20",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-15 (Claude): see KILL_TEST.md section 7, section 9.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-16",
+   "detail": "Sour apple: shared keys for both branches; SWEET-CONTROL is h2 with the named kind's taste; the verdict after eating; TASTE-NOTICED made exact",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-16 (Claude): see KILL_TEST.md section 5, section 6, section 8.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-17",
+   "detail": "Stage 5 and 6 register values inherited as written; check-order ties broken by a run-key order; \"tick\" means the decision on the bench",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-17 (Claude): see KILL_TEST.md section 6.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  },
+  {
+   "id": "KT-18",
+   "detail": "How a leak found by rule 7, or a set failing rule 6, gets traced and fixed; rule 6 also scores rule 5's Q bar and the subgroups",
+   "needed_by_stage": "Kill test",
+   "placeholder": "KT-18 (Claude): see KILL_TEST.md section 3, section 9.",
+   "who_decides": "Aitzaz",
+   "approved": "Aitzaz, 25 Oct 2026 (KILL_TEST v3 changes)"
+  }
+ ]
+}

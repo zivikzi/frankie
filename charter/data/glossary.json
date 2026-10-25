@@ -1,0 +1,1786 @@
+{
+ "baselines": [
+  {
+   "id": "B0",
+   "name": "Random bot",
+   "what_it_is": "Frankie's body. Each tick it picks an action at random from the legal actions and eats or skips at random. Gives the chance level. Ledger X03.",
+   "used_by": [
+    "C1",
+    "C6",
+    "C7",
+    "C12"
+   ]
+  },
+  {
+   "id": "B1t",
+   "name": "Lookup-table bot",
+   "what_it_is": "Stores the exact trait values and outcome of every item it eats. It eats exact matches of good items and skips exact matches of bad ones, and handles anything else by the rule in its frozen spec. Brute memory with no generalising. Ledger X03.",
+   "used_by": [
+    "C1",
+    "C3"
+   ]
+  },
+  {
+   "id": "B1n-bot",
+   "name": "Nearest-neighbour eat/skip bot",
+   "what_it_is": "The ledger X03 version: a standalone bot for probes, with no drive and no tower. It stores every eaten item separately, so it splits on any difference. For a new object it finds the nearest stored item over all traits, weighted equally, and eats if that item was good, skips if it was bad, and tries the object if memory is empty. Used where a test scores single eat/skip responses. Ledger X36.",
+   "used_by": [
+    "C1",
+    "C2",
+    "C4"
+   ]
+  },
+  {
+   "id": "B1n-forager",
+   "name": "Nearest-neighbour forager",
+   "what_it_is": "B1n-bot's eat/skip memory placed on Frankie's body, plus B4's greedy movement: it walks to the nearest object in view that its memory does not mark as bad, and does a random walk when none is in view. It has no drive, no reserve, no habits and no proposal menu. This is the floor that C7 called 'B1n' without defining it. Ledger X36.",
+   "used_by": [
+    "C7"
+   ]
+  },
+  {
+   "id": "B1n-mind",
+   "name": "Frankie with nearest-neighbour memory",
+   "what_it_is": "Frankie's body, drive, reserve, untried-value rule, proposal menu, randomness curve and habit rule, with the recognition tower, candidate memory and write rule replaced by a nearest-neighbour memory of each eaten item. Everything else is unchanged, so it is the honest 'bad elimination' bar. C3's B1n and C13's 'B1n-mind' are one shared definition. Ledger X36.",
+   "used_by": [
+    "C3",
+    "C13-E",
+    "ledger X29 (Stage 6 poison-bite gate)"
+   ]
+  },
+  {
+   "id": "B1n-seq",
+   "name": "Sequence keep-and-retry learner",
+   "what_it_is": "Frankie's body, proposal menu and designed greedy movement rule. It keeps and retries any action sequence that paid, and otherwise draws again from the menu. It decides eat/skip with B1n-bot's nearest-neighbour memory. Brute trial and error on Frankie's own menu. Ledger X36.",
+   "used_by": [
+    "C12 (T13 primary comparison)",
+    "C12 (T15 control)"
+   ]
+  },
+  {
+   "id": "B2",
+   "name": "Surface matcher",
+   "what_it_is": "Eats objects whose surface traits are close to a remembered good item under the registered surface distance (PLACEHOLDER-91), and ignores core traits. C5's 'B2 lookup' is this bot, used there as a flat reference. Ledger X03.",
+   "used_by": [
+    "C1",
+    "C2",
+    "C4",
+    "C5"
+   ]
+  },
+  {
+   "id": "B2e",
+   "name": "Essence-trait matcher",
+   "what_it_is": "Matches on the designer's core-trait list. It shows the test can be solved from one example and sets a ceiling. It is not a must-fail bot. Ledger X03.",
+   "used_by": [
+    "C1"
+   ]
+  },
+  {
+   "id": "B3",
+   "name": "Count-based novelty agent",
+   "what_it_is": "A textbook curiosity agent with a visit-count novelty bonus. It must stay stuck on the glimmer stone, which proves the trap is real. Ledger X04.",
+   "used_by": [
+    "C7",
+    "C8"
+   ]
+  },
+  {
+   "id": "B4",
+   "name": "Greedy eater",
+   "what_it_is": "Moves to and eats the nearest object. Ledger X03.",
+   "used_by": [
+    "C7",
+    "C8"
+   ]
+  },
+  {
+   "id": "B4n",
+   "name": "Greedy eater plus proposal noise",
+   "what_it_is": "B4 with Frankie's designed proposal noise added. It shows detours made by accident.",
+   "used_by": [
+    "C12"
+   ]
+  },
+  {
+   "id": "B5",
+   "name": "Oracle",
+   "what_it_is": "Reads hidden natures and sets the ceiling. It lives only in the test-fixtures package. Ledger X03.",
+   "used_by": [
+    "C1",
+    "ledger X27 world gates"
+   ]
+  },
+  {
+   "id": "B6",
+   "name": "Contamination canary",
+   "what_it_is": "Deliberately leaks vault kinds. T0 must flag it 100% of the time. Ledger X03.",
+   "used_by": [
+    "C1",
+    "T0 audits"
+   ]
+  },
+  {
+   "id": "B8",
+   "name": "Copycat",
+   "what_it_is": "Copies the teacher from birth. After the teacher leaves, it eats kinds it saw the teacher eat, skips kinds it saw the teacher turn away from, and replays stored teacher motifs in matching situations. One frozen definition covers C9, C10 and C11. Ledger X06.",
+   "used_by": [
+    "C9",
+    "C10",
+    "C11"
+   ]
+  },
+  {
+   "id": "B9",
+   "name": "Hard-wired watcher",
+   "what_it_is": "Writes 'what the teacher ate, then glowed, is good' straight into memory. Ledger X06.",
+   "used_by": [
+    "C9",
+    "C10"
+   ]
+  },
+  {
+   "id": "G01",
+   "name": "Always-eat bot",
+   "what_it_is": "Eats every object it meets. Gamer bot (X33).",
+   "used_by": [
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+   ]
+  },
+  {
+   "id": "G02",
+   "name": "Eat-novel-first bot",
+   "what_it_is": "Goes for and eats never-tried things first. This is brute tasting. Gamer bot (X05).",
+   "used_by": [
+    "C1",
+    "C3",
+    "C6",
+    "C7",
+    "C9"
+   ]
+  },
+  {
+   "id": "G03",
+   "name": "Never-eat-new bot",
+   "what_it_is": "Eats only kinds it has eaten before. Gamer bot (X33).",
+   "used_by": [
+    "C1",
+    "C2",
+    "C3"
+   ]
+  },
+  {
+   "id": "G04",
+   "name": "Reject-all-unknown bot",
+   "what_it_is": "Refuses anything its memory does not recognise. Gamer bot (X05).",
+   "used_by": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C7",
+    "C8",
+    "C9"
+   ]
+  },
+  {
+   "id": "G05",
+   "name": "Avoid-the-familiar-look bot",
+   "what_it_is": "Eats exact copies of h1 and anything that looks different from h1, and refuses near-copies. Gamer bot (X33).",
+   "used_by": [
+    "C1"
+   ]
+  },
+  {
+   "id": "G06",
+   "name": "Rarity-weighted matcher",
+   "what_it_is": "Weights each trait by how unusual its value is in the bot's own experience, then matches to remembered eaten items. It is a matcher in C1 and a learner in C3, with one definition. If it passes, the vault is redesigned and the threshold is never touched. Gamer bot (X33).",
+   "used_by": [
+    "C1",
+    "C3"
+   ]
+  },
+  {
+   "id": "G07",
+   "name": "Best single-trait bot",
+   "what_it_is": "Uses the one trait that best predicted food in its own ancestral and lifetime experience (for example smell only). Gamer bot (X33).",
+   "used_by": [
+    "C1",
+    "C4",
+    "ledger X27 world gates"
+   ]
+  },
+  {
+   "id": "G08",
+   "name": "Best two-trait bot",
+   "what_it_is": "The same as G07, using the best pair of traits. Gamer bot (X33).",
+   "used_by": [
+    "C4",
+    "ledger X27 world gates"
+   ]
+  },
+  {
+   "id": "G09",
+   "name": "Scene-only bot",
+   "what_it_is": "Eats in the home scene of kind F and refuses elsewhere. Gamer bot (X33).",
+   "used_by": [
+    "C4"
+   ]
+  },
+  {
+   "id": "G10",
+   "name": "Never-eat bot",
+   "what_it_is": "Never eats. Gamer bot (X33).",
+   "used_by": [
+    "C8"
+   ]
+  },
+  {
+   "id": "G11",
+   "name": "Always-explore bot",
+   "what_it_is": "Explores all the time, as much as possible. Gamer bot (X05).",
+   "used_by": [
+    "C6",
+    "C7",
+    "C12"
+   ]
+  },
+  {
+   "id": "G12",
+   "name": "Fixed-delay waiter bot",
+   "what_it_is": "Waits a fixed time at any seed-shaped thing. Gamer bot (X05).",
+   "used_by": [
+    "C8",
+    "C10"
+   ]
+  },
+  {
+   "id": "G13",
+   "name": "Nearest-known-food-else-random-walk bot",
+   "what_it_is": "Goes to the nearest food it remembers, and does a random walk otherwise. Gamer bot (X05).",
+   "used_by": [
+    "C7"
+   ]
+  },
+  {
+   "id": "G14",
+   "name": "Failure-triggered explorer",
+   "what_it_is": "A hard-wired rule, 'after a source fails, explore more', with no insurance reasoning. Built at Stage 4. Gamer bot (X33).",
+   "used_by": [
+    "C7"
+   ]
+  },
+  {
+   "id": "G15",
+   "name": "Fading-everything bot",
+   "what_it_is": "Its sharp-look spending on every object declines with age. Built at Stage 4. Gamer bot (X33).",
+   "used_by": [
+    "C8"
+   ]
+  },
+  {
+   "id": "OS01",
+   "name": "Flat tower",
+   "what_it_is": "All recognition layers at once. There are two settings, logged in the version field: capped to Frankie's thinking spend, and zero thinking cost. Off-switch (X08).",
+   "used_by": [
+    "C1",
+    "C4"
+   ]
+  },
+  {
+   "id": "OS02",
+   "name": "No gating",
+   "what_it_is": "Outer layers do not gate the inner ones. Off-switch (X08).",
+   "used_by": [
+    "C1",
+    "C4"
+   ]
+  },
+  {
+   "id": "OS03",
+   "name": "No objection",
+   "what_it_is": "Inner layers cannot object (no inside-out reset). Off-switch (X08).",
+   "used_by": [
+    "C4"
+   ]
+  },
+  {
+   "id": "OS04",
+   "name": "Gates forced to maximum",
+   "what_it_is": "Context gates locked at full strength. Off-switch (X08).",
+   "used_by": [
+    "C4"
+   ]
+  },
+  {
+   "id": "OS05",
+   "name": "Pick-the-max",
+   "what_it_is": "The candidate with the most activation wins at once, with no competition. Off-switch (X08).",
+   "used_by": [
+    "C5"
+   ]
+  },
+  {
+   "id": "OS06",
+   "name": "Prototype memory",
+   "what_it_is": "Each kind is stored as one prototype in place of Frankie's memory format. Off-switch (X08).",
+   "used_by": [
+    "C1"
+   ]
+  },
+  {
+   "id": "OS07",
+   "name": "Habits off",
+   "what_it_is": "The habit rule (M34) is switched off. Off-switch (X35).",
+   "used_by": [
+    "C1",
+    "C3",
+    "C13-E"
+   ]
+  },
+  {
+   "id": "OS08",
+   "name": "Write rule frozen",
+   "what_it_is": "Memory is frozen and the write rule is off, with habits still on. C2's 'write-rule off-switch' and C3's 'frozen-memory version' are this one version. Off-switch (X35).",
+   "used_by": [
+    "C2",
+    "C3"
+   ]
+  },
+  {
+   "id": "OS09",
+   "name": "Always-split",
+   "what_it_is": "The write rule always splits and never stretches. Off-switch (X35).",
+   "used_by": [
+    "C2"
+   ]
+  },
+  {
+   "id": "OS10",
+   "name": "Taste-blind",
+   "what_it_is": "Taste is removed from memory and from the verdict after eating. Off-switch (X35).",
+   "used_by": [
+    "C2"
+   ]
+  },
+  {
+   "id": "OS11",
+   "name": "'Unknown' unit off",
+   "what_it_is": "The 'unknown' candidate cannot win. Off-switch (X35).",
+   "used_by": [
+    "C6"
+   ]
+  },
+  {
+   "id": "OS12",
+   "name": "Sharp looks from proposals only",
+   "what_it_is": "The value-of-information rule for sharp looks is off, so a sharp look happens only when a proposal makes it. Off-switch (X35).",
+   "used_by": [
+    "C6"
+   ]
+  },
+  {
+   "id": "OS13",
+   "name": "Backups-don't-count (BDC)",
+   "what_it_is": "The drive's estimate of what losing A would cost ignores every backup: remembered sources, and the expected value of untried things. Off-switch (X08).",
+   "used_by": [
+    "C7"
+   ]
+  },
+  {
+   "id": "OS14",
+   "name": "FIXED-RANDOMNESS",
+   "what_it_is": "The proposal count is held at one constant for every Frankie and tick: the designed curve's value at E = R+20 (2 under the current placeholder). Off-switch (X08).",
+   "used_by": [
+    "C7",
+    "C12",
+    "C13-M"
+   ]
+  },
+  {
+   "id": "OS15",
+   "name": "NO-RICH-ARM",
+   "what_it_is": "No extra randomness when rich: above R, the curve is held at its near-reserve value. Off-switch (X08).",
+   "used_by": [
+    "C7"
+   ]
+  },
+  {
+   "id": "OS16",
+   "name": "Social path off (S clone)",
+   "what_it_is": "The teacher is present but no social records are written. Perception is unchanged. Off-switch (X08).",
+   "used_by": [
+    "C9",
+    "C10"
+   ]
+  },
+  {
+   "id": "OS17",
+   "name": "Wrong-object social records (X clone)",
+   "what_it_is": "Social records are written, but each one is linked to a randomly chosen other visible object. Off-switch (X35).",
+   "used_by": [
+    "C9"
+   ]
+  },
+  {
+   "id": "OS18",
+   "name": "Trust locked at full",
+   "what_it_is": "Follows every creature fully from the start. A test variant only, never part of Frankie: a test-only flag in the test-fixtures module, refused in any run labelled 'full'. Off-switch (X35).",
+   "used_by": [
+    "C10"
+   ]
+  },
+  {
+   "id": "OS19",
+   "name": "Character off",
+   "what_it_is": "Picks at random among the options considered, using the proposal stream. A test-only flag in the test-fixtures module, refused in any run labelled 'full'; the 'randomness never chooses' rule applies to version full only. Off-switch (X35).",
+   "used_by": [
+    "C13-M"
+   ]
+  },
+  {
+   "id": "OS20",
+   "name": "Zero randomness",
+   "what_it_is": "No proposals are drawn from randomness. Its stability must be exactly 1.0. Off-switch (X35).",
+   "used_by": [
+    "C13-M"
+   ]
+  },
+  {
+   "id": "OS21",
+   "name": "Gating, objection and elimination off",
+   "what_it_is": "C12's 'switched-off Frankie': tower gating, objection and tower elimination are all off, and randomness is unchanged. Off-switch (X35).",
+   "used_by": [
+    "C12"
+   ]
+  },
+  {
+   "id": "OS22",
+   "name": "Hysteresis off (RETIRED)",
+   "what_it_is": "Retired. No hysteresis exists in the main version (PLACEHOLDER-25, PLACEHOLDER-100), so this control switches off nothing. It is removed from X08 and C13 unless Aitzaz defines hysteresis before Stage 6.",
+   "used_by": [
+    "none"
+   ]
+  },
+  {
+   "id": "OS23",
+   "name": "Tower off, random choice among proposals",
+   "what_it_is": "T15 control: the recognition tower's gating, objection and elimination are off, and the action is picked at random among the drawn proposals. A test-only flag, refused in any run labelled 'full'. Off-switch (X35). Replaces C12's claim-local 'random proposals without the tower'.",
+   "used_by": [
+    "C12"
+   ]
+  },
+  {
+   "id": "TW1",
+   "name": "Exemplar twin (GCM style)",
+   "what_it_is": "A textbook exemplar similarity learner (Nosofsky 1986, already cited in X07) with Frankie's own evolved weights and perception. Used by the credit rule. Conventional twin (X07).",
+   "used_by": [
+    "C1",
+    "C3",
+    "C4"
+   ]
+  },
+  {
+   "id": "TW1u",
+   "name": "Exemplar twin with an 'unknown' threshold",
+   "what_it_is": "TW1 plus a threshold below which it answers 'unknown'. Conventional twin (X37).",
+   "used_by": [
+    "C6"
+   ]
+  },
+  {
+   "id": "TW2",
+   "name": "Stretch-or-split write-rule twin",
+   "what_it_is": "A conventional write rule that stretches or splits, with no outward blame. Conventional twin (M16).",
+   "used_by": [
+    "C1",
+    "C2",
+    "C3"
+   ]
+  },
+  {
+   "id": "TW3",
+   "name": "Best-score chooser twin",
+   "what_it_is": "The same drive, menu and randomness curve, but it takes the option with the highest predicted chance of staying above R (argmax) in place of the first acceptable one. Conventional twin (M30).",
+   "used_by": [
+    "C7",
+    "C12"
+   ]
+  },
+  {
+   "id": "TW4",
+   "name": "Epsilon-greedy twin",
+   "what_it_is": "A best-score chooser with constant randomness, outside Frankie. Conventional twin (X07).",
+   "used_by": [
+    "C13-M (M2, reported)",
+    "C13-E (crediting)"
+   ]
+  },
+  {
+   "id": "TW5",
+   "name": "Payoff-biased social-learner twin",
+   "what_it_is": "A textbook social learner that weights observed choices by their payoff. Conventional twin (X07).",
+   "used_by": [
+    "C9"
+   ]
+  },
+  {
+   "id": "TW6",
+   "name": "Reliability-learning social twin",
+   "what_it_is": "A textbook social learner that learns how reliable each demonstrator is. Conventional twin (X37).",
+   "used_by": [
+    "C10"
+   ]
+  },
+  {
+   "id": "TW7",
+   "name": "Rate-based twin",
+   "what_it_is": "The same mind with rate-based neurons in place of spiking ones. Reported only. Conventional twin (M43).",
+   "used_by": [
+    "C5"
+   ]
+  },
+  {
+   "id": "MK1",
+   "name": "Serial-scan mock",
+   "what_it_is": "A test fixture that searches every memory slot. It must fail C5 part (3). Test fixture (X34).",
+   "used_by": [
+    "C5"
+   ]
+  },
+  {
+   "id": "MK2",
+   "name": "Positive-control accumulator mock",
+   "what_it_is": "Reads hidden state and has the competition signature built in. It must pass C5 parts (1) to (5). Test fixture (X34).",
+   "used_by": [
+    "C5"
+   ]
+  },
+  {
+   "id": "MK3",
+   "name": "Insurance mock (T7/T8)",
+   "what_it_is": "A scripted cheat with insurance and a BDC switch built in. It must pass every part of C7 at Stage 4, and it drives the joint-power simulation. Test fixture (X34).",
+   "used_by": [
+    "C7"
+   ]
+  },
+  {
+   "id": "MK4",
+   "name": "Patience mock (T9)",
+   "what_it_is": "A scripted cheat with patience built in. It drives C8's joint-power simulation. Test fixture (X34).",
+   "used_by": [
+    "C8"
+   ]
+  },
+  {
+   "id": "MK5",
+   "name": "Free-will mock (T14)",
+   "what_it_is": "Scripted, with U-shaped dice and a habit rule built in. Test fixture (X34).",
+   "used_by": [
+    "C13-M",
+    "C13-E"
+   ]
+  },
+  {
+   "id": "MK6",
+   "name": "Strong copy-leak mock",
+   "what_it_is": "Copies observed motifs with probability 0.3. It must be caught in at least 95% of pilots. Test fixture (X34).",
+   "used_by": [
+    "C11"
+   ]
+  },
+  {
+   "id": "MK7",
+   "name": "Weak copy-leak mock",
+   "what_it_is": "Its copy probability is tuned so that the expected wiggle share, A minus B, is 0.06. It must be caught in at least 80% of pilots. Test fixture (X34).",
+   "used_by": [
+    "C11"
+   ]
+  },
+  {
+   "id": "MK8",
+   "name": "Social mock (G = 0.15)",
+   "what_it_is": "Has a known watching gain of 0.15 and is used for C9's power check. Test fixture (X34).",
+   "used_by": [
+    "C9"
+   ]
+  },
+  {
+   "id": "MK9",
+   "name": "Trust-slope mock",
+   "what_it_is": "Has a known trust slope and is used for C10's power check. Test fixture (X34).",
+   "used_by": [
+    "C10"
+   ]
+  },
+  {
+   "id": "PC1",
+   "name": "Hand-set (neutral) perception cohort",
+   "what_it_is": "Frankies whose perception settings are hand-set to neutral in place of evolved. It separates what evolution supplied from what one life learned. Comparison cohort, not a bot.",
+   "used_by": [
+    "C1",
+    "C2",
+    "C3",
+    "C6"
+   ]
+  },
+  {
+   "id": "PC2",
+   "name": "Shuffled-world cohort",
+   "what_it_is": "Frankies evolved in worlds whose essence rules were shuffled. Comparison cohort.",
+   "used_by": [
+    "C1",
+    "C3"
+   ]
+  },
+  {
+   "id": "PC3",
+   "name": "Counter-world cohort",
+   "what_it_is": "Frankies evolved in worlds whose essence rules run against the test rule. Comparison cohort.",
+   "used_by": [
+    "C1"
+   ]
+  },
+  {
+   "id": "K-F",
+   "name": "Kill-test Frankie tower",
+   "what_it_is": "The bench-only spiking outside-in elimination tower with blame-outward memory and the bench drive. No body, movement or actions. Not v1 Frankie: the X01/X40/T17 exception covers K-F only, never v1 Frankie (KILL_TEST.md sections 1 and 12). Its tuned values may enter Frankie only as designed priors on the priors card (section 7).",
+   "used_by": [
+    "KILL_TEST"
+   ]
+  },
+  {
+   "id": "K-F-NOWARM",
+   "name": "K-F without warm-up",
+   "what_it_is": "K-F run with no warm-up tastes. Reported only (KILL_TEST.md section 4).",
+   "used_by": [
+    "KILL_TEST"
+   ]
+  },
+  {
+   "id": "B1n-bot-r",
+   "name": "Nearest-neighbour bot with a radius",
+   "what_it_is": "B1n-bot that eats only if the nearest stored item is good and lies within a radius r chosen on the kill-test tuning set and frozen before any K-F code. One of the two kill-test floor minds, with B1n-mind; the floor is whichever has the higher mean D_learn on the set (KILL_TEST.md section 9, rule 3).",
+   "used_by": [
+    "KILL_TEST"
+   ]
+  },
+  {
+   "id": "G16",
+   "name": "Inner-layer matcher",
+   "what_it_is": "B1n-bot-r computed over parts and details traits only, with its own radius. Kill-test must-fail bot (KILL_TEST.md section 4).",
+   "used_by": [
+    "KILL_TEST"
+   ]
+  },
+  {
+   "id": "G17",
+   "name": "Near-copy refuser",
+   "what_it_is": "B1n-bot that, once a stored bad item lies within 10 noise widths of a stored good item over all observable traits, also refuses any object within 10 noise widths of some stored good item that is not an exact match of any stored good item. Kill-test must-fail bot (KILL_TEST.md section 4).",
+   "used_by": [
+    "KILL_TEST"
+   ]
+  },
+  {
+   "id": "G18",
+   "name": "Inner-layer near-copy refuser",
+   "what_it_is": "G16, with G16's radius, that also applies G17's trigger and near-copy refusal over all observable traits. Kill-test must-fail bot (KILL_TEST.md section 4).",
+   "used_by": [
+    "KILL_TEST"
+   ]
+  },
+  {
+   "id": "MK10",
+   "name": "Kill-test power-check mock",
+   "what_it_is": "A test fixture that produces the planned values of every kill-test GO quantity, used only for the kill-test power check (KILL_TEST.md section 7, PLACEHOLDER-90).",
+   "used_by": [
+    "KILL_TEST"
+   ]
+  }
+ ],
+ "log_fields": [
+  {
+   "name": "tick",
+   "values": "integer",
+   "meaning": "The basic row key: one row per creature per tick (PLACEHOLDER-64). Every claim's log uses it; no claim adds it separately."
+  },
+  {
+   "name": "agent_id",
+   "values": "string, unique per tested life (Frankie or baseline)",
+   "meaning": "The one key for any tested agent. Replaces frankie_id and agent_id as separate names. World-side creatures, such as the teacher, use creature_id."
+  },
+  {
+   "name": "agent_type",
+   "values": "frankie | K-F | K-F-NOWARM | a baseline id from the glossary (B0, B1t, B1n-bot, B1n-bot-r, B1n-forager, B1n-mind, B1n-seq, B2, B2e, B3, B4, B4n, B5, B6, B8, B9, G01-G18, TW1, TW1u, TW2-TW7, MK1-MK10)",
+   "meaning": "What kind of agent produced the row. A bare 'B1n' is not allowed."
+  },
+  {
+   "name": "version",
+   "values": "full | OS01-OS21 | OS23 (OS22 retired); for OS01 also cap | free",
+   "meaning": "Which off-switch version of Frankie, if any."
+  },
+  {
+   "name": "version_scope",
+   "values": "test-time | lifetime",
+   "meaning": "Whether the off-switch was applied on the same snapshot at test time or for the whole life."
+  },
+  {
+   "name": "priors_cohort",
+   "values": "evolved | PC1 | PC2 | PC3",
+   "meaning": "How the perception priors were produced."
+  },
+  {
+   "name": "teacher_history",
+   "values": "teacher-free | teacher-raised",
+   "meaning": "Whether a teacher was ever present in this lineage of lives. The priors card checks it."
+  },
+  {
+   "name": "matched_set_id / genome_id / temperament_seed / family_id / vault_id",
+   "values": "strings",
+   "meaning": "Matching and allocation keys (X38). Every claim uses exactly these names."
+  },
+  {
+   "name": "snapshot_id / parent_snapshot_id / clone_id",
+   "values": "strings",
+   "meaning": "Snapshot lineage. C2's 'parent snapshot (T1)' is parent_snapshot_id."
+  },
+  {
+   "name": "replica_key",
+   "values": "integer",
+   "meaning": "The replica index for the proposal and sensor-noise streams of this run. Replaces 'replica key', 'replica id' and 'replica'."
+  },
+  {
+   "name": "stream_keys",
+   "values": "list of {stream: world | sensor | proposal | teacher, tick, creature, replica_key, draw_number}",
+   "meaning": "The full random-stream key record for every rerun (C13), including sensor-redraw keys."
+  },
+  {
+   "name": "condition",
+   "values": "T1: O | Z | Z0. T2: PRE | SOUR | SWEET-CONTROL | MIRROR | MIRROR-CONTROL | H2-ONLY. T5: similar | dissimilar | high | low, with k. T6: NEW-SMELL | NO-SMELL | KNOWN-SMELL | NEW-SMELL-NO-NOVEL | NOVEL-GROUND. T7: experienced | naive. T8: CHANGE | NO-CHANGE | HUNGER-YOKED | TOPPED-UP. T9: SEED-EXPERIENCED | YOKED-FRUIT | NO-SEED crossed with HIGH | LOW. T15: A+B | A-only | B-only | neither | B1n-seq | random-proposals-no-tower (version OS23)",
+   "meaning": "The test condition, taken from the frozen spec. Replaces 'group', 'arm' and 'seed-history group'."
+  },
+  {
+   "name": "pre_exposed",
+   "values": "yes | no",
+   "meaning": "T8 only: whether this life had the designed walk past B."
+  },
+  {
+   "name": "clone_type",
+   "values": "T | N | S | X | Y (teacher tests C9, C10) ; wiggle-A | wiggle-B | wiggle-C (T12, replacing C11's A, B, C) ; FULL | BDC | FIXED-RANDOMNESS | NO-RICH-ARM | KNOWN-ONLY-B (T7, T8) ; STONE | STATIC (T9) ; probe ; redraw | sensor-redraw | energy-clamp | habit-undone | continuation-KEPT | continuation-REMOVED | continuation-FAST (T14) ; room (T13)",
+   "meaning": "Why this clone exists. Every value is unique across the battery."
+  },
+  {
+   "name": "run_set",
+   "values": "own-A | own-B | swap",
+   "meaning": "C13-M5's three 10-run sets. Replaces C13's 'A, B or S', which clashed with C9's S clone."
+  },
+  {
+   "name": "newborn_start",
+   "values": "neutral | cautious",
+   "meaning": "Which newborn starting value (M25) the life used."
+  },
+  {
+   "name": "E / R / b / desperation_slope",
+   "values": "E in whole milli-units; R in units; b in 0.1-0.6; slope in 0.05-0.3",
+   "meaning": "Energy, reserve, boldness and desperation slope, logged every tick."
+  },
+  {
+   "name": "energy_band",
+   "values": "well-below | near | well-above",
+   "meaning": "From the shared energy-band definition (E <= R-10 ; R-10 < E < R+20 ; E >= R+20). Used everywhere a band is named."
+  },
+  {
+   "name": "fed",
+   "values": "true | false",
+   "meaning": "E > R."
+  },
+  {
+   "name": "action / movement_target",
+   "values": "an action from the body's action list, including turn direction; a cell or a world-side object id",
+   "meaning": "The action part of the tick's choice."
+  },
+  {
+   "name": "gaze_target / gaze_distance / gaze_layer_reached",
+   "values": "world-side object or creature id (log only, never in the mind packet); cells; none | scene | object | parts | details",
+   "meaning": "The sharp-view part of the tick's choice."
+  },
+  {
+   "name": "action_provenance",
+   "values": "habit | proposal | no-safe-option-fallback | designed-exposure | baseline-rule",
+   "meaning": "Where the chosen action and its movement target came from. Steps that carry out a chosen target inherit its provenance. 'random proposal' becomes proposal. 'eliminated-by-prediction' is NOT a provenance value: a struck option is never the chosen action. designed-exposure marks an eat the harness forced. baseline-rule is for bots without Frankie's chooser."
+  },
+  {
+   "name": "gaze_provenance",
+   "values": "habit | proposal | drive-sharp-look | no-safe-option-fallback | baseline-rule",
+   "meaning": "Where the sharp-view target came from. 'drive' in C1, C6 and C9 becomes drive-sharp-look, which is valid only here."
+  },
+  {
+   "name": "options_considered",
+   "values": "ordered list of {order, source: habit | proposal, option, predicted_p_above_R, cleared_bar: true | false}",
+   "meaning": "The satisficing chooser's pass over the options, in the order it considered them."
+  },
+  {
+   "name": "satisficing_bar",
+   "values": "probability",
+   "meaning": "The required chance of staying above R this tick (0.9 - 0.3 x b under PLACEHOLDER-27) [Aitzaz Q3, 24 Oct]."
+  },
+  {
+   "name": "no_safe_option",
+   "values": "true | false",
+   "meaning": "True when no option cleared the bar. The choice is then tagged no-safe-option-fallback (M47)."
+  },
+  {
+   "name": "struck_options",
+   "values": "list of struck-option events {option, source, target_object_id (world, log only), target_kind_id (world), predicted_p_above_R, strike_class: reasoned | rote | no-kind}",
+   "meaning": "Options the chooser ruled out by prediction before trying them. Each one is an event, never an action. strike_class follows the shared reasoned/rote rule. Replaces every 'eliminated-by-prediction' entry in provenance lists."
+  },
+  {
+   "name": "proposal_count_target / proposals_drawn_count / proposal_draws",
+   "values": "real number before rounding; integer; list of {menu_entry, target, draw_number}",
+   "meaning": "The curve value, the whole number after stochastic rounding (PLACEHOLDER-96), and the draws."
+  },
+  {
+   "name": "drive_trace_replayed",
+   "values": "per menu option: predicted_p_above_R, backup_contribution, order",
+   "meaning": "The exact-replay trace for testing (M53), including options the chooser never reached. Log only."
+  },
+  {
+   "name": "decision_tick_type / margin_to_bar",
+   "values": "none | close-call | choice-change | both ; signed probability",
+   "meaning": "From the shared decision-tick definition, using delta from PLACEHOLDER-99."
+  },
+  {
+   "name": "verdict_subject",
+   "values": "world-side object id (log only)",
+   "meaning": "What the verdict was about, resolved by the harness (W53)."
+  },
+  {
+   "name": "verdict_winner / verdict_margin / settle_steps / verdict_scope",
+   "values": "candidate_id | unknown ; number ; integer ; full | blurry",
+   "meaning": "The committed verdict. Replaces 'winner'. blurry marks an outer-layer-only verdict (PLACEHOLDER-16)."
+  },
+  {
+   "name": "elimination_events",
+   "values": "list of {step, layer, candidates_removed}",
+   "meaning": "Recognition-tower elimination among candidates ONLY. Never used for options the chooser struck (those go in struck_options)."
+  },
+  {
+   "name": "objection_events",
+   "values": "list of {step, layer, candidate_reset, mismatch_value}",
+   "meaning": "Inside-out objections."
+  },
+  {
+   "name": "memory_write_events",
+   "values": "type: new | stretch | split | merge | mark-unreliable | forget ; trigger: chosen-eat | designed-exposure | watched ; candidate_id_before, candidate_id_after, layer, per-feature weight deltas",
+   "meaning": "Write-rule events. trigger=designed-exposure applies PLACEHOLDER-93."
+  },
+  {
+   "name": "candidate_lineage",
+   "values": "rows of {parent_id, child_id, event: stretch | merge | split | forget}",
+   "meaning": "Log-side lineage (W53)."
+  },
+  {
+   "name": "eat_events",
+   "values": "{object_id, kind_id, hidden_nature (world-side scoring only), energy_delta, effect_tick, stomach_delay_d: 3 | 10, taste_vector, sick, net_gain, designed_exposure: true | false, cell}",
+   "meaning": "Every eat. stomach_delay_d records the delay actually applied. cell is the grid cell of the eat (own-eat-log cells, C7)."
+  },
+  {
+   "name": "designed_exposure",
+   "values": "{tick, test, item_role, choice_window_outcome: chosen | forced}",
+   "meaning": "Only for tests on the designed-exposure list. Printed on the priors card."
+  },
+  {
+   "name": "injection_events",
+   "values": "type: energy-set | yoke-adjust | top-up | source-stop | source-resume | source-clear | object-place | object-remove | cue-inject | smell-mask ; tick, amount, vault provenance",
+   "meaning": "Every harness change to the world or to energy (W45). There is no survival-floor type, because the T13 survival floor is retired."
+  },
+  {
+   "name": "probe_role",
+   "values": "far | lookalike | neutral | copy | U | member | filler | decoy | stickered | odd-detail | trust-test | never-shown-match | seed-probe | novel-probe",
+   "meaning": "World side only, never in the mind packet. novel-probe marks C8-S3's novel probe objects."
+  },
+  {
+   "name": "trial_end_reason",
+   "values": "committed-eat | committed-skip | window-timeout | left-area | death | tick-cap | eat-cap",
+   "meaning": "One vocabulary for every trial and session."
+  },
+  {
+   "name": "habit_weight_updates",
+   "values": "{option, situation_key, delta, source_branch_tick, credit_window_outcome}",
+   "meaning": "Replaces 'habit-table updates'. These are habit weights, not a value table, under the value-table boundary."
+  },
+  {
+   "name": "habit_similarity_score / habit_similar / habit_contribution",
+   "values": "0-3 ; true only at 3 ; zero | nonzero",
+   "meaning": "From PLACEHOLDER-98. habit_contribution=zero means no habit weight entered this choice."
+  },
+  {
+   "name": "motif_tokens / tokenizer_fingerprint",
+   "values": "token strings under ledger X40 ; hash",
+   "meaning": "The one shared motif tokenizer."
+  },
+  {
+   "name": "sign_condition / teacher_reliability_p / teacher_type",
+   "values": "visible | hidden | reversed | none ; 1.0 | 0.75 | 0.5 ; informative | uninformative",
+   "meaning": "'signs normal' (C9) becomes visible. A 'signless' creature has sign_condition none."
+  },
+  {
+   "name": "creature_id / creature_slot",
+   "values": "world-side id (log only) ; mind-side slot from creature tracking (PLACEHOLDER-39)",
+   "meaning": "Lets the log measure how often a slot resets for a creature that is still the same one."
+  },
+  {
+   "name": "social_record_events",
+   "values": "{record_id, creature_slot, linked_candidate_id, trust_type: choice-trust | sign-meaning, influence_before, influence_after, substituted_object (X clones)}",
+   "meaning": "Mind-side social records."
+  },
+  {
+   "name": "visit_events",
+   "values": "{spot: real-seed | dud-seed | reference-cell | stone | other, start_tick, end_tick}",
+   "meaning": "From the shared visit definition."
+  },
+  {
+   "name": "room_reached / death_tick",
+   "values": "true | false ; tick or none",
+   "meaning": "T13: whether the life reached room-entry age, and when it died."
+  },
+  {
+   "name": "teacher_ever_present / teacher_demonstrations_seen",
+   "values": "true | false ; integer",
+   "meaning": "On the priors card. Must be false and 0 for teacher-free cohorts."
+  },
+  {
+   "name": "replay_fingerprint_match",
+   "values": "true | false",
+   "meaning": "Exact-replay check per checkpoint."
+  },
+  {
+   "name": "position / heading",
+   "values": "cell (x, y) ; one of the body's facing directions",
+   "meaning": "Where the agent is and which way it faces, every tick. One name per concept: heading, never 'facing'. The teacher's position and heading are logged inside teacher_state. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "region_flags / new_cell_entered",
+   "values": "set of named test regions the cell lies in (T7, T8: A-zone | B-patch) ; true | false",
+   "meaning": "Which named test regions the agent is in, and whether this tick's cell is new to this life. Earlier entries into B's cells (a C7 covariate) are counted from these. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "spot_distances",
+   "values": "cells to each named spot (T9: stone | real-seed | dud-seed | reference-cell)",
+   "meaning": "Derived from position every tick (C8). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "wide_view_objects",
+   "values": "list of world-side object ids in the wide view this tick (log only), each flagged with its test role (for example B object, never-tried object, stone, known food, seed, probe object)",
+   "meaning": "The one field for what is in the wide view, used by C7, C8, C9 and C10. Replaces 'wide-view object list per tick' and 'wide_view_contents flags'. Sightings (PLACEHOLDER-95) and availability per period are computed from it. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "yoked_partner_agent_id",
+   "values": "agent_id or none",
+   "meaning": "The agent_id of the life this life is yoked to (T8 HUNGER-YOKED, C7). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "period",
+   "values": "P1 | P1' | P2 | P3 | P4",
+   "meaning": "T9 only: which test period the tick falls in. P1' is P1 minus the applicability window (C8). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "time_weighted_E_minus_R",
+   "values": "number",
+   "meaning": "E - R averaged over the ticks of a period (C8). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "candidate_count",
+   "values": "integer",
+   "meaning": "Number of candidates in memory this tick (C7, C8). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "exposure_events",
+   "values": "{tick, channel: wide | sharp-parts | sharp-details | smell | eat | watched, kind_id (world), object_id (world), scene_id, designed: true | false, creature_id (watched only), sharp_linked: true | false}",
+   "meaning": "The experience-ledger rows (W40), one per exposure, by channel. Per-kind exposure counts, demonstrations seen (wide-view eat-then-sign and sharp-linked), and the zero-exposure checks behind novelty certificates are summaries of these rows. Own eats per kind and per look-alike family come from eat_events. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "novelty_certificate",
+   "values": "{object_id or kind_id, certificate: object | behaviour, nearest match, channel, ancestral and own exposures per channel}",
+   "meaning": "The W40 certificate for each test object or kind placed as new (C7, C8). Exposures must be zero before placement. Written by the harness before placement. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "probe_instance_certificate",
+   "values": "{clone_id, object_id, kind_id, result: pass | fail}",
+   "meaning": "The W40 certificate for each probe object instance, checked before the probe (C9, C10). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "rule_seen_in_ancestry",
+   "values": "true | false, per family",
+   "meaning": "Whether the family's rule appeared in the lineage's ancestral pool. Splits rule-seen from rule-never-seen families (C1, C2, C3). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "probe_pair_key",
+   "values": "string",
+   "meaning": "C2: links each PRE probe to its post probe. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "checkpoint_e",
+   "values": "integer",
+   "meaning": "T3: the own-eat count e at which a checkpoint probe clone was taken (C3). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "probe_set",
+   "values": "S0-exclusion | S0-baseline | checkpoint (T3) ; a | b | c | late-a (T10)",
+   "meaning": "Which probe set a probe clone belongs to. One field with the union of values; each test uses only its own values (C3, C9). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "arena_decision_events",
+   "values": "{tick, object_id, distance, outcome: eat | leave, correct (world side)}",
+   "meaning": "T3 arena decisions (C3). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "family_order",
+   "values": "integer",
+   "meaning": "C3: the position of each family in this Frankie's sequence of families. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "scene_id",
+   "values": "scene id (ledger I10)",
+   "meaning": "The scene at a cell. Logged at Frankie's cell every tick and at the probe (C4); exposure_events carry it. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "closest_approach_distance",
+   "values": "cells",
+   "meaning": "Per trial: the closest Frankie came to the probe object (C4). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "memory_state_dump",
+   "values": "{candidate list, per-candidate per-feature relevance weights, reliability marks}",
+   "meaning": "A full copy of memory at a named snapshot (C4 at the snapshot; C5 at S_T and S_k). Log only. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "thinking_cost / thinking_cap",
+   "values": "number, per tick and per decision ; cap value or none (OS01 cap | free)",
+   "meaning": "The thinking cost spent, and the cap applied under OS01 (C4, C5). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "probe_onset_tick / commit_tick / ticks_to_commit / time_pressure",
+   "values": "tick ; tick ; integer ; true | false",
+   "meaning": "Decision timing for each probe (C5). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "high_low_selection",
+   "values": "{weights used, chosen kinds, surface distance of each to T}",
+   "meaning": "C5: how the high and low look-alike kinds were chosen. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "arena_layout",
+   "values": "{object positions and roles, distances}; T6: ring_rotation, ring_object_role (N | known), wide-view salience and distinguishability values; T9: food positions, distances from food to the three spots, the stone's distance to the food",
+   "meaning": "The layout certificate of a test arena, written when the arena is built (C6, C8). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "first_response",
+   "values": "{tick, target object (world side), channel: gaze | step}",
+   "meaning": "T6: Frankie's first response after onset (C6). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "untried_option_value",
+   "values": "{option, value, first_encounter_average}",
+   "meaning": "C7: the value given to each untried option and the first-encounter average it came from, showing that no novelty bonus was used. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "source_failure_state",
+   "values": "{own source-failure record, blind-search-time estimate, first-encounter average, candidate_count}",
+   "meaning": "C7: recorded at window start and at tick 7,500. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "drop_records",
+   "values": "{matched_set_id, agent_id, tick, reason}",
+   "meaning": "Each pair or set dropped under an attrition rule, with the reason (C7). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "seed_state",
+   "values": "{growth_stage, edible, sprout_tick, fruit_drop_ticks, eaten_by (per fruit), seed_eaten, tree_tick, first_fruit_tick, harvest_tick} (world side)",
+   "meaning": "One field for seed and tree state in T9 (C8) and T11 (C10); each test fills the parts it uses. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "place_time_memory_records",
+   "values": "{spot, tick, outcome tag}",
+   "meaning": "C8: Frankie's place-and-time memory records for the stone, seed, dud and reference spots, regenerated by exact replay. Log only. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "t0_check_results",
+   "values": "{check id, result: pass | fail}",
+   "meaning": "Code-check results, for example T0(e) under PLACEHOLDER-109 (C8). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "swap_record",
+   "values": "{swap partner agent_id, swapped R, b, desperation_slope}",
+   "meaning": "C13-M5 swap runs. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "sensor_redraw_record",
+   "values": "{start tick, channel, number index, bit position}",
+   "meaning": "C13-M sensor-redraw clones: where the one-bit flip was made. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "continuation_summary",
+   "values": "{share of time per scene (ledger I10), share of eats per kind}",
+   "meaning": "C13-M continuation-FAST clones. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "e1_eligibility_record",
+   "values": "{kinds involved, own-eat counts per kind before the branch, single-draw menu check, own-log check, evolution-record check, T17 closure-library check}",
+   "meaning": "C13-E1 eligibility. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "failure_trigger",
+   "values": "{type, tick, kind_id (world side)}",
+   "meaning": "C9: the logged failure before teacher contact. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "teacher_schedule",
+   "values": "{arrival_tick, departure_tick, test_start_tick}",
+   "meaning": "C9, C10: when the teacher arrives and leaves, and when testing starts. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "teacher_state",
+   "values": "{position, heading, object_at_or_in_front (world side), object_disappeared}",
+   "meaning": "The teacher's state every tick (world side, C9). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "teacher_sign_rendered",
+   "values": "glow | tint | none | hidden",
+   "meaning": "How the teacher's sign appears in Frankie's wide view (C9, C10). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "teacher_events",
+   "values": "{tick, event: ate (kind, true nature) | approach-pause-turn-away (kind) | seed-placed | waited | revisited | harvested | waited-at-dud | wiggle | barrier-sequence, R6 fallibility flag, in_wide_view: true | false, in_sharp_view: true | false} (world side)",
+   "meaning": "Teacher actions (C10; C11 for R5's wiggle and barrier sequence). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "memory_slot_occupancy",
+   "values": "slots in use ; capacity",
+   "meaning": "C9: how full memory is. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "kind_role",
+   "values": "trust-earning | trust-test",
+   "meaning": "C10: each kind's role from the frozen teacher spec, fixed within a life and its clones. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "scored_teacher_choice",
+   "values": "{clone_id, teacher's choice, scored outcome}",
+   "meaning": "C10: the teacher choice each agreement probe is scored against. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "barrier_room_id / barrier_episode",
+   "values": "string ; {start_tick, end_tick, end_reason} (world side)",
+   "meaning": "C11 barrier rooms and episodes. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "place_memory_reads",
+   "values": "{tick, place record read, proposal it fed}",
+   "meaning": "C11: place memory read by 'go to a remembered place' proposals. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "library_fingerprints",
+   "values": "hashes of: P_motif (the frozen P motif, T12); teacher closure library; lifetime teacher log (secondary group); evolution motif library; classifier-check sequences",
+   "meaning": "One field for the fingerprints of frozen libraries (C11, C12). Replaces C11's 'P_motif_fingerprint'. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "room_id / room_instance / room_entry_life_age",
+   "values": "string ; integer ; ticks",
+   "meaning": "T13 rooms (C12). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "segment_boundaries / approach_windows",
+   "values": "tick ranges (world side)",
+   "meaning": "T13 segment boundaries and approach windows (C12). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "target_events",
+   "values": "{tick, type: set | clear, target}",
+   "meaning": "C12 (secondary): mind-side target set and clear events. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "failed_attempt_events",
+   "values": "{tick, type: bump | dead-end | walk-back}",
+   "meaning": "C12 failed attempts. Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "push_events",
+   "values": "{tick, log position}",
+   "meaning": "T15 pushes of the log (C12). Merged from the claims' schema additions (issue 20)."
+  },
+  {
+   "name": "counted_eat_certificate",
+   "values": "{eat tick, menu-closure result, motif certificate, replay clip id}",
+   "meaning": "C12: the certificate behind each counted eat. Merged from the claims' schema additions (issue 20)."
+  }
+ ],
+ "statistics_policy": "PRIMARY FAMILY (new ledger row X32). There are seven headline claims: C1, C2-SOUR, C3, C7, C8, C9 and C12, so m = 7 [Aitzaz Q4, 24 Oct]. Holm step-down at a familywise alpha of 0.05: sort the seven single p-values from smallest to largest and compare them in turn with 0.05/7 = 0.00714, 0.05/6 = 0.00833, 0.05/5 = 0.0100, 0.05/4 = 0.0125, 0.05/3 = 0.0167, 0.05/2 = 0.0250 and 0.05/1 = 0.0500. Reject in that order and stop at the first p that is above its level; that claim and every later one fail. If Aitzaz rules that taste never takes part in recognition, C2-SOUR leaves the family before the Wave 1 freeze and m = 6, giving levels 0.00833 to 0.05 [Aitzaz Q2, 24 Oct]. C4 may join only if its N is raised to 100 before the Wave 1 freeze, which makes m = 8 [Aitzaz Q4, 24 Oct]. Family membership and m are fixed at the Wave 1 freeze (X02), including C9 as a committed member even though C9 itself is frozen in Wave 2; Wave 2 may not add or remove members. If C2-SOUR leaves (m = 6) or C4 joins (m = 8), that also happens before the Wave 1 freeze. No document may hard-code a level such as '0.005' or 'at most 10 primaries'; every document cites X32. PLACEHOLDER-79 is closed by X32.\n\nONE RULE FOR EACH PRIMARY'S SINGLE p. A claim's Holm p is the largest one-sided p among its named effect parts. This is an intersection-union rule: because every effect part must pass, the false-positive rate cannot rise. The direction of every effect part is pre-registered. A part written as a confidence bound is converted into a one-sided p against its margin (non-inferiority or superiority). Any bound printed for an effect part is taken at the Holm level at which the claim is finally tested, never at a fixed 95%. The named effect parts are:\n- C1: (2) D_beh(O) minus D_beh(Z), a one-sided permutation test stratified by family; and (4) FarMinusNeutral, a one-sided Wilcoxon. (4) loses its separate fixed 0.01.\n- C2-SOUR: non-inferiority p-values for (1) mean Delta_far above -0.10, (2) Delta_far(SOUR) minus Delta_far(SWEET-CONTROL) above -0.10, and (3) mean Delta_look below +0.10.\n- C3: the stratified log-rank one-sided p for E50, Frankie versus B1n-mind.\n- C7: T7(1), T8(c) versus NO-CHANGE, and T8(c) versus HUNGER-YOKED.\n- C8: S1; S6 seed versus dud; S6 seed versus the reference cell; S7 versus NO-SEED; S7 versus YOKED-FRUIT.\n- C9: C9-M1, the one-sided Wilcoxon signed-rank on G.\n- C12: one-sided Mann-Whitney tests of R23 versus B0 and of R23 versus B1n-seq. Step 2 (R3) is a fixed-sequence follow-on: it is tested only if step 1 passes, at the level C12 received in Holm, with no extra alpha.\n\nOTHER PARTS INSIDE A PRIMARY.\n- Explanation gates are each tested at one-sided 0.05, uncorrected. Examples: C7's BDC, FIXED-RANDOMNESS and NO-RICH-ARM gates and T8(b1)/(b2); C8's S1b, S2, S3, S4 and S6b; C9-M2 to C9-M6; C12's hit-rate and switched-off comparisons; C3 (4). Gates decide what a pass is credited to or how it is labelled, never whether the effect exists.\n- Floors are fixed thresholds on estimates (ratios, shares, minimum differences). They have no test and must hold.\n- Validity, applicability and precondition checks are pass/void conditions. Where one needs a test, it uses one-sided 0.05.\n\nONE ALPHA FOR SECONDARY EVIDENCE. One secondary family of four members, Holm-corrected among themselves at a familywise 0.05 (levels 0.0125, 0.0167, 0.025, 0.05). Each member forms its single p with the same largest-p rule:\n- C4: effect parts (a) versus no-objection, (b) versus no-gating, (d) e_in versus the flat tower, and (d) e_out versus gates forced to maximum.\n- C6: effect parts (1) versus empirical chance, and (2) to (4), each under both responder and intention-to-treat scoring.\n- C2-MIRROR: effect parts Delta_look below 0, and Delta_far non-inferiority at -0.15. A_look_post at most 0.30 and the MIRROR-CONTROL difference at most +0.10 are floors.\n- C13-E (E1): effect parts KEPT versus REMOVED (Wilcoxon) and versus B1n-mind (Mann-Whitney).\nThis replaces C6's 0.01 and 0.05, MIRROR's 0.01 and E1's 0.005. Secondary results go in a separate table and are never merged into the headline tally. The optional T15 keeps its own Holm across its 5 controls at 0.05, outside both families.\n\nMECHANISM CHECKS. C5, C10, C11, C13-M, C2-MEMORY, C4 (c), C8-S8 and every T0 check use one-sided 0.05 per test, unless the claim pre-registers a stricter level (C5 keeps its 0.01). A level is never looser than that, and these results are never counted as evidence. Two-sided tests are used only where no direction is pre-registered: differences from a twin, and 'not significantly below 0' checks. Crediting to a conventional twin uses each claim's stated 90% equivalence interval and sits outside every family. The cautious-start replicate is reported outside every family and is never a pass condition. PLACEHOLDER-80 is replaced: there is no two-sided default and no rank-biserial floor.\n\nPART-LEVEL TAGS. In the charter table every part carries exactly one tag: PRIMARY-EFFECT, SECONDARY-EFFECT, GATE, FLOOR, VALIDITY, APPLICABILITY, MECHANISM or REPORTED. The claim-level tag is read off its effect parts. The mixed claims are tagged as follows:\n- C2: SOUR (1) to (3) PRIMARY-EFFECT; SOUR (4) and the per-half means FLOOR; (5) APPLICABILITY; (6) REPORTED; (7) VALIDITY. MIRROR is SECONDARY-EFFECT, with the 30-room-Frankie rule as APPLICABILITY. MEMORY is MECHANISM.\n- C4: (a), (b) and (d) SECONDARY-EFFECT; (c) MECHANISM; the bot profile VALIDITY.\n- C8: S1, S6 and S7 PRIMARY-EFFECT; S1b, S2, S3, S4 and S6b GATE; S5 FLOOR; S8 MECHANISM; S9 VALIDITY.\n- C13 is split into C13-M (M1 to M7, MECHANISM) and C13-E (E1, SECONDARY-EFFECT).\n- C12: step 1 PRIMARY-EFFECT; step 2 PRIMARY-EFFECT (fixed sequence); H and switched-off GATE; rate-ratio 2 FLOOR; T15 REPORTED (optional, own family).\n- Twin crediting: in every claim (C1, C2, C3, C4, C6, C7, C9, C10, C12, C13-E) the twin-crediting part is tagged GATE and sits outside every family. It uses the claim's 90% equivalence interval and stated margin; a two-sided difference p, where computed, is REPORTED only.\nA claim counts in the evidence tally only through its PRIMARY-EFFECT or SECONDARY-EFFECT parts. N comes from the joint-power rule (X39), may only go up, and is never changed after results are seen.",
+ "shared_definitions": [
+  {
+   "term": "Document map",
+   "definition": "claims-perception = C1-C6. claims-drive = C7, C8, C12, C13 (C13-M and C13-E). claims-social = C9, C10, C11. ledger = the ledger rows (W, B, M, T, E, X, I). register-forbidden = the register of unspecified details (PLACEHOLDER rows) plus the forbidden list. Every routing instruction uses this map.",
+   "resolves_issue": []
+  },
+  {
+   "term": "ID conventions and claim-qualified part names",
+   "definition": "Tests are written T0-T15 with no leading zero. Ledger teacher rows are T01-T18. Baseline ids (B0, B1t, B1n-*, B2-B9) are not ledger body rows (B01-B21). Gamer bots are G01-G18, off-switch versions OS01-OS23 (OS22 retired), conventional twins TW1-TW7 (and TW1u), test fixtures MK1-MK10, and prior-control cohorts PC1-PC3. A part of a claim is always named with its claim, because C9 and C13 both have parts M1-M6/M7 that clash with ledger rows M01-M53: so C9-M1, C13-M3, C13-E1, C8-S7, C7-T8(c). The pending-question tags are written exactly [Aitzaz Q1, 24 Oct] to [Aitzaz Q5, 24 Oct].",
+   "resolves_issue": [
+    3,
+    4,
+    20
+   ]
+  },
+  {
+   "term": "Decision and principle numbering",
+   "definition": "D1-D16 means only the 24 Oct 2026 decision list, cited in the ledger's decision_ref column. As tagged there: D1 pre-registration, freezes, sealed vaults and closure library; D2 two-way essence; D3 write rule; D4 untried value and newborn start; D5 energy-dependent randomness and insurance; D6 satisficing; D7 temperament and fair comparison; D8 sharp-look spending and evolved perception; D9 social learning with no copy urge; D10 glimmer stone, place memory and seeds; D11 plan elimination; D12 spiking neurons; D13 outside-in tower; D14 novelty, wiggle and experience certificates; D15 who lives in a world; D16 taste and no nibble. The v1.1 proposal's principles_kept 'decision 1-8' are renamed P1-P8 everywhere: P1 no LLM inside; P2 a less-optimal path is worth more, and conventional plumbing only; P3 hybrid mind; P4 evolution shapes recognition only; P5 randomness proposes and character decides; P6 curiosity as insurance; P7 teacher as scaffolding; P8 patience follows teacher reliability. Every 'decision N' in any document becomes DN or PN depending on which list it means. Bare 'decision N' is not allowed.",
+   "resolves_issue": [
+    7
+   ]
+  },
+  {
+   "term": "Holm-adjusted level",
+   "definition": "The level each primary claim is tested at, under ledger X32 (m = 7; strictest step 0.05/7, about 0.0071). Secondary evidence uses its own family of 4 at a familywise 0.05. The full rule is in the statistics policy. The literal values '0.005' and '10 primaries' are retired.",
+   "resolves_issue": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "term": "Part-level tag",
+   "definition": "Each part of a claim carries one tag: PRIMARY-EFFECT, SECONDARY-EFFECT, GATE, FLOOR, VALIDITY, APPLICABILITY, MECHANISM or REPORTED. C13 is split into C13-M (mechanism check) and C13-E (secondary evidence). The evidence tally counts only parts tagged as effect parts.",
+   "resolves_issue": [
+    2,
+    3
+   ]
+  },
+  {
+   "term": "B1n family",
+   "definition": "Four separately named items replace the bare name 'B1n'. B1n-bot is the standalone eat/skip probe bot, used in C1, C2 and C4. B1n-forager is B1n-bot's memory on Frankie's body with greedy movement, used in C7. B1n-mind is Frankie with nearest-neighbour memory in place of the tower and write rule, used in C3, C13-E and the X29 gate. B1n-seq is the sequence keep-and-retry learner on Frankie's menu, used in C12 for T13 and T15. Ledger X36 holds all four. Every citation names its variant.",
+   "resolves_issue": [
+    4
+   ]
+  },
+  {
+   "term": "T1 groups O, Z, Z0",
+   "definition": "O (100) eats one super-sweet h1. Z (100) eats one never-seen nourishing kind U from an unrelated family, matched to h1 as follows: U's energy gain within plus or minus 1 unit of h1's, and each of U's 4 taste numbers (PLACEHOLDER-47) within plus or minus 0.05 of h1's, that is 5% of that taste number's full range (Claude placeholder, PLACEHOLDER-101), on the same host and in the same scene. Z0 (50, reported only) has no taste. The headline comparison is O versus Z. C2's H2-ONLY clones come from group Z, so they have already eaten U.",
+   "resolves_issue": [
+    5
+   ]
+  },
+  {
+   "term": "Ledger test row (X10-X26)",
+   "definition": "A short pointer to the claim that owns the test, holding only the frozen numbers copied from that claim: X10-X11 to C1, X12 to C2, X13 to C3, X14 to C4, X15 to C5, X16 to C6, X17-X18 to C7, X19 to C8, X20 to C9, X21 to C10 (a mechanism check), X22 to C11, X23 and X25 to C12, X24 to C13, and X26 to the statistics policy and X32. The claim text holds the rule; the row never restates it differently.",
+   "resolves_issue": [
+    6
+   ]
+  },
+  {
+   "term": "Energy bands",
+   "definition": "well-below: E <= R-10. near: R-10 < E < R+20. well-above: E >= R+20. These are C7's bands, frozen in the Stage 4 specs as new ledger row M54. They are the only bands used anywhere: C7, C13, habit similarity (PLACEHOLDER-98) and log field energy_band.",
+   "resolves_issue": [
+    13
+   ]
+  },
+  {
+   "term": "Satisficing bar and boldness",
+   "definition": "The bar is the predicted chance of staying above R over the drive horizon that an option must reach. One rule: boldness lowers the bar, with required chance = 0.9 - 0.3 x b (PLACEHOLDER-27) [Aitzaz Q3, 24 Oct]. PLACEHOLDER-22 is restated as 'the bar comes from PLACEHOLDER-27'. Boldness does not reweight losses. C13 and C7's boldness split cite this rule and no other role.",
+   "resolves_issue": [
+    8
+   ]
+  },
+  {
+   "term": "Option order and no-safe-option fallback",
+   "definition": "The habit option is considered first, then proposals in the order drawn (PLACEHOLDER-23) [Aitzaz Q3, 24 Oct]. If no option clears the bar, Frankie takes the option with the best chance of staying above R (ledger M47) [Aitzaz Q3, 24 Oct]. That choice is tagged action_provenance=no-safe-option-fallback with no_safe_option=true, and its share is reported (C7). This is the only place a best-score rule is allowed inside Frankie. The backups-don't-count gate covers it.",
+   "resolves_issue": [
+    23
+   ]
+  },
+  {
+   "term": "Decision tick (satisficing chooser)",
+   "definition": "A sampled tick for C13 is one of two types. Type close-call: an option ahead of the chosen one in the chooser's order missed the bar by less than delta, or the chosen option cleared the bar by less than delta. On a no-safe-option tick, where the fallback is a best-score rule, close-call means another option is within delta of the fallback's chance. Type choice-change: the choice differs from the previous tick's. delta = 0.05 in predicted chance of staying above R (PLACEHOLDER-99). Margins come from the replayed drive trace (M53). PLACEHOLDER-67 ('top two options within 0.05') is retired.",
+   "resolves_issue": [
+    9
+   ]
+  },
+  {
+   "term": "Proposal-count curve, N_max and fractional counts",
+   "definition": "Above and near R, PLACEHOLDER-25 is unchanged: 1 proposal within 10 units of R, rising in a straight line to 4 at R+40. Below R-10 the count rises at that Frankie's own desperation slope s (PLACEHOLDER-26): count = 1 + s x (R-10-E), capped at N_max = 6 (PLACEHOLDER-97). The FIXED-RANDOMNESS value is the curve at R+20, which is 2 under the placeholder, and is unaffected. A fractional count x is rounded stochastically: floor(x)+1 with probability equal to the fractional part, drawn from the proposal stream (PLACEHOLDER-96). So a T14 redraw also redraws the rounding.",
+   "resolves_issue": [
+    14,
+    15
+   ]
+  },
+  {
+   "term": "Hysteresis",
+   "definition": "There is none in the main version (PLACEHOLDER-25, PLACEHOLDER-100). The hysteresis-off control (OS22) and the 'hysteresis state' log field are removed from X08 and C13. If Aitzaz defines hysteresis before Stage 6, it gets a ledger row and C13's conditional pass rules come back.",
+   "resolves_issue": [
+    16
+   ]
+  },
+  {
+   "term": "Habit similarity and habit contribution",
+   "definition": "The similarity score counts how many of three parts match between a situation and a habit origin: scene, top recognised kind in view, and energy band (M54). It runs from 0 to 3. 'Similar' means 3/3, and C13's 'window threshold' is 3 (PLACEHOLDER-98, which replaces PLACEHOLDER-29). Habit contribution is 'zero' when no habit weight entered the choice. C13-M3 and C13-E1 use exactly these terms.",
+   "resolves_issue": [
+    13
+   ]
+  },
+  {
+   "term": "Struck option; reasoned and rote",
+   "definition": "A struck option is an option the chooser ruled out by prediction before trying it. It is logged as a struck-option event in struck_options and never as an action or a provenance value. 'Eliminated-by-prediction' is retired as a provenance value. The strike class is decided on the world side, the same way for C3, C7 and C12 and for every agent. It is rote if this agent's ledger shows at least one own eat of, or sickness from, any instance of the same world kind before the strike. It is reasoned only if that kind has zero own eats. It is no-kind if the option has no object kind (a route move), and no-kind strikes never count as reasoned. Watched exposures of the kind are logged alongside the strike. The noise-width version of PLACEHOLDER-38 is retired, and ledger M31 is restated this way. Tower elimination among candidates is a different thing and keeps the name elimination_events.",
+   "resolves_issue": [
+    12,
+    20
+   ]
+  },
+  {
+   "term": "Top-up and yoking interval",
+   "definition": "50 ticks. TOPPED-UP: every 50 ticks after tick 5,000, E is raised back to its tick-5,000 level if it is below it. Yoking: at every 50-tick checkpoint the difference from the partner is removed or added evenly over the next 50 ticks. Both are logged injection_events (W45) and printed on the priors card. PLACEHOLDER-83 (100 ticks) is retired.",
+   "resolves_issue": [
+    10
+   ]
+  },
+  {
+   "term": "Designed-exposure policy",
+   "definition": "Only these tests may force an eat, and only at these points. T1: h1 for O and U for Z, if not eaten by choice within the 200-tick choice window. T2: h2, the SWEET-CONTROL apple, and the MIRROR and MIRROR-CONTROL look-alikes, if not eaten within the 30-tick window. T4: F and P_F learning-phase eats, after 3,000 ticks without them. T5: one designed eat of a nothing-nature instance per look-alike kind. T6: each of the 3 known kinds once, if needed. T8: the pre-exposed half's designed walk past B at tick 3,000 with exactly one taste. No other test may force an eat; T7, T9, T10 and T13 are named explicitly, and adding a test needs a register change before the freeze. Every designed exposure is flagged (action_provenance=designed-exposure), printed on the priors card, and the chosen and forced subgroups are reported separately. Setting energy at a probe is an energy injection, not an exposure. This rewrites PLACEHOLDER-85. Kill test (KILL_TEST.md, bench only): forced eats are allowed only for the 40 warm-up tastes and the 8 teaching tastes, and for h2 and SWEET-CONTROL if skipped (PLACEHOLDER-85).",
+   "resolves_issue": [
+    11
+   ]
+  },
+  {
+   "term": "Forced eat with no verdict",
+   "definition": "A designed exposure with no committed verdict, or with verdict 'unknown', is treated as an eat judged 'unknown'. A new candidate is created as in PLACEHOLDER-09, with no blame step, and logged with memory_write_events trigger=designed-exposure (PLACEHOLDER-93, for Aitzaz to initial). C1, C2, C4, C5 and C6 cite this one rule.",
+   "resolves_issue": [
+    11
+   ]
+  },
+  {
+   "term": "Stomach delay in test lives",
+   "definition": "Every protocol eat uses d = 10 whatever the life's age. A protocol eat is any designed-exposure item (h1, U, h2, the sweet-control apple, L*, T5 look-alike eats, T4 learning-phase F/P_F, T6 known kinds) and every probe eat in a snapshot-and-probe test (T1, T2, T3 checkpoints, T4, T5, T6, the T9 S3/S4 probes, and the T10 and T11 probes). Other eats follow PLACEHOLDER-49: 3 in ancestral lives and in the first 2,000 ticks of a test life, then 10. Every frozen spec states its d and the tick it switches (PLACEHOLDER-102). The applied value is logged in eat_events.stomach_delay_d.",
+   "resolves_issue": [
+    30
+   ]
+  },
+  {
+   "term": "Visit and patient harvest",
+   "definition": "This is C8's definition, shared with C10. A visit to a spot is a run of consecutive ticks in which the agent is within 4 cells of the spot or has its sharp view on it. Runs separated by fewer than 20 ticks merge into one visit. Discovery is the first visit to the real seed. Patient harvest means all four of these: discovered the real seed before its first fruit; left it uneaten until it became a tree; made at least 1 visit per 100 ticks between discovery and first fruit; ate at least one fruit from that tree. Dud-waiting (C10) means 2 or more visits to the dud over the same period. C10's 300-tick harvest window and its old 3-cell visit definition become reported only.",
+   "resolves_issue": [
+    17
+   ]
+  },
+  {
+   "term": "Motif tokenizer",
+   "definition": "There is one tokenizer, ledger X40, shared by C11, C12, C13-E1 and the teacher closure library (T17). It is frozen before the closure library is built, and before any mind code exists. Placeholder until Aitzaz picks at initialling: C12's world-side token, which is the step = (direction relative to heading of the next object this agent eats, judged in hindsight, or 'none'; a blocked-ahead flag; a food-in-wide-view flag) plus the action with turn direction, with no collapsing of repeated actions and exact matching. It is world-side so it applies the same way to every baseline. PLACEHOLDER-65's version (scene, target in front, barrier ahead, energy band, repeats collapsed) is kept only as a reported sensitivity check. Exception: K-F, the bench-only kill-test prototype, may exist earlier under KILL_TEST.md section 1 (X40).",
+   "resolves_issue": [
+    18
+   ]
+  },
+  {
+   "term": "T13 group and freeze",
+   "definition": "The primary T13 group is 100 evolved, teacher-free Frankies, frozen in Wave 1 (Stage 4) with T0-T9 and T14. For them, reference set (a) is the teacher closure library only; the lifetime teacher log is empty by construction, and the priors card checks teacher_ever_present=false. A teacher-raised group is secondary: it is reported separately, frozen with Wave 2 before any teacher-raised Frankie runs, and adds that lifetime's teacher log to reference set (a). It is never pooled with the primary group (PLACEHOLDER-111).",
+   "resolves_issue": [
+    19
+   ]
+  },
+  {
+   "term": "Survival-floor policy in T13 rooms",
+   "definition": "There is no survival floor. Energy is never reset when it reaches 0, and dying at 0 (B06) holds in every room and every pre-room life. Each problem room is a separate clone from the agent's room-entry snapshot at the matched life age, so a death in one room does not affect the others. Entry energy is set once at entry by a logged energy-set injection (Frankie's cohort median reserve + 10 for agents with no reserve). This set never depends on low energy. Reaching room-entry age is an entry condition applied the same way to every agent type: each type's room cohort is the first 100 lives, in pre-registered seed order, that reach room age, and deaths before room age are reported per type. Inside a room, death ends that room. The denominator for R3 and R23 is always the scheduled 2,000 ticks per room, so ticks after death count with zero eats; dying is never rewarded. Death events and own-log length are covariates, and a per-ticks-lived version is reported. Ledger W46 is rewritten to say this.",
+   "resolves_issue": [
+    29
+   ]
+  },
+  {
+   "term": "C9/C10 shared groups",
+   "definition": "The same lives (T, N and S clones) serve both claims and are paid for once. C9's main cohort (p = 1.0, signs visible) is C10's (1.0, visible) cell; C9's X clones are used only by C9. C9's signs-hidden p = 1.0 is C10's (1.0, hidden). C9's visible p = 0.75 is C10's (0.75, visible). C9's hidden p = 0.75 is C10's (0.75, hidden). C9's uninformative signless creature is C10's uninformative, signs-hidden cell. That is 5 x 100 lives. Not shared: C9 reversed p = 0.75, C9 yoked (Y clones), C10 p = 0.5 (both sign conditions), C10 uninformative signs-visible, trust-locked, the G12 waiter, and every bot and twin run. Shared lives carry both claims' single-probe clones from the same post-gap snapshot, with kind roles set in the frozen teacher spec. Both claims list these groups explicitly (PLACEHOLDER-110).",
+   "resolves_issue": [
+    28
+   ]
+  },
+  {
+   "term": "Kind budget",
+   "definition": "The budget is the number of distinct sealed kinds the whole battery uses (W35), filled claim by claim in PLACEHOLDER-63 before initialling. Current counts (Claude placeholders, for Aitzaz to initial): C1 about 190, C2 0 new, C3 about 120, C4 about 20, C5 about 250, C6 about 55, C7 about 175, C8 about 100, C9 and C10 teaching vault about 24 (counted once), C11 0, C12 0, C13 0. Total about 934, which is within the 1,000 budget, so the budget is not raised. Reuse rule: where a claim's novelty condition is per Frankie and the ledger certifies it per life, a kind may be reused across Frankies and across matched sets. It may never be reused within a life, within a matched set, or between a lineage's ancestral pool and its tested lives. T8's untried kinds follow this rule (PLACEHOLDER-107). If the total passes 1,000, the budget is raised. N is never cut. C5's stock reduction to 12 per target is allowed only as a pre-freeze design choice.",
+   "resolves_issue": [
+    31
+   ]
+  },
+  {
+   "term": "Cautious-start replicate",
+   "definition": "Scope of ledger M25: C7 (50 T7 pairs, 50 T8 sets), C8 (50 matched sets; effect parts S1, S6, S7) and C12 (50 Frankies; step 1 comparisons). Effect parts only. It uses the cautious newborn starting value set in M25, is reported next to the neutral result, sits outside every Holm family and is never a pass condition. If a result passes at neutral but not at cautious, it is labelled 'supported at neutral start only'.",
+   "resolves_issue": [
+    26
+   ]
+  },
+  {
+   "term": "Newborn failure belief",
+   "definition": "A newborn's belief about how often food sources fail is zero until Frankie sees a source fail (ledger M48) [Aitzaz Q3, 24 Oct]. Any non-zero starting value is logged as a designed prior. This is separate from the newborn starting value for untried things (M25).",
+   "resolves_issue": [
+    26
+   ]
+  },
+  {
+   "term": "Value table (boundary of the forbidden entry)",
+   "definition": "Allowed: tallies (counts or sums of energy changes) of Frankie's OWN outcomes for a situation or option. Each tally is updated only from outcomes seen within a fixed credit window after that choice, with no discounting, and is never updated from another estimate. This covers M34's habit weights (logged as habit_weight_updates), PLACEHOLDER-21's counting estimator, and the trust and influence updates of PLACEHOLDER-40 and PLACEHOLDER-41, whose credit window is 300 ticks after the watched event (Claude placeholder). Banned: anything that updates one situation's value from another situation's value or estimate, including TD errors, Bellman backups, discount factors, Q-tables, value functions and eligibility traces that pass value backward across situations. Review checks the habit and drive design notes against this line. Aitzaz confirms it at initialling.",
+   "resolves_issue": [
+    21
+   ]
+  },
+  {
+   "term": "Boredom counter (boundary of the forbidden entry)",
+   "definition": "Forbidden: any quantity, per object, per kind, per place or cell, or global, that grows or shrinks with the number of looks, visits or exposures whatever their outcome. This includes a per-place look count for an object that never moves. Allowed: fading place-and-time records, each tied to an observed outcome ('investigated here, nothing came of it'), and these records may add up [Aitzaz Q2, 24 Oct]. T0(e) code check: run scripted repeated looks with the outcome-record write intercepted. Any mind state that still changes with the number of looks, apart from the sensory buffer, flags a counter. PLACEHOLDER-109 holds the rule.",
+   "resolves_issue": [
+    22
+   ]
+  },
+  {
+   "term": "Creature identity and trust",
+   "definition": "Frankie remembers a creature across short gaps out of view. The gap length goes in PLACEHOLDER-39, and before the Wave 2 freeze it is piloted on stand-in kinds to measure how often a slot resets for a creature that is still the same one (creature_id versus creature_slot) [Aitzaz Q2, 24 Oct]. Choice-trust and sign-meaning are tracked separately, with one trust per creature that applies to food and seeds alike [Aitzaz Q2, 24 Oct]. Until then, ledger M50 and PLACEHOLDER-39 carry this placeholder.",
+   "resolves_issue": [
+    24
+   ]
+  },
+  {
+   "term": "Taste in recognition",
+   "definition": "Taste is stored in candidates like any detail trait and takes part in the verdict after eating. A guess counts as wrong only when the energy outcome does not match (PLACEHOLDER-92, M51) [Aitzaz Q2, 24 Oct]. If Aitzaz rules otherwise, C2-SOUR becomes a mechanism check and the primary family shrinks to m = 6 [Aitzaz Q2, 24 Oct].",
+   "resolves_issue": []
+  },
+  {
+   "term": "Glimmer stone and seed edibility",
+   "definition": "The stone cannot be eaten: an attempt costs the normal eat energy, gives a flat taste, and leaves the stone in place (W49). A seed or sprout can be eaten until it is a tree, giving +1 and destroying it, up to growth tick 400 (W50) [Aitzaz Q2, 24 Oct].",
+   "resolves_issue": []
+  },
+  {
+   "term": "Recognised as the kind (coding)",
+   "definition": "Strict reading: an eat counts as naming the kind only if Frankie eats AND its last committed verdict names h1's candidate or one of its descendants in the lineage table (stretch, merge or split child). In C2 a split child counts for the behaviour, and 'joined the same kind' is the MEMORY mechanism check. 'This is some other thing' and 'unknown' both count as correct rejections, reported separately. The 70% bar for real apples carrying a warning sticker is kept, and a cautious Frankie's rate is reported rather than failed. The D_strict bar stays at 0.40, with group Z (U) [Aitzaz Q1, 24 Oct].",
+   "resolves_issue": []
+  },
+  {
+   "term": "Evidence split and novelty labels",
+   "definition": "There are seven primaries (see the statistics policy), and C4 can be promoted only with N = 100 before the freeze. Tier 2 is labelled 'recombination' and 'novel' is kept for tier 3. Approaches found after failed attempts count, tagged 'found by trial'. A dax-test pass by evolved Frankies only is reported as a prior. Watching started by chance glances is accepted; if it is too rare, the result is 'not discovered' and nothing is added to rescue it [Aitzaz Q4, 24 Oct].",
+   "resolves_issue": []
+  },
+  {
+   "term": "Pass marks awaiting Aitzaz",
+   "definition": "C3: at least 2x B1n-mind per eat. C13-M1: 70-95% stability. C11: the 20% cap applies to all wiggles, labelled 'borderline' if the upper bound is above 20%. C2-MIRROR: at most 0.15 extra caution. C9: gain shown 500 ticks after the teacher leaves, plus a late probe at 3,000 ticks reported; fail-first reported, not required [Aitzaz Q5, 24 Oct].",
+   "resolves_issue": []
+  },
+  {
+   "term": "Smell with no object, and wide-view objects",
+   "definition": "PLACEHOLDER-94: an ambient smell ratio with no object attached enters the details layer as evidence for every candidate and for 'unknown', with no built-in link to any object (M52). PLACEHOLDER-95: the wide view lists each visible object with blurred hue and size; roundness and lobes are read only by the sharp view, up to 7 cells away. B15 is updated to match once this is frozen. C6 is 'not testable' until both are frozen, and with PLACEHOLDER-95 as written C6 must not expect roundness or lobes from the wide view.",
+   "resolves_issue": [
+    25
+   ]
+  },
+  {
+   "term": "Replaced register rows",
+   "definition": "PLACEHOLDER-80 is replaced by the statistics policy and each claim's floors. PLACEHOLDER-81 is replaced by C9-M6 and C10 (4). PLACEHOLDER-82 is replaced by C7's matched sets (X38) and C12's matched schedule. PLACEHOLDER-83 is replaced by the 50-tick top-up. PLACEHOLDER-67 is replaced by PLACEHOLDER-99. PLACEHOLDER-79 is replaced by X32. PLACEHOLDER-29 is replaced by PLACEHOLDER-98. Each row is marked 'replaced' with a pointer and is not deleted.",
+   "resolves_issue": [
+    27,
+    10,
+    9,
+    0,
+    13
+   ]
+  },
+  {
+   "term": "Canonical log schema",
+   "definition": "One schema file (PLACEHOLDER-64, ledger I11) holds the log_fields dictionary in this glossary. It is fingerprinted with the charter and written before any claim is frozen. Every claim's log list uses only schema names. Every field the claims once marked '[schema addition]' or 'PROPOSED SCHEMA ADDITIONS' is merged into log_fields, starting with tick. One name per concept: heading (not facing), wide_view_objects (C7-C10), and one probe_set field holding the union of values.",
+   "resolves_issue": [
+    20
+   ]
+  }
+ ],
+ "issue_routing": [
+  {
+   "issue": 0,
+   "fix_in": [
+    "claims-drive",
+    "ledger",
+    "register-forbidden"
+   ],
+   "instruction": "C7 and C8 thresholds: delete 'over at most 10 headline hypotheses', 'its strictest step here is 0.005' and '(strictest step 0.005)'. Write 'enters the primary Holm family in ledger X32 (m = 7; strictest step 0.05/7, about 0.0071)'. C13: remove the E1 '0.005' (see issue 2). Ledger: add X32 as the statistics policy states it. Rewrite X26 to 'N = 100 per condition for primary tests, N = 50 for the rest; Holm family and levels per X32'. Register: mark PLACEHOLDER-79 'replaced by ledger X32 [Aitzaz Q4, 24 Oct]'. Then search every document for the literal '0.005', '10 primar' and '10 headline' and replace each with a citation of X32."
+  },
+  {
+   "issue": 1,
+   "fix_in": [
+    "claims-perception",
+    "claims-drive",
+    "claims-social",
+    "ledger"
+   ],
+   "instruction": "Put one sentence in every primary claim: 'This claim's Holm p is the largest one-sided p among its effect parts: [list]'. C1: the parts are (2) and (4); delete (4)'s 'Wilcoxon p < 0.01'. C2-SOUR: the parts are non-inferiority p-values for (1), (2) and (3); replace '95%' with 'at the claim's Holm level'. C3: unchanged, versus B1n-mind. C7: unchanged; T8(c)'s interval is at C7's Holm level. C8: S1, S6 x2, S7 x2. C9: replace 'Holm-adjusted p < 0.05' with 'p below its Holm level under X32'. C12: R23 versus B0 and versus B1n-seq. Replace 'at the Holm-adjusted level, p < 0.05' with 'C12's single p enters X32'. Tag H and switched-off as GATE at one-sided 0.05, and state that step 2 is fixed-sequence at the same level. Ledger X32 states the rule once."
+  },
+  {
+   "issue": 2,
+   "fix_in": [
+    "claims-perception",
+    "claims-drive",
+    "ledger"
+   ],
+   "instruction": "C4: (a), (b) and (d) become SECONDARY-EFFECT, with a single p = the largest of the four comparisons, tested in the secondary family (X32); remove their 'p < 0.05'. C6: (1) to (4) under both scorings form one single p in the secondary family; remove '0.01' and '0.05' from (1) to (4); (6) stays a precondition at 0.05 and (7) stays VALIDITY. C2-MIRROR: the single p is the larger of Delta_look < 0 and the Delta_far non-inferiority at -0.15; remove 'p < 0.01'; the other numbers are FLOORs. C13-E1: remove 'one-sided 0.005' and the sentence 'can never be easier to pass than a headline claim'; E1 is tested in the secondary family. Ledger X32 adds the secondary family (4 members, Holm at 0.05). T15 keeps its own correction."
+  },
+  {
+   "issue": 3,
+   "fix_in": [
+    "claims-perception",
+    "claims-drive",
+    "ledger"
+   ],
+   "instruction": "Add a 'part tags' line to each claim, using the eight tags in the statistics policy. C2: SOUR PRIMARY-EFFECT, MIRROR SECONDARY-EFFECT, MEMORY MECHANISM. C4: (c) MECHANISM. C8: S8 MECHANISM, and so on per the policy. Split C13 into C13-M (M1 to M7, tag mechanism check) and C13-E (E1, tag secondary evidence), and rename all of its references (C13-M1 ... C13-E1). Ledger X09: rewrite as 'Tags apply to each part; the evidence tally counts only PRIMARY-EFFECT and SECONDARY-EFFECT parts'."
+  },
+  {
+   "issue": 4,
+   "fix_in": [
+    "claims-perception",
+    "claims-drive",
+    "ledger"
+   ],
+   "instruction": "Replace every bare 'B1n'. C1 controls and the must-fail list: B1n-bot. C2: B1n-bot. C3 (including E50(B1n) and the poison-bite comparison): B1n-mind. C4: B1n-bot. C7: B1n-forager. C12 (T13 and the T15 control): B1n-seq. C13-E: B1n-mind, deleting 'a new twin that needs its own ledger row'. Ledger: X03 lists B1n-bot and cites X36. Add X36 with all four variants as defined in the glossary. X29's Stage 6 gate cites B1n-mind."
+  },
+  {
+   "issue": 5,
+   "fix_in": [
+    "claims-perception",
+    "ledger"
+   ],
+   "instruction": "Rewrite ledger X10: 'Group O (100) eats one super-sweet h1; group Z (100) eats one never-seen nourishing kind U from an unrelated family, matched on energy and taste, same host and scene; Z0 (50, no taste) is reported only'. Rewrite X11 so that it compares O with Z (taste of U), as a pointer to C1's thresholds. C2: rename 'Group Z clones given h2 only' to the H2-ONLY condition and add 'these clones come from T1 group Z and have already eaten U'."
+  },
+  {
+   "issue": 6,
+   "fix_in": [
+    "ledger"
+   ],
+   "instruction": "Rewrite X10 to X25 as pointers, following the glossary's 'Ledger test row' mapping. Each row's rule_or_value becomes 'Specified in claim Cn (test Tk). Frozen numbers: ...', with the numbers copied from that claim's threshold and sample size, and with no old wording left: no 'joined h1's kind' as the pass, no E90, no '2 x e_in', no 'poisons less', no T11 as evidence, no N = 30, no temperament-swap evidence part. X21 is labelled mechanism check. X24 is N = 50, with evidence part C13-E1. X26 points to X32. Aitzaz initials only the claim versions."
+  },
+  {
+   "issue": 7,
+   "fix_in": [
+    "claims-perception",
+    "claims-drive",
+    "claims-social",
+    "ledger",
+    "register-forbidden"
+   ],
+   "instruction": "C10 aitzaz_words: delete the noisy-TV quote. Write 'No direct quote; from principle P8 (paraphrase). Aitzaz to confirm the idea is theirs.' In every claim, ledger text and the forbidden list's why_forbidden and how_checked fields, rewrite each 'decision N' or 'Decision N' as DN when it means the 24 Oct list, and as PN when it means the proposal's principles_kept. The current forbidden-list uses of decision 3, 4, 6, 9 and 10 become D3, D4, D6, D9 and D10. C11's 'Aitzaz's decision 14' becomes D14. Wherever a document quotes principles_kept, cite P1 to P8."
+  },
+  {
+   "issue": 8,
+   "fix_in": [
+    "register-forbidden",
+    "claims-drive",
+    "ledger"
+   ],
+   "instruction": "Register: restate PLACEHOLDER-22 as 'the bar comes from PLACEHOLDER-27'. Keep PLACEHOLDER-27 (required chance = 0.9 - 0.3 x b) [Aitzaz Q3, 24 Oct], decided by Aitzaz before Stage 6. C13: rewrite question 3 and any text where boldness weights losses, so that it cites PLACEHOLDER-27 only. C7: the boldness-third split cites PLACEHOLDER-27. Ledger M33 (temperament) cites PLACEHOLDER-27 for the role of b."
+  },
+  {
+   "issue": 9,
+   "fix_in": [
+    "register-forbidden",
+    "ledger",
+    "claims-drive"
+   ],
+   "instruction": "Register: mark PLACEHOLDER-67 'replaced by PLACEHOLDER-99', and add PLACEHOLDER-99 with the glossary's decision-tick definition (delta = 0.05, including the no-safe-option case). Ledger: X24's pointer cites PLACEHOLDER-99, and M53 cites it for delta. C13: replace 'the margin delta' with 'delta (PLACEHOLDER-99)' and add the no-safe-option sentence to the decision-tick definition."
+  },
+  {
+   "issue": 10,
+   "fix_in": [
+    "register-forbidden",
+    "ledger",
+    "claims-drive"
+   ],
+   "instruction": "Register: mark PLACEHOLDER-83 'replaced: 50-tick top-up, ledger W45'. Ledger W45: state the top-up rule (every 50 ticks, raise E back to its tick-5,000 level if it is below it) and the 50-tick yoking rule. C7: the TOPPED-UP and YOKED definitions cite W45."
+  },
+  {
+   "issue": 11,
+   "fix_in": [
+    "register-forbidden",
+    "claims-perception",
+    "claims-drive"
+   ],
+   "instruction": "Register: rewrite PLACEHOLDER-85 as the glossary's designed-exposure list (T1, T2, T4, T5, T6, T8 at the stated points; T7, T9, T10 and T13 explicitly banned; any other test needs a register change). Add PLACEHOLDER-93, the forced eat with no verdict. In C1, C2, C4, C5 and C6, replace the local 'what the write rule does after a designed exposure' questions with a citation of PLACEHOLDER-93, and cite PLACEHOLDER-85 at each forced-eat sentence. C7: T8's pre-exposure cites PLACEHOLDER-85. Every claim logs action_provenance=designed-exposure for forced eats."
+  },
+  {
+   "issue": 12,
+   "fix_in": [
+    "register-forbidden",
+    "ledger",
+    "claims-drive",
+    "claims-perception"
+   ],
+   "instruction": "Register: retire PLACEHOLDER-38's noise-width rule and replace it with the world-side rule (rote if the agent has any own eat of, or sickness from, the same world kind; reasoned only with zero own eats; no-kind for options with no object kind). Ledger M31: restate it the same way. C7 and C12: replace 'eliminated-by-prediction events tagged reasoned or rote' with 'struck_options with strike_class', and C12's 'proposed and kept by prediction' needs at least 1 struck option with strike_class=reasoned. C3: replace any 'eliminated-by-prediction' provenance entry with struck_options."
+  },
+  {
+   "issue": 13,
+   "fix_in": [
+    "register-forbidden",
+    "ledger",
+    "claims-drive"
+   ],
+   "instruction": "Register: mark PLACEHOLDER-29 'replaced by PLACEHOLDER-98' and add PLACEHOLDER-98 (score 0 to 3 over scene, top kind and energy band; similar only at 3/3). Ledger: add M54 for the energy bands (C7's bands); M34 cites PLACEHOLDER-98. C13: C13-M3 and C13-E1 use 'habit similarity score (PLACEHOLDER-98) at threshold 3' and the habit_contribution field (zero | nonzero). C7, C13 and every log list use energy_band values from M54."
+  },
+  {
+   "issue": 14,
+   "fix_in": [
+    "register-forbidden",
+    "claims-drive"
+   ],
+   "instruction": "Register: rewrite the below-R side of PLACEHOLDER-25 as 'below R-10 the count is 1 + s x (R-10-E), with s the Frankie's desperation slope (PLACEHOLDER-26), capped at N_max (PLACEHOLDER-97, placeholder 6)'. Delete the separate fixed 'rising to 5 at R-10 and below'. C13-M5: state that the swapped desperation slope acts through this one rule. The FIXED-RANDOMNESS value is unchanged."
+  },
+  {
+   "issue": 15,
+   "fix_in": [
+    "register-forbidden",
+    "claims-drive"
+   ],
+   "instruction": "Register: add PLACEHOLDER-96 (stochastic rounding from the proposal stream). C7: the FIXED-RANDOMNESS definition notes that the curve value is an integer at R+20 under the placeholder, and that any fractional value is rounded per PLACEHOLDER-96. C13: the M2 energy clamps and redraw definition state that a redraw also redraws the rounding. Log proposal_count_target and proposals_drawn_count."
+  },
+  {
+   "issue": 16,
+   "fix_in": [
+    "ledger",
+    "claims-drive",
+    "register-forbidden"
+   ],
+   "instruction": "Ledger X08: remove 'hysteresis off' and note 'removed: no hysteresis exists (PLACEHOLDER-100)'. C13: delete the hysteresis-off control, the hysteresis items in FREEZING and in the ledger-rows-needed list, the 'hysteresis state' log field and hysteresis-off from the control list in SAMPLE_SIZE, and add 'no hysteresis exists; if Aitzaz defines one before Stage 6 it gets a ledger row and the conditional pass rules return'. Register: add PLACEHOLDER-100."
+  },
+  {
+   "issue": 17,
+   "fix_in": [
+    "claims-social",
+    "claims-drive",
+    "ledger"
+   ],
+   "instruction": "C10: replace its visit definition (3 cells after 20 ticks away) and its patient definition with 'visit and patient harvest as defined in C8 (shared glossary definition)'. Dud-waiting = 2 or more visits to the dud under that definition. Move 'harvest within 300 ticks of first fruit' to reported only. C8: label its visit and S7 patient-harvest text as the shared definition. Ledger X19 and X21 pointers cite it."
+  },
+  {
+   "issue": 18,
+   "fix_in": [
+    "ledger",
+    "claims-drive",
+    "claims-social",
+    "register-forbidden"
+   ],
+   "instruction": "Ledger X40: write the single tokenizer (placeholder: C12's world-side token plus the action with turn direction, no collapsing, exact matching), frozen before T17's closure library is built. Aitzaz picks at initialling. T17 cites X40. C12, C13-E1 and C11 replace their tokenizer descriptions with 'the X40 tokenizer' and log tokenizer_fingerprint. Register: PLACEHOLDER-65 becomes 'retired as primary; kept as a reported sensitivity check'."
+  },
+  {
+   "issue": 19,
+   "fix_in": [
+    "claims-drive",
+    "ledger",
+    "register-forbidden"
+   ],
+   "instruction": "C12: state that the primary T13 group is 100 evolved, teacher-free Frankies frozen in Wave 1, and that reference set (a) for them is the closure library only (the lifetime teacher log is empty, checked on the priors card). Add a secondary teacher-raised group, reported separately under the Wave 2 freeze, whose set (a) adds that lifetime's teacher log. Ledger: X02 lists 'T13 primary (teacher-free)' in Wave 1 and 'T13 teacher-raised secondary' in Wave 2; X23 points to C12. Register: PLACEHOLDER-111 records the primary group as teacher-free."
+  },
+  {
+   "issue": 20,
+   "fix_in": [
+    "claims-perception",
+    "claims-drive",
+    "claims-social",
+    "ledger",
+    "register-forbidden"
+   ],
+   "instruction": "Every claim's log_fields list is rewritten using only the glossary's field names and values. Specifically: agent_id and agent_type (no frankie_id); replica_key; verdict_winner; sign_condition visible (not 'normal'); action_provenance (habit | proposal | no-safe-option-fallback | designed-exposure | baseline-rule); gaze_provenance with drive-sharp-look; struck_options in place of 'eliminated-by-prediction' in C1, C7, C9, C11 and C12; clone_type values wiggle-A/B/C for C11; run_set own-A/own-B/swap for C13; habit_weight_updates in place of 'habit-table'. Ledger I11 and M46: provenance values as above, with struck options as separate events. Register: PLACEHOLDER-64 points to the schema file, written before any claim is frozen."
+  },
+  {
+   "issue": 21,
+   "fix_in": [
+    "register-forbidden",
+    "ledger"
+   ],
+   "instruction": "Forbidden entry 'Temporal-difference errors, value tables and Q-learning': add the boundary note from the glossary (allowed: undiscounted tallies of own outcomes within a fixed credit window, never updated from another estimate; banned: TD, Bellman, discounting, Q-tables, or any update of one situation's value from another's). Add a how_checked line: 'Review checks the habit (M34) and drive (PLACEHOLDER-21) notes against this line'. Aitzaz confirms. Ledger M34 and register PLACEHOLDER-21 each add 'within the value-table boundary'."
+  },
+  {
+   "issue": 22,
+   "fix_in": [
+    "register-forbidden",
+    "claims-drive",
+    "ledger"
+   ],
+   "instruction": "Forbidden entry 'Per-object habituation counters': rename it 'Habituation or boredom counters (per object, kind, place or global)', widen the text to C8's wording (any quantity that grows with looks or exposures whatever the outcome, including per-place look counts), and replace how_checked with the T0(e) intercepted-outcome code check [Aitzaz Q2, 24 Oct]. Register PLACEHOLDER-109 holds the line. C8 cites the forbidden entry and PLACEHOLDER-109 in place of its local 'placeholder, needs a ledger row'. Ledger M35 cites the same."
+  },
+  {
+   "issue": 23,
+   "fix_in": [
+    "ledger",
+    "register-forbidden",
+    "claims-drive"
+   ],
+   "instruction": "Ledger: add M47, the no-safe-option fallback [Aitzaz Q3, 24 Oct]. Register PLACEHOLDER-23 cites M47. Forbidden entry 'Best-score (argmax) chooser': add 'allowed only as the M47 fallback when no option clears the bar; every use is logged with action_provenance=no-safe-option-fallback'. C7: log the no_safe_option flag and report its share (already there), citing M47."
+  },
+  {
+   "issue": 24,
+   "fix_in": [
+    "register-forbidden",
+    "ledger",
+    "claims-social"
+   ],
+   "instruction": "Register PLACEHOLDER-39: replace 'out-of-view creatures are treated as new' with 'remembered across short gaps out of view (gap length set here), one trust per creature, choice-trust and sign-meaning tracked separately' [Aitzaz Q2, 24 Oct]; Aitzaz decides before Stage 6. Ledger M50 cites it. C9 and C10: add a pre-freeze stand-in pilot that measures the slot-reset rate (creature_id versus creature_slot), reported to Aitzaz before the Wave 2 freeze, and log creature_slot."
+  },
+  {
+   "issue": 25,
+   "fix_in": [
+    "register-forbidden",
+    "claims-perception",
+    "ledger"
+   ],
+   "instruction": "Register: add PLACEHOLDER-94 (smell with no object) and PLACEHOLDER-95 (the wide view lists objects one by one; roundness and lobes come by sharp view only, up to 7 cells). C6: add 'not testable until PLACEHOLDER-94 and PLACEHOLDER-95 are frozen', make the wide-view verdicts per object conditional on PLACEHOLDER-95, and drop any expectation of roundness or lobes from the wide view. Ledger: B15 is updated to match PLACEHOLDER-95 once it is frozen; M52 cites PLACEHOLDER-94."
+  },
+  {
+   "issue": 26,
+   "fix_in": [
+    "ledger",
+    "claims-drive"
+   ],
+   "instruction": "Ledger M25: add the scope 'cautious-start replicate reported for C7 (50 pairs and 50 sets), C8 (50 matched sets; S1, S6, S7) and C12 (50 Frankies; step 1), effect parts only, outside every Holm family, never a pass condition'. C8 and C12: add the replicate to sample size and controls, with the label 'supported at neutral start only'. C7: cite M25. M48 (newborn failure belief) is listed next to it [Aitzaz Q3, 24 Oct]."
+  },
+  {
+   "issue": 27,
+   "fix_in": [
+    "register-forbidden"
+   ],
+   "instruction": "Mark PLACEHOLDER-80 'replaced by the statistics policy (X32) and each claim's floors', PLACEHOLDER-81 'replaced by C9-M6 and C10 (4)', and PLACEHOLDER-82 'replaced by X38 matched sets (C7) and C12's matched schedule'. Keep the rows, with the pointers."
+  },
+  {
+   "issue": 28,
+   "fix_in": [
+    "claims-social",
+    "register-forbidden"
+   ],
+   "instruction": "C9 and C10 sample sizes: each lists the five shared groups explicitly (main / (1.0, visible); hidden 1.0; visible 0.75; hidden 0.75; uninformative signs hidden), states that the lives are paid for once, that C9's X clones are not used in C10, and lists the groups that are not shared. C10: replace '(the visible p = 0.75 and hidden p = 0.75 cells are shared with C9)' with this list. Register PLACEHOLDER-110 records it."
+  },
+  {
+   "issue": 29,
+   "fix_in": [
+    "ledger",
+    "claims-drive",
+    "register-forbidden"
+   ],
+   "instruction": "Ledger W46: rewrite as 'No survival floor in T13: B06 (dies at 0) holds', following the glossary's survival-floor policy (room clones from room-entry snapshots; first 100 lives per agent type that reach room age; scheduled-tick denominator; deaths as a covariate). C12: delete 'kept going by a logged survival floor (energy reset to 10 when it hits 0)'. Rename the control 'the same survival floor for every agent' to 'the same entry rule and death rule for every agent', and replace the log field 'survival-floor events' with room_reached and death_tick. Register PLACEHOLDER-111: remove 'the survival floor at 10'."
+  },
+  {
+   "issue": 30,
+   "fix_in": [
+    "register-forbidden",
+    "claims-perception",
+    "claims-social",
+    "claims-drive"
+   ],
+   "instruction": "Register: PLACEHOLDER-102 states that d = 10 applies to every protocol eat (designed exposures and probe eats); PLACEHOLDER-49 adds 'except protocol eats, which use d = 10'. C1, C2, C3, C4, C5 and C6 (claims-perception), C9 and C10 (claims-social) and C8 (claims-drive, S3/S4 probes) each state 'd = 10 for all protocol eats' in their frozen spec, plus the d for ordinary eats and its switch tick. Every claim logs eat_events.stomach_delay_d."
+  },
+  {
+   "issue": 31,
+   "fix_in": [
+    "register-forbidden",
+    "ledger",
+    "claims-perception",
+    "claims-drive",
+    "claims-social"
+   ],
+   "instruction": "Register PLACEHOLDER-63: fill it claim by claim (C1 about 190, C2 0, C3 about 120, C4 about 20, C5 about 250, C6 about 55, plus counts from C7 to C13) before initialling. PLACEHOLDER-107 states that T8's untried kinds may be reused across matched sets, never within a life or a set. Ledger W35: add the reuse rule and 'if the total exceeds 1,000 the budget is raised; N is never cut'. C7, C8, C9, C10, C11, C12 and C13: each adds a kinds count to its sample size. C5: its stock cut to 12 is a pre-freeze design option only."
+  }
+ ]
+}
