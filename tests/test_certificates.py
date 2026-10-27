@@ -213,3 +213,92 @@ def test_neutral_rule_by_hand():
     assert neutral_failure(outside, H, h1, 21.0) == ""                # within 10%
     assert "surface" in neutral_failure(outside, H, h1, 25.0)
     assert "fewer than 2" in neutral_failure(values(stem=0.6, coarse_hue=0.9, size=0.9), H, h1, 20.0)
+
+
+# Gaps found by the independent review, each closed and kept closed.
+
+def test_an_apple_with_the_wrong_kind(plan):
+    far = next(o for o in plan.P if o.label == "P-far-3")
+    bad = dataclasses.replace(far, kind=plan.family.neutral_kinds[1])
+    assert any("P-far-3 is not a far apple of H" in m for m in problems(replace_in(plan, "P", "P-far-3", bad)))
+    p = copy.copy(plan)
+    p.h2 = dataclasses.replace(plan.h2, kind=plan.family.lookalike_kinds[3])
+    assert "h2 is not a far apple of H" in problems(p)
+    q = next(o for o in plan.Q if o.label == "Q-near-h1-2")
+    bad = dataclasses.replace(q, kind=plan.family.lookalike_kinds[3])
+    assert any("Q-near-h1-2 is not an apple of H" in m for m in problems(replace_in(plan, "Q", "Q-near-h1-2", bad)))
+
+
+def test_kinds_with_the_wrong_nature(plan):
+    fam = plan.family
+    assert "H is not a nourishing kind" in verify_family(dataclasses.replace(fam, H=dataclasses.replace(fam.H, nature="nothing")))
+    looks = {**fam.lookalike_kinds, 4: dataclasses.replace(fam.lookalike_kinds[4], nature="nothing")}
+    assert "a look-alike kind is not poison" in verify_family(dataclasses.replace(fam, lookalike_kinds=looks))
+    p = copy.copy(plan)
+    p.warmup_slots = list(plan.warmup_slots)
+    p.warmup_slots[0] = dataclasses.replace(plan.warmup_slots[0], kind=dataclasses.replace(plan.warmup_slots[0].kind, nature="poison"))
+    assert any("warm-up slot 1: its kind's nature" in m for m in problems(p))
+
+
+def test_warmup_order_must_be_a_shuffle_of_the_40_items(plan):
+    p = copy.copy(plan)
+    order = list(plan.warmup_order)
+    order[5] = order[6]
+    p.warmup_order = tuple(order)
+    assert "warm-up order is not one shuffle of the 40 warm-up items" in problems(p)
+    p.warmup_order = plan.warmup_order[:39]
+    assert "warm-up order is not one shuffle of the 40 warm-up items" in problems(p)
+
+
+def test_teaching_apples_are_the_runs_own(plan):
+    p = copy.copy(plan)
+    t = list(plan.teaching)
+    t[2] = with_value(plan.a[2], traits.SOUR, 0.95)
+    p.teaching = t
+    assert "teaching item a2 is not the run's a2" in problems(p)
+    t = list(plan.teaching)
+    t[0] = with_value(plan.h1, traits.SWEET, 0.2)
+    p.teaching = t
+    assert "teaching item h1 is not the run's h1" in problems(p)
+
+
+def test_neutral_kind_in_use_is_checked(plan):
+    p = copy.copy(plan)
+    k1 = plan.neutral_kinds[1]
+    wide = {t: (max(0.0, lo - 0.15), min(1.0, hi + 0.15)) for t, (lo, hi) in k1.bands.items()}
+    p.neutral_kinds = {**plan.neutral_kinds, 1: dataclasses.replace(k1, bands=wide)}
+    out = problems(p)
+    assert any("wrong width" in m for m in out)
+    assert "neutral kind 1 in use is not the family's own" in out
+    other = rp.tuning_family(7).neutral_kinds[1]
+    p.neutral_kinds = {**plan.neutral_kinds, 1: dataclasses.replace(other, try_number=2)}
+    out = problems(p)
+    assert "neutral kind 1 in use is not this family's" in out
+
+
+def test_warmup_models_come_from_the_source_family(plan):
+    p = copy.copy(plan)
+    p.warmup_slots = list(plan.warmup_slots)
+    p.warmup_slots[1] = dataclasses.replace(plan.warmup_slots[1], model_kind=plan.family.H)
+    out = problems(p)
+    assert any("models are not apples of tuning family" in m for m in out)
+    # all 10 poison items copying one model
+    first = plan.warmup_models[0].label
+    p = copy.copy(plan)
+    p.warmup_items = [dataclasses.replace(o, model=first) if o.label.startswith("warmup-2-") else o
+                      for o in plan.warmup_items]
+    assert "warm-up poison items do not each copy a different fresh model" in problems(p)
+    # a missing model is reported, not a crash
+    p.warmup_items = [dataclasses.replace(o, model="nobody") if o.label == "warmup-2-01" else o
+                      for o in plan.warmup_items]
+    assert "warmup-2-01: its model is missing" in problems(p)
+
+
+def test_neutral_rule_upper_bound_by_hand():
+    st, lv = traits.INDEX["stem"], traits.INDEX["leaves"]
+    H = kind({st: (0.40, 0.45), lv: (0.40, 0.45), traits.INDEX["spots"]: (0.4, 0.45),
+              traits.INDEX["sheen"]: (0.4, 0.45)})
+    outside = values(stem=0.6, leaves=0.2, coarse_hue=0.9, size=0.9)   # surface distance 20
+    assert "surface" in neutral_failure(outside, H, values(), 15.0)     # 20 > 16.5
+    assert neutral_failure(outside, H, values(), 20.0 / 1.1 + 1e-9) == ""
+    assert "surface" in neutral_failure(outside, H, values(), 20.0 / 1.1 - 1e-6)

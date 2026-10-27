@@ -17,16 +17,27 @@ uses its own counter values (KT-32). So a redraw never changes another
 place's random numbers.
 """
 
-import math
+from decimal import ROUND_HALF_EVEN, Context, Decimal
 
 import numpy as np
 
 from .constants import NOISE_WIDTH
 
-_TWO_64 = 1 << 64
-_TWO_256 = 1 << 256
-_UNIT = 2.0 ** -53
-_BLOCKS_PER_FETCH = 8
+_TWO_64 = 1 << 64            # one counter word (KT-81)
+_TWO_256 = 1 << 256          # a whole counter (KT-81)
+_UNIT = 2.0 ** -53           # 53-bit uniforms (KT-82)
+_BLOCKS_PER_FETCH = 8        # how many blocks to compute at once; no value depends on it (KT-81)
+
+# Box-Muller in decimal arithmetic (KT-34, KT-81). The platform's math library
+# may round log and cos differently from one machine to the next, which would
+# break the bit-for-bit laptop-to-cloud replay (I05). Python's decimal module
+# is pure software, so these steps give the same answer everywhere.
+_DEC = Context(prec=40, rounding=ROUND_HALF_EVEN)   # 40 significant digits (KT-81)
+_PI = Decimal("3.14159265358979323846264338327950288419716939937510582097494")  # pi to 60 digits (KT-81)
+_TWO_PI = _DEC.multiply(2, _PI)      # 2 pi (KT-81)
+_HALF_PI = _DEC.divide(_PI, 2)       # pi / 2 (KT-81)
+_SERIES_STOP = Decimal("1e-45")   # Taylor terms smaller than this are dropped (KT-81)
+_NOISE_WIDTH_DEC = Decimal(repr(NOISE_WIDTH))
 
 
 def counter(draw: int, place: int, creature: int = 0, replica: int = 0) -> int:
@@ -99,14 +110,40 @@ class Draws:
         return [pool.pop(self.index(len(pool))) for _ in range(k)]
 
 
+def _cos(x: Decimal) -> Decimal:
+    """cos(x) for x in [0, 2 pi), by folding into [0, pi/2] and a Taylor series."""
+    c = _DEC
+    if x > _PI:
+        x = c.subtract(_TWO_PI, x)        # cos(x) = cos(2 pi - x)
+    negate = x > _HALF_PI
+    if negate:
+        x = c.subtract(_PI, x)            # cos(x) = -cos(pi - x)
+    x2 = c.multiply(x, x)
+    term = total = Decimal(1)
+    n = 0
+    while True:
+        n += 2
+        term = c.divide(c.multiply(term, x2).copy_negate(), (n - 1) * n)
+        if abs(term) < _SERIES_STOP:
+            break
+        total = c.add(total, term)
+    return total.copy_negate() if negate else total
+
+
+def box_muller(u1: float, u2: float) -> float:
+    """One noise width times sqrt(-2 ln(1 - u1)) times cos(2 pi u2), rounded once to a float."""
+    c = _DEC
+    d1, d2 = Decimal(u1), Decimal(u2)     # exact: every uniform is a multiple of 2^-53
+    radius = c.sqrt(c.multiply(-2, c.ln(c.subtract(1, d1))))
+    return float(c.multiply(c.multiply(_NOISE_WIDTH_DEC, radius), _cos(c.multiply(_TWO_PI, d2))))
+
+
 def sensor_noise(noise_key: int, place: int, replica: int, trait: int) -> float:
     """One reading's noise, looked up by replica key, place and trait (KT-33).
 
     Gaussian with a standard deviation of one noise width (PLACEHOLDER-45),
     made from two keyed uniforms by Box-Muller (KT-34). The draw number is the
-    trait's index, so every trait of every place has its own counter.
+    trait's index, so every trait of every place has its own counter (KT-81).
     """
     words = philox_blocks(noise_key, counter(trait, place, 0, replica), 1)
-    u1 = to_unit(words[0])
-    u2 = to_unit(words[1])
-    return NOISE_WIDTH * math.sqrt(-2.0 * math.log(1.0 - u1)) * math.cos(2.0 * math.pi * u2)
+    return box_muller(to_unit(words[0]), to_unit(words[1]))

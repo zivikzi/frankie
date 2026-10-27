@@ -1,5 +1,6 @@
 """The trait schema (KT-01, KT-02) and the rule that every constant cites its row (FORBIDDEN 28)."""
 
+import ast
 import re
 from pathlib import Path
 
@@ -28,12 +29,39 @@ def test_every_trait_but_exact_hue_is_ranged():
     assert set(traits.RANGED) == set(range(22)) - {traits.EXACT_HUE}
 
 
-CITE = re.compile(r"#.*\b(KT-\d+|PLACEHOLDER-\d+|[MWXDIB]\d+|section \d+)")
+# A register row (KT-nn, PLACEHOLDER-nn) or a ledger row (B, E, I, M, T, W or X
+# and two digits), as FORBIDDEN 28 asks.
+CITE = re.compile(r"\b(KT-\d{2}|PLACEHOLDER-\d+|[BEIMTWX]\d{2})\b")
+
+
+def _numeric_constants(path):
+    """Module-level UPPER_CASE names (public or private) assigned a value that holds a number."""
+    tree = ast.parse(path.read_bytes())
+    for node in tree.body:
+        if not isinstance(node, ast.Assign):
+            continue
+        names = [t.id for t in node.targets if isinstance(t, ast.Name)]
+        if not names or not all(re.fullmatch(r"_?[A-Z][A-Z0-9_]*", n) for n in names):
+            continue
+        if any(isinstance(c, ast.Constant) and type(c.value) in (int, float) for c in ast.walk(node.value)):
+            yield names[0], node.lineno
+
+
+def test_the_citation_pattern():
+    assert CITE.search("# drawn from 20 (M33)") and CITE.search("# (KT-81)") and CITE.search("(PLACEHOLDER-45)")
+    assert not CITE.search("# (section 5)") and not CITE.search("# the M1 half") and not CITE.search("# B1n-bot")
 
 
 def test_every_world_constant_cites_its_row():
-    lines = (ROOT / "src" / "world" / "constants.py").read_text().splitlines()
-    assigned = [ln for ln in lines if re.match(r"^[A-Z_][A-Z0-9_]* = ", ln)]
-    assert len(assigned) > 40
-    uncited = [ln for ln in assigned if not CITE.search(ln)]
+    uncited = []
+    count = 0
+    for path in sorted((ROOT / "src" / "world").glob("*.py")):
+        lines = path.read_text(encoding="utf-8").splitlines()
+        for name, lineno in _numeric_constants(path):
+            count += 1
+            here, above = lines[lineno - 1], lines[lineno - 2] if lineno > 1 else ""
+            comment = here.split("#", 1)[1] if "#" in here else (above if above.lstrip().startswith("#") else "")
+            if not CITE.search(comment):
+                uncited.append(f"{path.name}:{lineno} {name}")
+    assert count > 60
     assert uncited == []

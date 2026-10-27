@@ -1,4 +1,4 @@
-"""Kinds and families (KT-02, KT-03, KT-04, KT-30, KT-78, KT-79, KT-83).
+"""Kinds and families (KT-02, KT-03, KT-04, KT-30, KT-78, KT-79, KT-81, KT-83).
 
 A family is one apple kind H with its 8 look-alike kinds and 4 neutral kinds,
 all drawn by the family key (section 2, Keys). Places on the family's world
@@ -19,17 +19,17 @@ from . import constants as C
 from . import keys, traits
 from .streams import Draws
 
-PLACE_H = 1
-PLACE_CORE_LABELS = 2
-PLACE_TEACHING_PAIRS = 3
+PLACE_H = 1                  # family stream places (KT-81)
+PLACE_CORE_LABELS = 2        # (KT-81)
+PLACE_TEACHING_PAIRS = 3     # (KT-81)
 
 
 def place_lookalike_kind(k: int) -> int:
-    return 10 + k
+    return 10 + k            # look-alike kinds 1 to 8 at places 11 to 18 (KT-81)
 
 
 def place_neutral_kind(k: int) -> int:
-    return 20 + k
+    return 20 + k            # neutral kinds 1 to 4 at places 21 to 24 (KT-81)
 
 
 NOURISH = "nourish"
@@ -87,16 +87,19 @@ class Family:
 
 # Kinds 3 to 8 take the 6 pairs in the order the addendum lists them:
 # M1 = {c1c2, c3c4}, M2 = {c1c3, c2c4}, M3 = {c1c4, c2c3} (KT-04, KT-79).
-CHECK_KIND_LABEL_PAIRS = {3: (1, 2), 4: (3, 4), 5: (1, 3), 6: (2, 4), 7: (1, 4), 8: (2, 3)}
+CHECK_KIND_LABEL_PAIRS = {3: (1, 2), 4: (3, 4), 5: (1, 3), 6: (2, 4), 7: (1, 4), 8: (2, 3)}  # (KT-79)
 
 
-def draw_base_kind(draws: Draws, name, nature, family, set_name, core_override=None) -> Kind:
+def draw_base_kind(draws: Draws, name, nature, family, set_name, core_override=None,
+                   full_taste: bool = False) -> Kind:
     """An apple or neutral kind: 4 core bands and a range for every other trait.
 
     The order of draws: the 4 core traits (unless given), then each core
     band's centre in schema order, then each free range in schema order
-    (width first, then where it sits) (KT-83). Taste always ranges over 0 to 1
-    and takes no draw (KT-02, KT-78).
+    (width first, then where it sits) (KT-83). Taste comes last in schema
+    order. H's taste ranges over the full 0 to 1 and takes no draw
+    (full_taste); a neutral kind draws its taste ranges like any other free
+    trait (section 2, KT-78).
     """
     if core_override is None:
         core = tuple(sorted(draws.pick_without_replacement(traits.CORE_ELIGIBLE, C.N_CORE)))
@@ -113,7 +116,7 @@ def draw_base_kind(draws: Draws, name, nature, family, set_name, core_override=N
     for t in traits.RANGED:
         if t in bands:
             continue
-        if t in traits.TASTE_INDICES:
+        if full_taste and t in traits.TASTE_INDICES:
             ranges[t] = (0.0, 1.0)
             continue
         width = draws.between(C.FREE_WIDTH_LO, C.FREE_WIDTH_HI)
@@ -159,7 +162,8 @@ def generate_family(set_name: str, set_key: bytes, family_number: int, core_over
     fam_key = keys.family_key(set_key, family_number)
     world = keys.stream_key(fam_key, keys.STREAM_WORLD)
 
-    H = draw_base_kind(Draws(world, PLACE_H, 1), "H", NOURISH, family_number, set_name, core_override)
+    H = draw_base_kind(Draws(world, PLACE_H, 1), "H", NOURISH, family_number, set_name, core_override,
+                       full_taste=True)
 
     labels = tuple(Draws(world, PLACE_CORE_LABELS, 1).shuffled(H.core))
 

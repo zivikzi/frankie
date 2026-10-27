@@ -15,7 +15,7 @@ KAT = Path(__file__).parent / "data" / "random123_philox4x64_kat.txt"
 
 def kat_rows():
     rows = []
-    for line in KAT.read_text().splitlines():
+    for line in KAT.read_text(encoding="ascii").splitlines():
         if not line.strip() or line.startswith("#"):
             continue
         name, rounds, *hexes = line.split()

@@ -42,28 +42,28 @@ from .objects import (APPLE, COPY, FAR_APPLE, LOOKALIKE, MODEL, NEUTRAL, WARMUP,
                       draw_lookalike, draw_member, surface_distance)
 from .streams import Draws
 
-PLACE_TEMPERAMENT = 1
-PLACE_TRAIT_ORDER = 2
-PLACE_WARMUP_ORDER = 3
-PLACE_H1 = 10
-PLACE_H2 = 500
+PLACE_TEMPERAMENT = 1        # run stream places (KT-81)
+PLACE_TRAIT_ORDER = 2        # (KT-81)
+PLACE_WARMUP_ORDER = 3       # (KT-81)
+PLACE_H1 = 10                # (KT-81)
+PLACE_H2 = 500               # SWEET-CONTROL shares it (KT-33, KT-81)
 
 
 def place_warmup_slot(slot):
-    return 20 + slot
+    return 20 + slot                        # (KT-81)
 
 
 def place_warmup_item(slot, item):
-    return 100 + 10 * (slot - 1) + (item - 1)
+    return 100 + 10 * (slot - 1) + (item - 1)   # (KT-81)
 
 
 def place_warmup_model(item):
-    return 200 + (item - 1)
+    return 200 + (item - 1)                 # (KT-81)
 
 
 # P's and Q's look-alikes use the pairs in this order (KT-40).
-H1_HALF_PAIRS = ((1, 2), (3, 4), (1, 3), (2, 4))     # M1 then M2
-FAR_HALF_PAIRS = ((1, 2), (3, 4), (1, 4), (2, 3))    # M1 then M3
+H1_HALF_PAIRS = ((1, 2), (3, 4), (1, 3), (2, 4))     # M1 then M2 (KT-40)
+FAR_HALF_PAIRS = ((1, 2), (3, 4), (1, 4), (2, 3))    # M1 then M3 (KT-40)
 
 WARMUP_NATURES = (NOURISH, POISON, NOTHING, NOTHING)
 
@@ -71,21 +71,21 @@ WARMUP_NATURES = (NOURISH, POISON, NOTHING, NOTHING)
 # key is set by its checkpoint and probe; each Q probe has one key across its
 # S8, SOUR and SWEET-CONTROL copies. The two sour-apple branches share one key
 # (KT-16): the main line's, since h2's place is used nowhere else.
-REPLICA_MAIN = 0
-CHECKPOINTS = (1, 2, 4, 6, 8)
-REPLICA_SOUR_BRANCHES = REPLICA_MAIN
+REPLICA_MAIN = 0             # (KT-87)
+CHECKPOINTS = (1, 2, 4, 6, 8)    # snapshots S1, S2, S4, S6, S8 (section 5, KT-87)
+REPLICA_SOUR_BRANCHES = REPLICA_MAIN    # (KT-16, KT-87)
 
 
 def replica_p(checkpoint, probe):
     if checkpoint not in CHECKPOINTS or not 1 <= probe <= 20:
         raise ValueError("P runs after tastes 1, 2, 4, 6 and 8, on probes 1 to 20")
-    return 1000 * checkpoint + probe
+    return 1000 * checkpoint + probe        # (KT-87)
 
 
 def replica_q(probe):
     if not 1 <= probe <= 20:
         raise ValueError("Q has probes 1 to 20")
-    return 9000 + probe
+    return 9000 + probe                     # (KT-87)
 
 
 class _Cascade(Exception):
@@ -99,8 +99,8 @@ class GeneratorStuck(RuntimeError):
 # Safety stops (KT-90), not redraw rules: they end a run that would otherwise
 # loop for ever, and should never fire. Each is far beyond what the redraw
 # rules need: 100 redraws of h1, or 1,000 replacements of one neutral kind.
-_STUCK_CASCADES = 1_000
-_STUCK_KIND_REPLACEMENTS = 1_000
+_STUCK_CASCADES = 1_000                 # (KT-90)
+_STUCK_KIND_REPLACEMENTS = 1_000        # (KT-90)
 
 
 @dataclass(frozen=True)

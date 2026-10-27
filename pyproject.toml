@@ -15,8 +15,21 @@ dev = [
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling==1.32.4"]
 build-backend = "hatchling.build"
+
+# The build backend and its own requirements are pinned too, and uv records
+# these pins in uv.lock, so `uv sync --locked` builds the same install
+# everywhere (I05).
+[tool.uv]
+build-constraint-dependencies = [
+    "hatchling==1.32.4",
+    "packaging==26.3",
+    "pathspec==1.1.1",
+    "pluggy==1.7.0",
+    "tomlkit==0.15.2",
+    "trove-classifiers==2026.9.21.13",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = [
@@ -30,4 +43,5 @@ packages = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["tests"]
 addopts = "-q"

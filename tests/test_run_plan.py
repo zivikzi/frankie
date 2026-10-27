@@ -114,6 +114,14 @@ def test_cascades_and_h1_redraws(monkeypatch):
         cascade_entries = [e for e in plan.log if e[0] == "cascade"]
         assert len(cascade_entries) == plan.cascades
         assert plan.h1_redraws == plan.cascades // C.H1_REDRAW_EVERY
+        assert sum(1 for e in plan.log if e[0] == "h1 redrawn") == plan.h1_redraws
+        # Try accounting: P's far apples and h2 move by one try per cascade that
+        # reached them, plus their own logged failures.
+        fails = {o.label: sum(1 for e in plan.log if e[0] == "redraw" and e[1] == o.label) for o in plan.all_objects()}
+        h1_fails_free = [o for o in [plan.h1] + plan.warmup_items + [plan.a[k] for k in (2, 3, 4)]]
+        assert all(o.try_number == 1 + plan.h1_redraws + fails[o.label] for o in h1_fails_free)
+        assert all(o.try_number <= 1 + plan.cascades + fails[o.label] for o in plan.P + [plan.h2] + plan.Q
+                   if o.try_number)
         assert plan.h1.try_number == 1 + plan.h1_redraws
         # Each cascade redraws everything from P's look-alikes on h1 onward once;
         # each 10th also redraws h1 and everything after it (warm-up, teaching).
@@ -160,3 +168,14 @@ def test_replica_keys():
     assert len(keys_used) == 5 * 20 + 20 + 1
     with pytest.raises(ValueError):
         rp.replica_p(3, 1)
+
+
+def test_noise_is_keyed_by_the_run_key():
+    n = C.GENERATOR_TEST_FAMILY_START + 33
+    a, b = practice_run(n, 1), practice_run(n, 2)
+    rk = keys.run_key(a.family.key, 1)
+    assert a.noise_key == keys.stream_key(rk, keys.STREAM_SENSOR_NOISE)
+    assert a.noise_key != keys.stream_key(rk, keys.STREAM_WORLD)
+    assert a.noise_key != b.noise_key
+    from world import readings
+    assert readings.read_visible(a, a.P[0], 0) != readings.read_visible(b, a.P[0], 0)

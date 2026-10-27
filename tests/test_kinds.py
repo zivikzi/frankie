@@ -69,12 +69,30 @@ def test_draw_statistics_over_many_families():
     assert abs(below / (below + above) - 0.5) < 0.02
 
 
-def test_taste_is_never_core_and_always_full_range():
-    for i in range(200):
+def test_taste_ranges_full_for_h_drawn_for_neutral_kinds():
+    """Section 2: H's taste ranges over 0 to 1; any other kind's taste is a free trait (KT-78)."""
+    widths = []
+    for i in range(300):
         f = fresh(C.GENERATOR_TEST_FAMILY_START + i)
-        for kind in [f.H] + list(f.neutral_kinds.values()):
+        assert all(f.H.ranges[t] == (0.0, 1.0) for t in traits.TASTE_INDICES)
+        for look in f.lookalike_kinds.values():
+            assert all(look.ranges[t] == (0.0, 1.0) for t in traits.TASTE_INDICES)
+        for kind in [f.H] + list(f.neutral_kinds.values()) + list(f.lookalike_kinds.values()):
             assert set(kind.core).isdisjoint(traits.TASTE_INDICES)
-            assert all(kind.ranges[t] == (0.0, 1.0) for t in traits.TASTE_INDICES)
+        for kind in f.neutral_kinds.values():
+            for t in traits.TASTE_INDICES:
+                lo, hi = kind.ranges[t]
+                assert 0.0 <= lo and hi <= 1.0
+                widths.append(hi - lo)
+    assert 0.6 <= min(widths) < 0.61 and 0.99 < max(widths) < 1.0
+    assert abs(sum(widths) / len(widths) - 0.8) < 0.01
+
+
+def test_natures():
+    f = fresh(C.GENERATOR_TEST_FAMILY_START + 3)
+    assert f.H.nature == "nourish"
+    assert {k.nature for k in f.lookalike_kinds.values()} == {"poison"}
+    assert {k.nature for k in f.neutral_kinds.values()} == {"nothing"}
 
 
 def test_band_gap_sign():

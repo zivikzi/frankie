@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_tuning_key_is_the_committed_one():
-    text = (ROOT / "kill-test" / "TUNING_KEY.md").read_text()
-    committed = re.findall(r"^([0-9a-f]{64})$", text, flags=re.M)
+    lines = (ROOT / "kill-test" / "TUNING_KEY.md").read_text(encoding="utf-8").splitlines()
+    committed = [ln.strip() for ln in lines if re.fullmatch(r"[0-9a-f]{64}", ln.strip())]
     assert committed == [keys.TUNING_KEY_HEX]
     assert keys.tuning_set_key() == bytes.fromhex(committed[0])
     assert len(keys.tuning_set_key()) == 32

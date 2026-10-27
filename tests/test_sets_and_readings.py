@@ -1,5 +1,6 @@
 """Sets (section 3, KT-38, KT-42) and noisy readings (KT-33 to KT-35)."""
 
+import copy
 import dataclasses
 
 import pytest
@@ -25,11 +26,16 @@ def test_power_check_family_numbers():
 
 
 def test_core_override_copies_only_the_core_placement():
-    base = sets.practice_family(1_005)
-    override = (traits.INDEX["stem"], traits.INDEX["sheen"], traits.INDEX["smell_2"], traits.INDEX["lobes"])
-    fam = sets.practice_family(1_005, core_override=override)
-    assert fam.H.core == tuple(sorted(override))
-    assert fam.H.ranges != base.H.ranges or fam.H.core != base.H.core
+    """KT-42: the override copies which 4 traits are core; everything else is drawn fresh."""
+    n, m = C.GENERATOR_TEST_FAMILY_START + 400, C.GENERATOR_TEST_FAMILY_START + 401
+    source = generate_family.__wrapped__("practice", keys.tuning_set_key(), m)
+    fam = generate_family.__wrapped__("practice", keys.tuning_set_key(), n, source.H.core)
+    again = generate_family.__wrapped__("practice", keys.tuning_set_key(), n, source.H.core)
+    assert fam.H.core == source.H.core
+    assert fam.H.bands != source.H.bands and fam.H.ranges != source.H.ranges
+    assert fam.H.record() == again.H.record()
+    plain = generate_family.__wrapped__("practice", keys.tuning_set_key(), n)
+    assert fam.neutral_kinds[1].record() == plain.neutral_kinds[1].record()   # the rest of the family is n's own
 
 
 def test_separation_passes_on_a_fresh_set():
@@ -38,6 +44,18 @@ def test_separation_passes_on_a_fresh_set():
     plans = [rp.generate_run("test-set", key, n, 1) for n in range(1, 6)]
     assert sets.separation_failures("test-set", key, fams, plans) == []
     sets.require_separation("test-set", key, fams, plans)
+
+
+def test_separation_checks_each_runs_neutral_kinds():
+    key = keys.kill_run_set_key(TEST_HASH)
+    fam = generate_family("test-set", key, 2)
+    plan = rp.generate_run("test-set", key, 2, 1)
+    tuning_kind = generate_family("tuning", keys.tuning_set_key(), 9).neutral_kinds[2]
+    bad = copy.copy(plan)
+    bad.neutral_kinds = {**plan.neutral_kinds, 2: dataclasses.replace(tuning_kind, try_number=2)}
+    out = sets.separation_failures("test-set", key, [fam], [bad])
+    assert any("run 1 neutral-2: matches a tuning kind" in m for m in out)
+    assert any("run 1 neutral-2: not drawn from" in m for m in out)
 
 
 def test_separation_catches_a_tuning_kind():
