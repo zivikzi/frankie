@@ -1,0 +1,12 @@
+# Random123 known-answer test vectors for Philox4x64 (7 and 10 rounds).
+# Source: https://raw.githubusercontent.com/DEShawResearch/random123/main/tests/kat_vectors
+# SHA-256 of the whole source file when copied (27 Oct 2026):
+#   aab5ebabf40003f63d6d87b24cbd2c8a02652e00cf8bad64226fd50586929183
+# These are its philox4x64 lines (38 to 43), unchanged.
+# Columns: name, rounds, counter (4 words), key (2 words), expected output (4 words), all hex.
+philox4x64 7 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000   5dc8ee6268ec62cd 139bc570b6c125a0 84d6deb4fb65f49e aff7583376d378c2
+philox4x64 7 ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff   071dd84367903154 48e2bbdc722b37d1 6afa9890bb89f76c 9194c8d8ada56ac7
+philox4x64 7 243f6a8885a308d3 13198a2e03707344 a4093822299f31d0 082efa98ec4e6c89 452821e638d01377 be5466cf34e90c6c   513a366704edf755 f05d9924c07044d3 bef2cb9cbea74c6c 8db948de4caa1f8a
+philox4x64 10 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000   16554d9eca36314c db20fe9d672d0fdc d7e772cee186176b 7e68b68aec7ba23b
+philox4x64 10 ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff   87b092c3013fe90b 438c3c67be8d0224 9cc7d7c69cd777b6 a09caebf594f0ba0
+philox4x64 10 243f6a8885a308d3 13198a2e03707344 a4093822299f31d0 082efa98ec4e6c89 452821e638d01377 be5466cf34e90c6c   a528f45403e61d95 38c72dbd566e9788 a5a1610e72fd18b5 57bd43b5e52b7fe6

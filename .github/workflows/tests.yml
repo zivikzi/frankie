@@ -1,0 +1,32 @@
+name: Tests
+
+# Runs the bench tests and the import guard (LEDGER I02, I05, I06) on every
+# push and pull request. The lockfile pins every dependency (I05).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install the locked dependencies
+        run: uv sync --locked
+
+      - name: Import guard (I02)
+        run: uv run python tools/import_guard.py src/mind
+
+      - name: Tests (I06)
+        run: uv run pytest

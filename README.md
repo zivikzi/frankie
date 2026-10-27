@@ -10,6 +10,10 @@ The core test idea: after tasting one apple, a creature should recognise every v
 |---|---|
 | [`charter/`](charter/) | The claims charter, frozen before any of Frankie's code existed. It covers what each claim means, how a log proves it, which cheating bots must fail, the pass marks, what may never go into Frankie's mind, and every design choice with its origin. Start with [`charter/README.md`](charter/README.md). |
 | [`charter/KILL_TEST.md`](charter/KILL_TEST.md) | A 6-week go/no-go bench test of the core idea, which runs before anything else gets built. |
+| [`kill-test/`](kill-test/) | The tuning key, the four approved Week 0 design notes, and the coder's rows KT-30 onward ([`kill-test/RULES.md`](kill-test/RULES.md)). |
+| [`src/world/`](src/world/) | The bench world: trait schema, keys, keyed Philox streams, kinds, run plans, certificates and noisy readings. |
+| [`src/mind/`](src/mind/) and the other packages | Empty until later weeks. The import guard ([`tools/import_guard.py`](tools/import_guard.py)) keeps the mind to NumPy and Numba (I02). |
+| [`tests/`](tests/) | pytest and hypothesis tests (I06). Run them with `uv sync --locked && uv run pytest`. |
 | [`freeze/`](freeze/) | Fingerprints (SHA-256) of every frozen file, their first OpenTimestamps proofs, and the upgrades of those proofs in `freeze/upgrades/`. |
 
 ## How the freeze works
@@ -31,4 +35,4 @@ The kill test uses the same Action to pick its test sets: each set's key comes f
 
 ## Status
 
-Stage 0 (the charter) is frozen. Next is the kill test, then a trimmed version 1 if the kill test passes.
+Stage 0 (the charter) is frozen. The kill test is under way: Week 0 (design notes) is done, and Week 1 (the object generator and its certificates) is in review. A trimmed version 1 follows only if the kill test passes.
