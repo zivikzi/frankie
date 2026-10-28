@@ -1,0 +1,38 @@
+name: Tests
+
+# Runs the import guard and the bench tests (LEDGER I02, I05, I06) on every
+# push and pull request, from the lockfile (I05). The golden-value tests in
+# tests/test_replay.py must give the same bits on every machine here, which
+# is the bench's laptop-to-cloud replay promise (KT-34).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install the locked dependencies
+        run: uv sync --locked
+
+      - name: Import guard (I02)
+        run: uv run python tools/import_guard.py src/mind
+
+      - name: Tests (I06)
+        run: uv run pytest
