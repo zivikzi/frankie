@@ -6,7 +6,10 @@ counter layout, the draw order or the noise arithmetic changes them.
 
 import decimal
 import hashlib
+import json
 import math
+import subprocess
+import sys
 
 from philox_reference import philox4x64, words
 from world import keys
@@ -39,6 +42,21 @@ def test_box_muller_ignores_the_callers_decimal_settings():
         for (u1, u2), want in GOLDEN_BOX_MULLER:
             assert box_muller(float.fromhex(u1), float.fromhex(u2)).hex() == want
         assert not any(ctx.flags.values())
+
+
+def test_box_muller_ignores_a_changed_default_context():
+    """Nor does a decimal.DefaultContext changed before the world is imported."""
+    code = ("import decimal, json, sys\n"
+            "dc = decimal.DefaultContext\n"
+            "dc.prec, dc.Emin, dc.Emax, dc.rounding = 2, -3, 3, decimal.ROUND_UP\n"
+            "dc.traps[decimal.Inexact] = dc.traps[decimal.FloatOperation] = dc.traps[decimal.Rounded] = True\n"
+            "from world.streams import box_muller\n"
+            "pairs = json.loads(sys.argv[1])\n"
+            "print(json.dumps([box_muller(float.fromhex(a), float.fromhex(b)).hex() for a, b in pairs]))\n")
+    pairs = [list(p) for p, _ in GOLDEN_BOX_MULLER]
+    r = subprocess.run([sys.executable, "-c", code, json.dumps(pairs)], capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    assert json.loads(r.stdout) == [want for _, want in GOLDEN_BOX_MULLER]
 
 
 def test_box_muller_agrees_with_the_float_formula():

@@ -8,7 +8,8 @@ from hypothesis import strategies as st
 from world import constants as C
 from world import keys, traits
 from world.certificates import band_gap, verify_family
-from world.kinds import CHECK_KIND_LABEL_PAIRS, generate_family
+from world.kinds import CHECK_KIND_LABEL_PAIRS, generate_family, place_lookalike_kind
+from world.streams import Draws
 
 KEY = keys.tuning_set_key()
 FAMILIES = st.integers(C.GENERATOR_TEST_FAMILY_START, C.GENERATOR_TEST_FAMILY_START + 10**6)
@@ -100,3 +101,27 @@ def test_natures():
 def test_band_gap_sign():
     assert band_gap((0.1, 0.15), (0.3, 0.35)) == 0.3 - 0.15
     assert band_gap((0.1, 0.15), (0.12, 0.17)) < 0
+
+
+def test_lookalike_kinds_follow_the_draw_order():
+    """KT-83: for each moved trait in trait order, the gap and then the side, the side drawn even when only one fits."""
+    lo_gap, hi_gap = C.MOVED_GAP_LO_NW * C.NOISE_WIDTH, C.MOVED_GAP_HI_NW * C.NOISE_WIDTH
+    one_side = 0
+    for i in range(300):
+        f = fresh(C.GENERATOR_TEST_FAMILY_START + 3000 + i)
+        world = keys.stream_key(f.key, keys.STREAM_WORLD)
+        for k, look in f.lookalike_kinds.items():
+            assert (look.place, look.try_number) == (place_lookalike_kind(k), 1)
+            d = Draws(world, look.place, 1)
+            want = dict(f.H.bands)
+            for t in sorted(look.moved):
+                gap = d.between(lo_gap, hi_gap)
+                side = d.uniform()
+                lo, hi = f.H.bands[t]
+                below = (lo - gap - C.CORE_BAND_WIDTH, lo - gap)
+                above = (hi + gap, hi + gap + C.CORE_BAND_WIDTH)
+                fits_below, fits_above = below[0] >= 0.0, above[1] <= 1.0
+                one_side += fits_below != fits_above
+                want[t] = below if fits_below and (not fits_above or side < 0.5) else above
+            assert look.bands == want, (f.number, k)
+    assert one_side > 0

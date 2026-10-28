@@ -8,7 +8,7 @@ from world import constants as C
 from world import keys, traits
 from world import run_plan as rp
 from world.certificates import verify_run_plan
-from world.kinds import generate_family, neutral_kind
+from world.kinds import NOURISH, POISON, generate_family, neutral_kind
 from world.objects import COPY, LOOKALIKE, WARMUP, draw_lookalike, draw_member
 from world.streams import Draws
 
@@ -118,7 +118,7 @@ def test_cascades_and_h1_redraws(monkeypatch):
         # Try accounting: P's far apples and h2 move by one try per cascade that
         # reached them, plus their own logged failures.
         fails = {o.label: sum(1 for e in plan.log if e[0] == "redraw" and e[1] == o.label) for o in plan.all_objects()}
-        h1_fails_free = [o for o in [plan.h1] + plan.warmup_items + [plan.a[k] for k in (2, 3, 4)]]
+        h1_fails_free = [plan.h1] + plan.warmup_models + plan.warmup_items + [plan.a[k] for k in (2, 3, 4)]
         assert all(o.try_number == 1 + plan.h1_redraws + fails[o.label] for o in h1_fails_free)
         assert all(o.try_number <= 1 + plan.cascades + fails[o.label] for o in plan.P + [plan.h2] + plan.Q
                    if o.try_number)
@@ -137,6 +137,8 @@ def test_cascades_and_h1_redraws(monkeypatch):
                 assert j > 0 and plan.log[j - 1][0] == "cascade"
         # temperament, trait order and warm-up order are drawn once, before any cascade (KT-86)
         assert_drawn_once_before_the_loop(plan)
+        assert_redraw_counts(plan)
+        assert_warmup_slots_are_the_run_keys_draws(plan)
         seen_h1_redraw |= plan.h1_redraws > 0
     assert seen_h1_redraw
 
@@ -151,6 +153,83 @@ def assert_drawn_once_before_the_loop(plan):
     assert plan.warmup_order == tuple(Draws(world, rp.PLACE_WARMUP_ORDER, 1).shuffled(labels))
 
 
+FAR_LABELS = {f"P-far-{i}" for i in range(1, 9)} | {"h2"}
+NEUTRAL_ITEM_KIND = {"P-neutral-1": 1, "P-neutral-2": 2, "Q-neutral-1": 3, "Q-neutral-2": 4}
+
+
+def assert_redraw_counts(plan):
+    """Walk the log (section 2, KT-32, KT-85).
+
+    A cascade follows exactly 10,000 failed draws of the far apple or h2 it
+    names, and no far apple or h2 fails that often without one. A neutral
+    kind is replaced after exactly 1,000 failed draws of its item. Both counts
+    start again at each cascade, and a neutral's count at each replacement.
+    """
+    far, neutral = {}, {}
+    for e in plan.log:
+        if e[0] == "redraw" and e[1] in FAR_LABELS:
+            far[e[1]] = far.get(e[1], 0) + 1
+            assert far[e[1]] <= C.FAR_MAX_DRAWS, (plan.family_number, e)
+        elif e[0] == "redraw" and e[1] in NEUTRAL_ITEM_KIND:
+            k = NEUTRAL_ITEM_KIND[e[1]]
+            neutral[k] = neutral.get(k, 0) + 1
+            assert neutral[k] <= C.KIND_MAX_DRAWS, (plan.family_number, e)
+        elif e[0] == "cascade":
+            assert far.get(e[1], 0) == C.FAR_MAX_DRAWS, (plan.family_number, e)
+            far, neutral = {}, {}
+        elif e[0] == "neutral kind replaced":
+            k = int(e[1].split("-")[1])
+            assert neutral.get(k, 0) == C.KIND_MAX_DRAWS, (plan.family_number, e)
+            neutral[k] = 0
+    assert all(n < C.FAR_MAX_DRAWS for n in far.values())
+
+
+def assert_warmup_slots_are_the_run_keys_draws(plan):
+    """Each warm-up slot is the run key's draw at its last try, in KT-84's order:
+    family among those left, kind, scene, host. Its try counts h1 redraws and
+    its own logged swaps. The models move with h1 (KT-86)."""
+    assert all(m.try_number == 1 + plan.h1_redraws for m in plan.warmup_models), plan.family_number
+    world = keys.stream_key(keys.run_key(plan.family.key, plan.run_number), keys.STREAM_WORLD)
+    gap = C.WARMUP_CONTEXT_MIN_NW * C.NOISE_WIDTH
+
+    def away(u, ref):          # uniform over [0, ref - gap] and [ref + gap, 1], written out from KT-06
+        left, right = max(0.0, ref - gap), max(0.0, 1.0 - (ref + gap))
+        x = u * (left + right)
+        return x if x < left else min(ref + gap + (x - left), 1.0)
+
+    used = []
+    for s in plan.warmup_slots:
+        swaps = sum(1 for e in plan.log if e[0] == "warm-up kind swapped" and e[1] == f"warmup-slot-{s.slot}")
+        assert s.place == rp.place_warmup_slot(s.slot) and s.try_number == 1 + plan.h1_redraws + swaps
+        d = Draws(world, s.place, s.try_number)
+        left = [f for f in range(1, C.N_TUNING_FAMILIES + 1)
+                if f not in used and not (plan.h_is_tuning_family and f == plan.family_number)]
+        source = left[d.index(len(left))]
+        fam = rp.tuning_family(source)
+        if s.nature == NOURISH:
+            kind = fam.H
+        elif s.nature == POISON:
+            kind = fam.lookalike_kinds[1 + d.index(C.N_LOOKALIKE_KINDS)]
+        else:
+            kind = fam.neutral_kinds[1 + d.index(C.N_NEUTRAL_KINDS)]
+        scene = away(d.uniform(), plan.h1.values[traits.SCENE])
+        host = away(d.uniform(), plan.h1.values[traits.HOST])
+        assert (s.source_family, s.kind.record(), s.scene, s.host) == (source, kind.record(), scene, host), \
+            (plan.family_number, s.slot)
+        used.append(source)
+
+
+def test_warmup_slots_on_tuning_runs():
+    """Tuning runs exclude H's own family and swap kinds often (KT-39)."""
+    swaps = 0
+    for n in range(1, C.N_TUNING_FAMILIES + 1):
+        plan = rp.generate_run("tuning", KEY, n, 1 + n % C.RUNS_PER_FAMILY)
+        assert_warmup_slots_are_the_run_keys_draws(plan)
+        assert_redraw_counts(plan)
+        swaps += sum(1 for e in plan.log if e[0] == "warm-up kind swapped")
+    assert swaps > 0
+
+
 def test_neutral_kind_replacements_chain_through_cascades(monkeypatch):
     """Each replacement is the next kind draw, and a replacement outlives a cascade (section 2, KT-85)."""
     monkeypatch.setattr(C, "FAR_MAX_DRAWS", 20)
@@ -162,6 +241,8 @@ def test_neutral_kind_replacements_chain_through_cascades(monkeypatch):
         for k, kind in plan.neutral_kinds.items():
             tries = [e[3] for e in plan.log if e[0] == "neutral kind replaced" and e[1] == f"neutral-{k}"]
             assert tries == list(range(2, kind.try_number + 1)), (plan.family_number, k, tries)
+        assert_redraw_counts(plan)
+        assert_warmup_slots_are_the_run_keys_draws(plan)
         both += plan.cascades > 0 and any(k.try_number > 1 for k in plan.neutral_kinds.values())
     assert both > 0
 

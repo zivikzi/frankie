@@ -21,15 +21,19 @@ It also refuses these disguises:
   whether used, bound, imported, imported under another name or written as
   a string;
 - a name imported from NumPy or Numba that is itself a module from outside
-  them (NumPy modules hold `sys` and `os`, for example), and any import or
-  attribute of their private, test, build or `__main__` modules (`f2py`,
-  `ctypeslib`, `testing` and the like), which run code at import, load
-  libraries or hold the standard library;
+  them (NumPy modules hold `sys` and `os`, for example), and any import of
+  their private, test, build or `__main__` modules (`f2py`, `ctypeslib`,
+  `testing` and the like, in either `import` or `from` form), which run code
+  at import, load libraries or hold the standard library; and any private
+  attribute (`._x`) reached from a name bound to NumPy, Numba or something
+  imported from them;
 - a source file whose encoding is not UTF-8, since an encoding cookie can
   turn a comment into code;
 - any symlink in the package, and any file Python could import but this
   check cannot read (.so, .pyd, .pyw, upper-case suffixes, a .pyc that is
-  not the plain timestamp cache of a source file beside it, and so on).
+  not Python's own timestamp cache of the source file beside it, and so
+  on). A cache that Python would run in place of its source must hold the
+  same code as that source.
 
 It never runs mind code, and it looks NumPy's and Numba's modules up in a
 separate interpreter, so nothing a module does at import can change its
@@ -47,6 +51,7 @@ Exits 1 and lists every violation if there is any.
 
 import ast
 import json
+import marshal
 import os
 import pathlib
 import re
@@ -75,7 +80,31 @@ CACHE_FILE = re.compile(r"^(?P<stem>[^.]+)\.(?P<tag>[a-z0-9_-]+)(\.opt-[12])?\.p
 
 def _numpy_module_refused(module: str) -> bool:
     """Private, test, build and __main__ modules of NumPy and Numba run code, load libraries or hold the standard library."""
-    return any(p.startswith("_") or p in NUMPY_PARTS_REFUSED for p in module.split(".")[1:])
+    return any((p.startswith("_") and p not in HARMLESS_DUNDERS) or p in NUMPY_PARTS_REFUSED
+               for p in module.split(".")[1:])
+
+
+def _numpy_bound_names(tree) -> set:
+    """Names the file binds to NumPy, Numba or anything imported from them."""
+    bound = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.name.split(".")[0] in ("numpy", "numba"):
+                    bound.add(alias.asname or alias.name.split(".")[0])
+        elif isinstance(node, ast.ImportFrom) and not node.level and \
+                (node.module or "").split(".")[0] in ("numpy", "numba"):
+            bound.update(alias.asname or alias.name for alias in node.names)
+    return bound
+
+
+def _attribute_chain(node: ast.Attribute):
+    """(the name an attribute chain starts from, or None, and the attributes along it)."""
+    attrs = []
+    while isinstance(node, ast.Attribute):
+        attrs.append(node.attr)
+        node = node.value
+    return (node.id if isinstance(node, ast.Name) else None), attrs
 
 
 def _foreign_names(pairs) -> set:
@@ -129,8 +158,9 @@ def violations(path: pathlib.Path) -> tuple:
         out.append((1, f"a source encoding other than UTF-8 ({encoding})"))
     try:
         tree = ast.parse(raw, filename=str(path))     # bytes, so Python's own encoding rules apply
-    except (SyntaxError, ValueError) as e:
+    except (SyntaxError, ValueError, RecursionError, MemoryError) as e:
         return [(getattr(e, "lineno", 0) or 0, "a file the guard cannot parse")], []
+    numpy_names = _numpy_bound_names(tree)
     for node in ast.walk(tree):
         if isinstance(node, (ast.Import, ast.ImportFrom)):
             for alias in node.names:
@@ -156,12 +186,17 @@ def violations(path: pathlib.Path) -> tuple:
                 for alias in node.names:
                     if alias.name == "*":
                         out.append((node.lineno, f"from {node.module} import *"))
+                    elif _numpy_module_refused(f"{node.module}.{alias.name}"):
+                        out.append((node.lineno, f"from {node.module} import {alias.name}"))
                     else:
                         from_numpy.append((node.lineno, node.module, alias.name))
         elif isinstance(node, ast.Name) and (node.id in FORBIDDEN_NAMES | FORBIDDEN_CALLS or _is_dunder(node.id)):
             out.append((node.lineno, f"use of {node.id}"))
         elif isinstance(node, ast.Attribute) and node.attr in FORBIDDEN_ATTRIBUTES | NUMPY_PARTS_REFUSED:
             out.append((node.lineno, f"use of .{node.attr}"))
+        elif isinstance(node, ast.Attribute) and node.attr.startswith("_") and node.attr not in HARMLESS_DUNDERS \
+                and _attribute_chain(node)[0] in numpy_names:
+            out.append((node.lineno, f"use of .{node.attr}, a private part of NumPy or Numba"))
         elif isinstance(node, (ast.arg, ast.keyword)) and node.arg and \
                 (node.arg in FORBIDDEN_NAMES | FORBIDDEN_CALLS or _is_dunder(node.arg)):
             out.append((node.lineno, f"binding the name {node.arg}"))
@@ -178,18 +213,40 @@ def _walk(root: pathlib.Path):
             yield pathlib.Path(dirpath) / name
 
 
+def _cache_runs_other_code(pyc: pathlib.Path, source: pathlib.Path, optimize: int) -> bool:
+    """Whether Python would run this timestamp cache instead of its source, and it holds other code.
+
+    Python runs the cache when its recorded mtime and size match the source's,
+    so a cache made by hand with other code would replace the reviewed source.
+    A stale cache, which Python recompiles, is harmless.
+    """
+    data = pyc.read_bytes()
+    st = source.stat()
+    if data[8:12] != (int(st.st_mtime) & 0xFFFFFFFF).to_bytes(4, "little") or \
+            data[12:16] != (st.st_size & 0xFFFFFFFF).to_bytes(4, "little"):
+        return False
+    try:
+        cached = marshal.loads(data[16:])
+        fresh = compile(source.read_bytes(), str(source), "exec", dont_inherit=True, optimize=optimize)
+    except BaseException:
+        return True
+    return cached != fresh          # code objects compare everything that runs, never the file name
+
+
 def _unreadable(p: pathlib.Path) -> str:
     """Why an importable file is refused, or '' if the guard can read it (or Python cannot import it)."""
     suffix = p.suffix.lower()
     if p.parent.name == "__pycache__":
         m = CACHE_FILE.match(p.name)
-        if not m or m.group("tag") != sys.implementation.cache_tag or \
-                not (p.parent.parent / (m.group("stem") + ".py")).is_file():
+        source = p.parent.parent / (m.group("stem") + ".py") if m else None
+        if not m or m.group("tag") != sys.implementation.cache_tag or not source.is_file():
             return "a file in __pycache__ that is not the cache of a source file beside it"
         with p.open("rb") as f:
-            header = f.read(8)
-        if len(header) < 8 or int.from_bytes(header[4:8], "little") != 0:
-            return "a hash-based .pyc, which Python may run instead of its source"
+            header = f.read(16)
+        if len(header) < 16 or int.from_bytes(header[4:8], "little") != 0:
+            return "a hash-based or broken .pyc, which Python may run instead of its source"
+        if _cache_runs_other_code(p, source, int(m.group(3)[-1]) if m.group(3) else 0):
+            return "a .pyc that Python would run instead of its source, holding other code"
         return ""
     if suffix in SOURCE_SUFFIXES and p.suffix == suffix:
         return ""

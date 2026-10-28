@@ -1,6 +1,7 @@
 """The import guard (I02), with a positive control that shows it bites."""
 
 import importlib.util
+import marshal
 import os
 import py_compile
 import shutil
@@ -38,8 +39,9 @@ def test_positive_control(tmp_path):
     (mind / "__init__.py").write_text("from __future__ import annotations\nimport numpy as np\nimport mind.sub\n")
     (mind / "ok.py").write_text(
         "import numba\nfrom numpy import zeros\nfrom numpy.random import Philox\nfrom mind.sub import x\n"
-        "import numpy.linalg\n__all__ = ['zeros']\n\n\nclass A:\n    def __init__(self):\n"
-        "        super().__init__()\n        self.mode = 'eval'\n")
+        "import numpy.linalg\nfrom numpy import __version__\n__all__ = ['zeros']\n"
+        "w = np.lib.stride_tricks.sliding_window_view\n\n\nclass A:\n    def __init__(self):\n"
+        "        super().__init__()\n        self.mode = 'eval'\n        self._state = np.zeros(3)\n")
     (mind / "sub" / "__init__.py").write_text("from mind import ok\nx = 1\n")
     (mind / "bad.py").write_text(
         "import os\n"
@@ -99,6 +101,14 @@ BYPASSES = {
     "string_key.py": b"import numpy as np\nm = np.random.x['modules']\n",
     "breakpoint.py": b"breakpoint()\n",
     "dunder_name.py": b"s = __loader__\n",
+    # found by the third check
+    "from_numpy_part.py": b"from numpy import f2py\n",
+    "from_numpy_testing.py": b"from numpy import testing as t\n",
+    "from_numpy_private.py": b"from numpy import _core\n",
+    "from_random_private.py": b"from numpy.random import _pcg64\n",
+    "numpy_private_attr.py": b"import numpy as np\nm = np._core\n",
+    "imported_private_attr.py": b"from numpy import random\nx = random._pcg64.np\n",
+    "deep_chain.py": b"x = a" + b".b" * 10_000 + b"\n",
 }
 
 
@@ -162,6 +172,28 @@ def test_files_the_guard_cannot_read_are_refused(tmp_path):
     assert names(found) == sorted([f"tower.{TAG}.pyc", f"checked.{TAG}.pyc", sourceless.name,
                                    "plain.cpython-0.pyc", "_json.so", "helper.py", "hidden.pyc", "fast.so",
                                    "SHOUT.SO", "tower2.pyw", "upper.PY", "lib.dll"])
+
+
+def test_a_forged_cache_is_refused(tmp_path):
+    """A timestamp .pyc that matches its source's mtime and size runs instead of it, so it must hold the same code."""
+    mind = tmp_path / "mind"
+    (mind / "__pycache__").mkdir(parents=True)
+    (mind / "__init__.py").write_text("")
+    src = mind / "foo.py"
+    src.write_text("VALUE = 'benign'\n")
+    st = src.stat()
+    header = importlib.util.MAGIC_NUMBER + (0).to_bytes(4, "little") + \
+        (int(st.st_mtime) & 0xFFFFFFFF).to_bytes(4, "little") + (st.st_size & 0xFFFFFFFF).to_bytes(4, "little")
+    forged = Path(importlib.util.cache_from_source(str(src)))
+    forged.write_bytes(header + marshal.dumps(compile("import world.run_plan\n", str(src), "exec")))
+    assert names(import_guard.check([mind])) == [forged.name]
+    # the same header with the source's own code is Python's cache: allowed
+    forged.write_bytes(header + marshal.dumps(compile(src.read_bytes(), str(src), "exec", dont_inherit=True)))
+    assert import_guard.check([mind]) == []
+    # a stale cache, which Python recompiles, is harmless
+    stale = header[:8] + (12345).to_bytes(4, "little") + header[12:]
+    forged.write_bytes(stale + marshal.dumps(compile("import world.run_plan\n", str(src), "exec")))
+    assert import_guard.check([mind]) == []
 
 
 def _can_symlink(tmp_path):
