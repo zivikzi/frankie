@@ -4,6 +4,7 @@ CI runs these on Linux (x86 and ARM), macOS and Windows. A change to the
 counter layout, the draw order or the noise arithmetic changes them.
 """
 
+import decimal
 import hashlib
 import math
 
@@ -27,6 +28,17 @@ GOLDEN_BOX_MULLER = [
 def test_box_muller_golden_values():
     for (u1, u2), want in GOLDEN_BOX_MULLER:
         assert box_muller(float.fromhex(u1), float.fromhex(u2)).hex() == want
+
+
+def test_box_muller_ignores_the_callers_decimal_settings():
+    """No decimal setting made elsewhere in the process changes a reading or trips on one."""
+    with decimal.localcontext() as ctx:
+        ctx.prec, ctx.Emin, ctx.rounding = 3, -5, decimal.ROUND_DOWN
+        for signal in (decimal.FloatOperation, decimal.Inexact, decimal.Rounded):
+            ctx.traps[signal] = True
+        for (u1, u2), want in GOLDEN_BOX_MULLER:
+            assert box_muller(float.fromhex(u1), float.fromhex(u2)).hex() == want
+        assert not any(ctx.flags.values())
 
 
 def test_box_muller_agrees_with_the_float_formula():

@@ -17,7 +17,7 @@ uses its own counter values (KT-32). So a redraw never changes another
 place's random numbers.
 """
 
-from decimal import ROUND_HALF_EVEN, Context, Decimal
+from decimal import ROUND_HALF_EVEN, Context, Decimal, DivisionByZero, InvalidOperation, Overflow
 
 import numpy as np
 
@@ -31,8 +31,12 @@ _BLOCKS_PER_FETCH = 8        # how many blocks to compute at once; no value depe
 # Box-Muller in decimal arithmetic (KT-34, KT-81). The platform's math library
 # may round log and cos differently from one machine to the next, which would
 # break the bit-for-bit laptop-to-cloud replay (I05). Python's decimal module
-# is pure software, so these steps give the same answer everywhere.
-_DEC = Context(prec=40, rounding=ROUND_HALF_EVEN)   # 40 significant digits (KT-81)
+# is pure software, so these steps give the same answer everywhere. Every
+# step uses this one context, with every field set here, so no setting made
+# elsewhere in the process (decimal.getcontext(), decimal.DefaultContext)
+# can change a reading.
+_DEC = Context(prec=40, rounding=ROUND_HALF_EVEN, Emin=-999_999, Emax=999_999,   # 40 significant digits (KT-81)
+               capitals=1, clamp=0, flags=[], traps=[InvalidOperation, DivisionByZero, Overflow])
 _PI = Decimal("3.14159265358979323846264338327950288419716939937510582097494")  # pi to 60 digits (KT-81)
 _TWO_PI = _DEC.multiply(2, _PI)      # 2 pi (KT-81)
 _HALF_PI = _DEC.divide(_PI, 2)       # pi / 2 (KT-81)
@@ -124,7 +128,7 @@ def _cos(x: Decimal) -> Decimal:
     while True:
         n += 2
         term = c.divide(c.multiply(term, x2).copy_negate(), (n - 1) * n)
-        if abs(term) < _SERIES_STOP:
+        if term.copy_abs() < _SERIES_STOP:
             break
         total = c.add(total, term)
     return total.copy_negate() if negate else total
@@ -133,7 +137,7 @@ def _cos(x: Decimal) -> Decimal:
 def box_muller(u1: float, u2: float) -> float:
     """One noise width times sqrt(-2 ln(1 - u1)) times cos(2 pi u2), rounded once to a float."""
     c = _DEC
-    d1, d2 = Decimal(u1), Decimal(u2)     # exact: every uniform is a multiple of 2^-53
+    d1, d2 = Decimal.from_float(u1), Decimal.from_float(u2)     # exact: every uniform is a multiple of 2^-53
     radius = c.sqrt(c.multiply(-2, c.ln(c.subtract(1, d1))))
     return float(c.multiply(c.multiply(_NOISE_WIDTH_DEC, radius), _cos(c.multiply(_TWO_PI, d2))))
 

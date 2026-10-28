@@ -18,7 +18,7 @@ from itertools import combinations
 from . import constants as C
 from . import keys, traits
 from .kinds import NOTHING, NOURISH, POISON, draw_base_kind, place_neutral_kind
-from .objects import (APPLE, COPY, FAR_APPLE, LOOKALIKE, MODEL, NEUTRAL, WARMUP, band_gap, clip01,
+from .objects import (APPLE, COPY, FAR_APPLE, LOOKALIKE, MODEL, NEUTRAL, WARMUP, band_gap, clip01, draw_member,
                       gap_outside, surface_distance, taste_distance)
 from .streams import Draws
 
@@ -434,12 +434,20 @@ def _verify_warmup(plan, tuning_family, ctx) -> list:
     want_models = [f"warmup-model-{i:02d}" for i in range(1, C.N_WARMUP_PER_KIND + 1)]
     if [m.label for m in plan.warmup_models] != want_models:
         out.append("warm-up poison items do not have 10 fresh models")
+    from .run_plan import place_warmup_model      # here, since run_plan imports this module
     poison = slots[1]
-    for m in plan.warmup_models:
+    world = keys.stream_key(keys.run_key(plan.family.key, plan.run_number), keys.STREAM_WORLD)
+    for i, m in enumerate(plan.warmup_models, start=1):
         if m.role != MODEL or m.kind is not poison.model_kind:
             out.append(f"{m.label}: not a fresh apple of the poison slot's family")
-        if poison.model_kind is not None:
-            _check_member(m, poison.model_kind, out)
+        if poison.model_kind is None:
+            continue
+        _check_member(m, poison.model_kind, out)
+        # each model is its own draw of the run key at its own place (KT-81), so 10 copies of one apple fail
+        if m.place != place_warmup_model(i) or m.try_number < 1:
+            out.append(f"{m.label}: not drawn at its own place")
+        elif draw_member(Draws(world, m.place, m.try_number), poison.model_kind) != (m.values, m.hue_offset):
+            out.append(f"{m.label}: not the run key's draw at its place and try")
     used_models = []
     for s in slots:
         for o in (o for o in items if o.label.startswith(f"warmup-{s.slot}-")):

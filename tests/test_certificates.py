@@ -302,3 +302,17 @@ def test_neutral_rule_upper_bound_by_hand():
     assert "surface" in neutral_failure(outside, H, values(), 15.0)     # 20 > 16.5
     assert neutral_failure(outside, H, values(), 20.0 / 1.1 + 1e-9) == ""
     assert "surface" in neutral_failure(outside, H, values(), 20.0 / 1.1 - 1e-6)
+
+
+def test_warmup_models_are_ten_different_draws(plan):
+    """Second review: 10 relabelled copies of one model apple must not pass."""
+    m1 = plan.warmup_models[0]
+    p = copy.copy(plan)
+    p.warmup_models = [dataclasses.replace(m1, label=f"warmup-model-{i:02d}") for i in range(1, 11)]
+    out = problems(p)
+    assert sum("not drawn at its own place" in m for m in out) == 9
+    # right places and tries, but one apple's values everywhere
+    p.warmup_models = [dataclasses.replace(m, values=m1.values, hue_offset=m1.hue_offset)
+                       for m in plan.warmup_models]
+    out = problems(p)
+    assert sum("not the run key's draw at its place and try" in m for m in out) == 9

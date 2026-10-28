@@ -128,8 +128,42 @@ def test_cascades_and_h1_redraws(monkeypatch):
         assert all(o.try_number == 1 + plan.cascades for o in plan.P if o.label.startswith("P-look-h1"))
         assert all(plan.a[k].try_number == 1 + plan.h1_redraws for k in (2, 3, 4))
         assert all(o.try_number == 1 + plan.h1_redraws for o in plan.warmup_items)
+        # h1 is redrawn right after the 10th, 20th, ... cascade and after no other (section 2)
+        for j, e in enumerate(plan.log):
+            if e[0] == "cascade":
+                follows = j + 1 < len(plan.log) and plan.log[j + 1][0] == "h1 redrawn"
+                assert follows == (e[3] % C.H1_REDRAW_EVERY == 0), (plan.family_number, e)
+            if e[0] == "h1 redrawn":
+                assert j > 0 and plan.log[j - 1][0] == "cascade"
+        # temperament, trait order and warm-up order are drawn once, before any cascade (KT-86)
+        assert_drawn_once_before_the_loop(plan)
         seen_h1_redraw |= plan.h1_redraws > 0
     assert seen_h1_redraw
+
+
+def assert_drawn_once_before_the_loop(plan):
+    world = keys.stream_key(keys.run_key(plan.family.key, plan.run_number), keys.STREAM_WORLD)
+    d = Draws(world, rp.PLACE_TEMPERAMENT, 1)
+    assert plan.reserve_milli == C.R_MILLI_LO + d.index(C.R_MILLI_HI - C.R_MILLI_LO + 1)
+    assert plan.boldness == d.between(C.BOLDNESS_LO, C.BOLDNESS_HI)
+    assert plan.trait_order == tuple(Draws(world, rp.PLACE_TRAIT_ORDER, 1).shuffled(range(traits.N_TRAITS)))
+    labels = [f"warmup-{j}-{i:02d}" for j in range(1, C.N_WARMUP_KINDS + 1) for i in range(1, C.N_WARMUP_PER_KIND + 1)]
+    assert plan.warmup_order == tuple(Draws(world, rp.PLACE_WARMUP_ORDER, 1).shuffled(labels))
+
+
+def test_neutral_kind_replacements_chain_through_cascades(monkeypatch):
+    """Each replacement is the next kind draw, and a replacement outlives a cascade (section 2, KT-85)."""
+    monkeypatch.setattr(C, "FAR_MAX_DRAWS", 20)
+    monkeypatch.setattr(C, "KIND_MAX_DRAWS", 3)
+    both = 0
+    for i in range(60):
+        plan = practice_run(C.GENERATOR_TEST_FAMILY_START + 1000 + i, 1)
+        assert verify_run_plan(plan, rp.tuning_family) == []
+        for k, kind in plan.neutral_kinds.items():
+            tries = [e[3] for e in plan.log if e[0] == "neutral kind replaced" and e[1] == f"neutral-{k}"]
+            assert tries == list(range(2, kind.try_number + 1)), (plan.family_number, k, tries)
+        both += plan.cascades > 0 and any(k.try_number > 1 for k in plan.neutral_kinds.values())
+    assert both > 0
 
 
 def test_neutral_kind_replacement(monkeypatch):

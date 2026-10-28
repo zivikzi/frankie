@@ -56,17 +56,19 @@ def test_draw_statistics_over_many_families():
     for t in traits.CORE_ELIGIBLE:
         rate = sum(1 for f in fams if t in f.H.core) / len(fams)
         assert abs(rate - 4 / 13) < 0.04
-    # KT-03: when both sides fit, a moved band goes on each side half the time.
-    below = above = 0
+    # KT-03: when both sides fit, a moved band goes on each side half the time,
+    # so it takes the side with less room half the time too.
+    shorter = n = 0
     for f in fams:
         for k in range(1, 9):
             look = f.lookalike_kinds[k]
             for t in look.moved:
                 lo, hi = f.H.bands[t]
-                if lo - 0.35 >= 0 and hi + 0.35 <= 1:
-                    below += look.bands[t][1] <= lo
-                    above += look.bands[t][0] >= hi
-    assert abs(below / (below + above) - 0.5) < 0.02
+                if lo - 0.35 >= 0 and hi + 0.35 <= 1 and lo != 1 - hi:
+                    n += 1
+                    went_below = look.bands[t][1] <= lo
+                    shorter += went_below == (lo < 1 - hi)
+    assert n > 1000 and abs(shorter - n / 2) < 5 * n ** 0.5 / 2
 
 
 def test_taste_ranges_full_for_h_drawn_for_neutral_kinds():
