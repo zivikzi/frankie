@@ -102,6 +102,7 @@ def test_the_planned_mock_reaches_go():
 @pytest.mark.parametrize("over,verdict,cause", [
     (dict(settle_rate=F(94, 100)), "NO-GO", "decisions don't settle"),
     (dict(copy_accept=F(79, 100)), "NO-GO", "h1 wasn't learned"),
+    (dict(settle_rate=F(94, 100), copy_accept=F(79, 100)), "NO-GO", "decisions don't settle; h1 wasn't learned"),
     (dict(d_learn_strict=F(1, 4)), "NO-GO", "not better than brute trial and error"),
     (dict(d_learn_strict=F(39, 100)), "INCONCLUSIVE", "rule 3 margin"),
     (dict(fmn_strict=F(14, 100)), "INCONCLUSIVE", "rule 4b"),

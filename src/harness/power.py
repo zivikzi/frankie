@@ -92,8 +92,12 @@ class FloorStore:
             f.write(json.dumps(row, sort_keys=True) + "\n")
 
 
-def run_floors(store, n_sets, size, specs, workers=1, progress=None):
+def run_floors(store, n_sets, size, specs, workers=1, progress=None, shard=None):
+    """The floor runs the store still lacks; with shard (k, m), only simulated sets s with s mod m == k mod m."""
     todo = store.missing(n_sets, size)
+    if shard:
+        k, m = shard
+        todo = [(s, i) for s, i in todo if (s - 1) % m == k - 1]
     jobs = [(s, i, tuple(specs)) for s, i in todo]
     if workers > 1:
         with ProcessPoolExecutor(max_workers=workers) as pool:

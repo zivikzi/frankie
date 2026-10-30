@@ -136,7 +136,15 @@ class SubprocessHost:
     def __init__(self, package_dir, hash_seed: str = "0"):
         package_dir = pathlib.Path(package_dir).resolve()
         self.package = package_dir.name
+        self._proc = self._stderr = None
         self._tmp = tempfile.mkdtemp(prefix="frankie-mind-")
+        try:
+            self._start(package_dir, hash_seed)
+        except BaseException:
+            self.close()                # a mind that fails to start leaves no process or folder behind
+            raise
+
+    def _start(self, package_dir, hash_seed):
         root = pathlib.Path(self._tmp, "root")
         for src in sorted(package_dir.rglob("*.py")):
             rel = src.relative_to(package_dir)
@@ -227,7 +235,7 @@ class SubprocessHost:
         return self._request({"op": "modules"})
 
     def close(self):
-        if self._proc.poll() is None:
+        if self._proc is not None and self._proc.poll() is None:
             try:
                 self._request({"op": "quit"})
             except MindError:
@@ -237,9 +245,11 @@ class SubprocessHost:
             except subprocess.TimeoutExpired:
                 self._proc.kill()
                 self._proc.wait()
-        for f in (self._proc.stdin, self._proc.stdout, self._stderr):
+        pipes = (self._proc.stdin, self._proc.stdout) if self._proc is not None else ()
+        for f in pipes + (self._stderr,):
             try:
-                f.close()
+                if f is not None:
+                    f.close()
             except OSError:
                 pass
         shutil.rmtree(self._tmp, ignore_errors=True)

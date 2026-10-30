@@ -220,7 +220,9 @@ def judge(set_name: str, kf: dict, floor_runs: dict, floor_value, os10: dict, co
     if not out["7"]["pass"]:
         causes.append("rule 7 (possible essence leak: trace it with Aitzaz)")
     if not out["1"]["pass"] or not out["2"]["pass"]:
-        verdict, label = "NO-GO", ("h1 wasn't learned" if not out["2"]["pass"] else "decisions don't settle")
+        verdict = "NO-GO"
+        label = "; ".join(t for t, ok in (("decisions don't settle", out["1"]["pass"]),
+                                          ("h1 wasn't learned", out["2"]["pass"])) if not ok)
     elif not out["3"]["bootstrap_pass"]:
         verdict, label = "NO-GO", "not better than brute trial and error"
     elif not causes:

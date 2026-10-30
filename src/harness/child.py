@@ -5,13 +5,17 @@ packages, an empty working directory and a scrubbed environment. It then:
 
 1. reads one line of setup from the harness (the mind's package root and the
    directories NumPy and Numba live in);
-2. imports NumPy (and Numba, if present), then the mind's entry module
-   `<package>.entry`;
-3. installs an audit hook (PEP 578) that from then on refuses any import of a
-   new module outside NumPy, Numba and the mind's package, any file opened
-   outside the directories it was given, and any socket, subprocess, process,
-   signal, ctypes or file-system change;
-4. answers the harness's requests, one JSON line each, until told to quit.
+2. imports NumPy with its random and linear-algebra parts, which load
+   standard-library modules of their own (and Numba, if present);
+3. wraps the import statement, so the package's own modules may import only
+   NumPy, Numba and the package, even modules already loaded; and installs
+   an audit hook (PEP 578) that from then on refuses any import of a new
+   module outside those, any file written or opened outside the directories
+   it was given (os.open's write flags included), and any socket,
+   subprocess, process, signal, ctypes or file-system change;
+4. only then imports the mind's entry module `<package>.entry`, so none of
+   the mind's code runs outside the sandbox, not even at import;
+5. answers the harness's requests, one JSON line each, until told to quit.
 
 Only plain data crosses the pipe: JSON numbers, strings, booleans, null,
 lists and objects, with arrays sent as lists of floats. Nothing is pickled in
@@ -36,6 +40,7 @@ except ImportError:       # in the mind's own process, main() adds NumPy's direc
     np = None
 
 MAX_LINE = 64 * 1024 * 1024      # refuse a message longer than this (64 MiB)
+PRELOADED = ("numpy.random", "numpy.linalg")    # loaded before the sandbox closes, since they import stdlib modules
 
 
 # ---------------------------------------------------------------- codec
@@ -183,10 +188,36 @@ _BANNED_EVENT_PREFIXES = (
     "os.kill", "os.killpg", "os.remove", "os.unlink", "os.rename", "os.rmdir", "os.mkdir",
     "os.chdir", "os.chmod", "os.chown", "os.truncate", "os.symlink", "os.link", "os.putenv",
     "os.unsetenv", "glob.", "shutil.", "ctypes.", "signal.", "sys.settrace", "sys.setprofile",
-    "sys._getframe", "sys.addaudithook", "code.__new__", "function.__new__", "pickle.",
+    "sys.addaudithook", "code.__new__", "function.__new__", "pickle.",
     "urllib.", "http.", "ftplib.", "smtplib.", "webbrowser.", "winreg.", "_winapi.", "msvcrt.",
     "sqlite3.", "mmap.",
 )
+
+
+# Exact event names (sys._getframemodulename, which gives only a module's name, stays allowed)
+_BANNED_EVENTS = frozenset({"sys._getframe", "sys._current_frames", "sys._current_exceptions"})
+_WRITE_FLAGS = os.O_WRONLY | os.O_RDWR | os.O_APPEND | os.O_CREAT | os.O_TRUNC   # os.open reports these, not a mode
+
+
+def _guard_imports(package, allowed_top):
+    """Every import statement in the package's own modules may name only NumPy, Numba or the package.
+
+    The audit hook's "import" event fires only for a module not yet loaded, so
+    a module that is already loaded (os, sys and the like) would import with
+    no event. This wraps the import statement itself, for code whose globals
+    belong to the package; NumPy's own lazy imports are left alone.
+    """
+    import builtins
+    real = builtins.__import__
+
+    def guarded(name, globals=None, locals=None, fromlist=(), level=0):
+        caller = (globals or {}).get("__name__", "") or ""
+        if caller == package or caller.startswith(package + "."):
+            if level != 0 or name.split(".")[0] not in allowed_top:
+                raise ImportError(f"the mind may not import {name}")
+        return real(name, globals, locals, fromlist, level)
+
+    builtins.__import__ = guarded
 
 
 def _install_hook(allowed_roots, allowed_top):
@@ -203,13 +234,14 @@ def _install_hook(allowed_roots, allowed_top):
             if isinstance(path, int):
                 raise PermissionError("the mind's process may not open file descriptors")
             mode = args[1] if len(args) > 1 and isinstance(args[1], str) else "r"
-            if any(c in mode for c in "wax+"):
+            flags = args[2] if len(args) > 2 and isinstance(args[2], int) else 0
+            if any(c in mode for c in "wax+") or flags & _WRITE_FLAGS:
                 raise PermissionError("the mind's process may not write files")
             p = os.path.normcase(os.path.abspath(os.fsdecode(path)))
             if not p.startswith(roots):
                 raise PermissionError(f"the mind's process may not open {path!r}")
             return
-        if event.startswith(_BANNED_EVENT_PREFIXES):
+        if event in _BANNED_EVENTS or event.startswith(_BANNED_EVENT_PREFIXES):
             raise PermissionError(f"the mind's process may not use {event}")
 
     sys.addaudithook(hook)
@@ -280,14 +312,17 @@ def main():
     sys.path.insert(0, package_root)
     global np
     import numpy as np
+    for name in PRELOADED:              # NumPy's parts load stdlib modules lazily; load them before the hook
+        __import__(name)
     try:
         import numba  # noqa: F401
     except ImportError:
         pass
-    entry = __import__(package + ".entry", fromlist=["make"])
     allowed_top = {"numpy", "numba", "llvmlite", package}
     roots = [package_root] + setup["library_dirs"] + setup["stdlib_dirs"]
-    _install_hook(roots, allowed_top)
+    _guard_imports(package, allowed_top)
+    _install_hook(roots, allowed_top)             # before the mind's own code runs at all
+    entry = __import__(package + ".entry", fromlist=["make"])
 
     def mind_modules():
         return [m for name, m in sorted(sys.modules.items())

@@ -1,6 +1,7 @@
 """The mind's own process: plain data only, and nothing reachable but NumPy and its package (KT-93)."""
 
 import textwrap
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -95,12 +96,26 @@ def test_nothing_of_the_world_or_the_harness_is_loaded_in_the_minds_process():
     assert "mind.entry" in mods
 
 
-def test_the_minds_process_has_a_scrubbed_environment(tmp_path):
-    body = PROBE.replace("        return self.config", "        import os\n        return sorted(os.environ)")
-    with SubprocessHost(package(tmp_path, body)) as host:
+def test_the_minds_process_has_a_scrubbed_environment(monkeypatch):
+    import subprocess
+    seen = {}
+    real = subprocess.Popen
+
+    def spy(*args, **kwargs):
+        seen.update(kwargs)
+        return real(*args, **kwargs)
+    monkeypatch.setattr(subprocess, "Popen", spy)
+    with SubprocessHost(STUB_DIR, hash_seed="7"):
+        assert Path(seen["cwd"]).name == "work" and not any(Path(seen["cwd"]).iterdir())
+    assert set(seen["env"]) <= {"PYTHONHASHSEED", "PYTHONDONTWRITEBYTECODE", "PYTHONIOENCODING", "SYSTEMROOT"}
+    assert seen["env"]["PYTHONHASHSEED"] == "7"
+
+
+def test_numpys_own_parts_work_inside_the_sandbox(tmp_path):
+    code = "import numpy as np\n        np.random.default_rng(1).random()"
+    with SubprocessHost(attempt(tmp_path, code)) as host:
         host.new("m", {})
-        env = set(host.info("m"))
-    assert env - {"LC_CTYPE"} <= {"PYTHONHASHSEED", "PYTHONDONTWRITEBYTECODE", "PYTHONIOENCODING", "SYSTEMROOT"}
+        assert host.info("m") == {}
 
 
 def test_a_crashed_mind_stops_with_an_error(tmp_path):
@@ -108,3 +123,31 @@ def test_a_crashed_mind_stops_with_an_error(tmp_path):
         host.new("m", {})
         with pytest.raises(MindError, match="boom"):
             host.info("m")
+
+
+def test_already_loaded_modules_are_refused_too(tmp_path):
+    for code in ("import os", "import sys", "import json", "from os import path", "import numpy.random"):
+        d = tmp_path / code.replace(" ", "_").replace(".", "_")
+        d.mkdir()
+        pkg = attempt(d, code)
+        with SubprocessHost(pkg) as host:
+            host.new("m", {})
+            if code == "import numpy.random":
+                assert host.info("m") == {}
+            else:
+                with pytest.raises(MindError, match="may not import"):
+                    host.info("m")
+
+
+def test_writing_through_os_open_is_refused(tmp_path):
+    code = "import numpy as np\n        np.save('x.npy', np.zeros(2))"
+    with SubprocessHost(attempt(tmp_path, code)) as host:
+        host.new("m", {})
+        with pytest.raises(MindError):
+            host.info("m")
+
+
+def test_the_entry_module_runs_inside_the_sandbox(tmp_path):
+    body = "import socket\n" + PROBE
+    with pytest.raises(MindError):
+        SubprocessHost(package(tmp_path, body))

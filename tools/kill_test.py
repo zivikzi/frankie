@@ -97,17 +97,17 @@ def power_check(tuning_report, store_path, out, size, n_sets, workers, shard):
     store = power.FloorStore(store_path)
     specs = power.floor_specs(agents.RADIUS_B1N_BOT_R, agents.RADIUS_B1N_MIND)
     sizes = [size] if size else list(power.SIZES)
+    show = _progress("floor families")
     if shard:
         k, m = (int(x) for x in shard.split("/"))
         for s in sizes:
-            todo = [(st, i) for st, i in store.missing(n_sets, s) if (st - 1) % m == k - 1]
-            store_jobs(store, todo, specs, workers)
+            power.run_floors(store, n_sets, s, specs, workers, show, shard=(k, m))
         print(f"shard {k}/{m}: floor runs done")
         return 0
     report = dict(power.report_header(spreads), sizes=[], simulated_sets=n_sets,
                   official=n_sets == power.SIMULATED_SETS)
     for s in sizes:
-        store_jobs(store, store.missing(n_sets, s), specs, workers)
+        power.run_floors(store, n_sets, s, specs, workers, show)
         res = power.power_at(store, s, spreads, n_sets)
         detail = res.pop("sets_detail")
         res["floors"] = [{"set": d["set"], "floor_mind": d["floor_mind"], "floor": d["floor"], "verdict": d["verdict"],
@@ -121,21 +121,6 @@ def power_check(tuning_report, store_path, out, size, n_sets, workers, shard):
         report["set_size"] = None
     pathlib.Path(out).write_text(json.dumps(plain(report), indent=1, sort_keys=True) + "\n")
     return 0 if report["set_size"] else 1
-
-
-def store_jobs(store, todo, specs, workers):
-    from concurrent.futures import ProcessPoolExecutor
-    jobs = [(s, i, tuple(specs)) for s, i in todo]
-    show = _progress("floor families")
-    if workers > 1:
-        with ProcessPoolExecutor(max_workers=workers) as pool:
-            for k, row in enumerate(pool.map(power.floor_family, jobs, chunksize=1), 1):
-                store.add(row)
-                show(k, len(jobs))
-    else:
-        for k, job in enumerate(jobs, 1):
-            store.add(power.floor_family(job))
-            show(k, len(jobs))
 
 
 def main(argv=None) -> int:

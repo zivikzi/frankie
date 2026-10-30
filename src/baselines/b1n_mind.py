@@ -18,6 +18,7 @@ from .drive import BAR_SLOPE, BAR_TOP, WRONG_FACTOR_TOP, drive
 
 RELIABILITY = 1.0            # B1n-mind's reliability is always 1 (section 4)
 CHECK_MILLI = 1              # 0.001 per check (B14, KT-46), in milli-units
+MILLI_PER_UNIT = 1000        # energy is kept in whole milli-units (KT-92)
 OS07 = {"switch": "OS07", "setting": "habits off", "scope": "lifetime"}    # (section 5, KT-49)
 
 
@@ -35,7 +36,7 @@ class B1nMind:
         self._landed = None
 
     def _tally(self):
-        return None if not self.untried else sum(self.untried) / len(self.untried) / 1000
+        return None if not self.untried else sum(self.untried) / len(self.untried) / MILLI_PER_UNIT
 
     def decide(self, visible, energy_milli):
         o = np.array(visible, dtype=np.float64)

@@ -447,15 +447,19 @@ def birth_config(plan, spec, extra=None) -> dict:
 
 def run_one(plan, spec, cache, *, host=None, package_dir=None, extra=None, order=None, checks=True,
             checkpoints=CHECKPOINTS, branches=True, hash_seed="0") -> RunRecord:
-    """Run one mind's life on one run plan. Stops with an error on any departure (KT-95)."""
+    """Run one mind's life on one run plan. Stops with an error on any departure (KT-95).
+
+    Every error names the mind, the set, the family and the run.
+    """
+    where = f"{spec.label} on {plan.set_name} family {plan.family_number} run {plan.run_number}"
     own = host is None
-    host = host or make_host(spec, package_dir, hash_seed)
     try:
+        if own:
+            host = make_host(spec, package_dir, hash_seed)
         return _Run(plan, spec, host, cache, birth_config(plan, spec, extra)).run(
             order=order, checks=checks, checkpoints=checkpoints, branches=branches)
-    except (MindError, protocol.InterfaceError) as e:
-        raise RunError(f"{spec.label} on {plan.set_name} family {plan.family_number} run "
-                       f"{plan.run_number}: {e}") from e
+    except (MindError, protocol.InterfaceError, RunError) as e:
+        raise RunError(f"{where}: {e}") from e
     finally:
-        if own:
+        if own and host is not None:
             host.close()

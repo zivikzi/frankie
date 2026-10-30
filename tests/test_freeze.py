@@ -34,3 +34,12 @@ def test_a_manifest_is_never_overwritten(tmp_path):
     p = freeze.write(tmp_path / "m.sha256", "x\n")
     with pytest.raises(FileExistsError):
         freeze.write(p, "y\n")
+
+
+def test_verify_finds_a_file_added_under_a_frozen_folder(tmp_path):
+    (tmp_path / "pkg").mkdir()
+    (tmp_path / "pkg" / "a.py").write_text("x = 1\n")
+    m = freeze.write(tmp_path / "m.sha256", freeze.manifest("t", ["pkg"], root=tmp_path))
+    assert freeze.verify(m, root=tmp_path) == []
+    (tmp_path / "pkg" / "b.py").write_text("y = 1\n")
+    assert freeze.verify(m, root=tmp_path) == ["added: pkg/b.py"]

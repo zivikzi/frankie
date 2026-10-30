@@ -4,8 +4,10 @@
     python tools/freeze.py set A OUT       a kill-run set's code freeze (Week 5; names the set)
     python tools/freeze.py verify MANIFEST lists every file that differs from a manifest
 
-A manifest is plain text: a header naming what it freezes, then one line per
-file, "sha256  path", in path order. This tool never pushes anything and
+A manifest is plain text: a header naming what it freezes and the folders and
+files it covers, then one line per file, "sha256  path", in path order.
+Verifying reports a file that changed, one that is missing and one added under
+a covered folder. This tool never pushes anything and
 refuses to overwrite a file. A manifest that lands in freeze/ on main is
 stamped by the timestamp Action and that cannot be undone, so it goes there
 only by a commit Aitzaz has approved; tests write to temporary folders.
@@ -17,9 +19,10 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BENCH = ("pyproject.toml", "uv.lock", "src/world", "src/harness", "src/baselines", "src/test_fixtures", "tools",
-         "tests/data/drive_grid.json")
+         "tests/data/drive_grid.json", ".github/workflows/power-check.yml")
 SET_CODE = BENCH + ("src/mind", "src/twins")
 SKIP_PARTS = ("__pycache__", ".pytest_cache", ".hypothesis")
+ROOTS_LINE = "# covers: "
 
 
 def files(roots, root=ROOT) -> list:
@@ -38,24 +41,31 @@ def files(roots, root=ROOT) -> list:
 def manifest(name, roots, root=ROOT) -> str:
     import numpy
     lines = [f"# FRANKIE freeze manifest: {name}", f"# Python {sys.version.split()[0]}, NumPy {numpy.__version__}",
-             "# sha256  path"]
+             f"{ROOTS_LINE}{' '.join(roots)}", "# sha256  path"]
     for p in files(roots, root):
         lines.append(f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.relative_to(root).as_posix()}")
     return "\n".join(lines) + "\n"
 
 
 def verify(path, root=ROOT) -> list:
-    """Every file whose hash differs from the manifest's, or that is missing."""
+    """Every file whose hash differs from the manifest's, that is missing, or that was added under its roots."""
     out = []
+    roots = []
+    listed = set()
     for line in pathlib.Path(path).read_text().splitlines():
+        if line.startswith(ROOTS_LINE):
+            roots = line[len(ROOTS_LINE):].split()
         if line.startswith("#") or not line.strip():
             continue
         digest, rel = line.split("  ", 1)
+        listed.add(rel)
         p = root / rel
         if not p.is_file():
             out.append(f"missing: {rel}")
         elif hashlib.sha256(p.read_bytes()).hexdigest() != digest:
             out.append(f"changed: {rel}")
+    present = files([r for r in roots if (root / r).exists()], root)
+    out += [f"added: {rel}" for rel in (p.relative_to(root).as_posix() for p in present) if rel not in listed]
     return out
 
 

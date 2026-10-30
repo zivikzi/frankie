@@ -33,8 +33,7 @@ def median_thinking_nano(rec, unit_nano) -> Fraction:
 
 def _tower_run(job):
     set_name, set_key, family, run, specs, dirs = job
-    plan = generate_run(set_name, set_key, family, run)
-    bench.certify(plan, set_key)
+    plan = generate_run(set_name, set_key, family, run)     # certified already, when the bench ran on it
     cache = ReadingCache(plan.noise_key)
     out, kf = {}, None
     for spec in specs:
