@@ -1,0 +1,86 @@
+name: Power check
+
+# The kill test's power check (KILL_TEST.md section 7, step 4), run on the
+# frozen bench code only. It runs when someone starts it by hand, on the
+# frozen tag. Twenty shards run the floor minds (B1n-bot-r and B1n-mind) on
+# their share of the 1,000 simulated sets; the last job joins the shards,
+# puts MK10 through the frozen judge and uploads the report. This workflow
+# commits nothing: the report is attached to the run and its log is public,
+# so anyone can see which commit it ran.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The frozen tag to run (for example charter-killtest-bench-v1)'
+        required: true
+      size:
+        description: 'Set size to check: 40, 60, 80, 100 or 120 (N only goes up, X39)'
+        required: true
+        default: '40'
+
+permissions:
+  contents: read
+
+jobs:
+  floors:
+    strategy:
+      fail-fast: true
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+
+      - run: uv sync --locked
+
+      - name: Floor runs for this shard
+        run: >
+          uv run python tools/kill_test.py power kill-test/results/tuning-bench.json
+          floors-${{ matrix.shard }}.jsonl unused.json --size ${{ inputs.size }}
+          --shard ${{ matrix.shard }}/20 --workers 4
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: floors-${{ matrix.shard }}
+          path: floors-${{ matrix.shard }}.jsonl
+
+  judge:
+    needs: floors
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+
+      - run: uv sync --locked
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: floors-*
+          merge-multiple: true
+
+      - name: Join the shards and judge
+        run: |
+          cat floors-*.jsonl > floors.jsonl
+          uv run python tools/kill_test.py power kill-test/results/tuning-bench.json floors.jsonl \
+            power-check-${{ inputs.size }}.json --size ${{ inputs.size }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: power-check-report
+          path: |
+            power-check-*.json
+            floors.jsonl
