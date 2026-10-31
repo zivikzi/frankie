@@ -1,6 +1,6 @@
 # Rules for the coder (KT-30 to KT-107)
 
-The first 48 rows, KT-30 to KT-77, are the small fill-ins the four notes need before code. Approving a note approved its rows, and all four notes were approved as written on 25 Oct 2026. Rows KT-78 to KT-91 (section 5) are readings made while coding Week 1, approved as written on 28 Oct 2026. Rows KT-92 to KT-107 (section 6) are readings made while coding Week 2, proposed for approval. None adds to the tuned list of KILL_TEST section 7 (KT-19 to KT-29). Two rows go beyond a plain reading, and each was named in its note for approval: KT-47 sets aside a frozen cost target ([note 2](design-notes/2-drive.md)), and KT-53 reads the fit test slightly more strictly than its plain wording ([note 3](design-notes/3-tower.md)). The rows live here in the kill-test folder, beside the frozen charter, which stays untouched. Every constant in the code cites its row (FORBIDDEN 28).
+The first 48 rows, KT-30 to KT-77, are the small fill-ins the four notes need before code. Approving a note approved its rows, and all four notes were approved as written on 25 Oct 2026. Rows KT-78 to KT-91 (section 5) are readings made while coding Week 1, approved as written on 28 Oct 2026. Rows KT-92 to KT-107 (section 6) are readings made while coding Week 2, approved as written on 31 Oct 2026. None adds to the tuned list of KILL_TEST section 7 (KT-19 to KT-29). Two rows go beyond a plain reading, and each was named in its note for approval: KT-47 sets aside a frozen cost target ([note 2](design-notes/2-drive.md)), and KT-53 reads the fit test slightly more strictly than its plain wording ([note 3](design-notes/3-tower.md)). The rows live here in the kill-test folder, beside the frozen charter, which stays untouched. Every constant in the code cites its row (FORBIDDEN 28).
 
 ## 1. Object generator (KT-30 to KT-43)
 
@@ -93,7 +93,7 @@ Proposed in the Week 1 pull request and approved as written on 28 Oct 2026. Writ
 
 ## 6. Readings made while coding Week 2 (KT-92 to KT-107)
 
-Proposed in the Week 2 pull request, for Aitzaz's approval. Building the cafeteria harness, scoring, the bots, B1n-mind and the analysis script needed these fill-ins, which the frozen rules and rows KT-30 to KT-91 leave open. None changes a frozen rule or number, and none adds to the tuned list (KT-19 to KT-29). KT-101 registers the three radii that section 4 says are chosen on the tuning set. Rows that could change a verdict at the margin say so.
+Proposed in the Week 2 pull request and approved as written on 31 Oct 2026. Building the cafeteria harness, scoring, the bots, B1n-mind and the analysis script needed these fill-ins, which the frozen rules and rows KT-30 to KT-91 leave open. None changes a frozen rule or number, and none adds to the tuned list (KT-19 to KT-29). KT-101 registers the three radii that section 4 says are chosen on the tuning set. Rows that could change a verdict at the margin say so.
 
 | Row | Rule |
 |---|---|

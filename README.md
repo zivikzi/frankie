@@ -39,4 +39,4 @@ The kill test uses the same Action to pick its test sets: each set's key comes f
 
 ## Status
 
-Stage 0 (the charter) is frozen. The kill test is under way: Week 0 (design notes) and Week 1 (the object generator and its certificates) are done, and Week 2 (the cafeteria harness, scoring, the bots and the analysis script) is in review. A trimmed version 1 follows only if the kill test passes.
+Stage 0 (the charter) is frozen. The kill test is under way: Week 0 (design notes) and Week 1 (the object generator and its certificates) are done, and Week 2's code (the cafeteria harness, scoring, the bots and the analysis script) is merged. Week 2 ends with the bench freeze and the power check. A trimmed version 1 follows only if the kill test passes.
