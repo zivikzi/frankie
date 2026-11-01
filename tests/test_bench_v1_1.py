@@ -226,7 +226,7 @@ def test_numba_compiles_and_runs_inside_the_sandbox(tmp_path):
 # Routes to ctypes and pickle through Numba's own modules. The import guard refuses them (KT-119); these
 # check that the sandbox refuses them too, so Numba's allowances (KT-118) stay as narrow as written.
 ROUTES = {
-    "load a library": "numba.core.typing.ctypes_utils.ctypes.CDLL(None)",
+    "load a library": "numba.core.typing.ctypes_utils.ctypes.CDLL('frankie-no-such-library')",
     "look up a C function": "numba.core.typing.ctypes_utils.ctypes.pythonapi.Py_GetVersion",
     "unpickle a function": "numba.core.serialize.pickle.loads(b'cos\\nsystem\\n.')",
     "unpickle a builtin": "numba.core.serialize.pickle.loads(b'cbuiltins\\nopen\\n.')",
