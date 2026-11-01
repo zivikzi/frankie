@@ -1,0 +1,10094 @@
+{
+ "bootstrap_seed_text": "FRANKIE kill test: rule 3 bootstrap seed, fixed 30 Oct 2026 before any result",
+ "mk10_seed_text": "FRANKIE kill test: MK10 power check seed, fixed 30 Oct 2026 before any result",
+ "numpy": "2.5.4",
+ "official": true,
+ "set_size": 40,
+ "simulated_sets": 1000,
+ "sizes": [
+  {
+   "fails": {
+    "rule 1": 131,
+    "rule 3 margin": 2,
+    "rule 4b": 24,
+    "rule 4c": 12
+   },
+   "floors": [
+    {
+     "floor": {
+      "exact": "3149/12800",
+      "value": 0.246015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 1,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3389/12800",
+      "value": 0.264765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 2,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1601/6400",
+      "value": 0.25015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 3,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "377/1600",
+      "value": 0.235625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 4,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1551/6400",
+      "value": 0.24234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 5,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1739/6400",
+      "value": 0.27171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 6,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3171/12800",
+      "value": 0.247734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 7,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3061/12800",
+      "value": 0.239140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 8,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "99/400",
+      "value": 0.2475
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 9,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "167/640",
+      "value": 0.2609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 10,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "3207/12800",
+      "value": 0.250546875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 11,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3387/12800",
+      "value": 0.264609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 12,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "849/3200",
+      "value": 0.2653125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 13,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1683/6400",
+      "value": 0.26296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 14,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3147/12800",
+      "value": 0.245859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 15,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "183/800",
+      "value": 0.22875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 16,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "49/200",
+      "value": 0.245
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 17,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3407/12800",
+      "value": 0.266171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 18,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "347/1280",
+      "value": 0.27109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 19,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1741/6400",
+      "value": 0.27203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 20,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1573/6400",
+      "value": 0.24578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 21,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2879/12800",
+      "value": 0.224921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 22,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "287/1280",
+      "value": 0.22421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 23,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3483/12800",
+      "value": 0.272109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 24,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3581/12800",
+      "value": 0.279765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 25,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "387/1600",
+      "value": 0.241875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 26,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "313/1280",
+      "value": 0.24453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 27,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "769/3200",
+      "value": 0.2403125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 28,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "709/3200",
+      "value": 0.2215625
+     },
+     "floor_mind": "B1n-mind",
+     "label": "decisions don't settle",
+     "set": 29,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2961/12800",
+      "value": 0.231328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 30,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2823/12800",
+      "value": 0.220546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 31,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "29/128",
+      "value": 0.2265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 32,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "169/640",
+      "value": 0.2640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 33,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3013/12800",
+      "value": 0.235390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 34,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3391/12800",
+      "value": 0.264921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 35,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "427/1600",
+      "value": 0.266875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 36,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "41/160",
+      "value": 0.25625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 37,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3089/12800",
+      "value": 0.241328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 38,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "87/320",
+      "value": 0.271875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 39,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3349/12800",
+      "value": 0.261640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 40,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3321/12800",
+      "value": 0.259453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 41,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3177/12800",
+      "value": 0.248203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 42,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "621/2560",
+      "value": 0.242578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 43,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1463/6400",
+      "value": 0.22859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 44,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3309/12800",
+      "value": 0.258515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 45,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3141/12800",
+      "value": 0.245390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 46,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "67/320",
+      "value": 0.209375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 47,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "199/800",
+      "value": 0.24875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 48,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "11/50",
+      "value": 0.22
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 49,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1461/6400",
+      "value": 0.22828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 50,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1463/6400",
+      "value": 0.22859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 51,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3287/12800",
+      "value": 0.256796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 52,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1543/6400",
+      "value": 0.24109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 53,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "663/2560",
+      "value": 0.258984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 54,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "81/320",
+      "value": 0.253125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 55,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "2881/12800",
+      "value": 0.225078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 56,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "191/800",
+      "value": 0.23875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 57,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "321/1280",
+      "value": 0.25078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 58,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3159/12800",
+      "value": 0.246796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 59,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "189/800",
+      "value": 0.23625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 60,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3371/12800",
+      "value": 0.263359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 61,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1593/6400",
+      "value": 0.24890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 62,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "679/2560",
+      "value": 0.265234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 63,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1559/6400",
+      "value": 0.24359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 64,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "713/3200",
+      "value": 0.2228125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 65,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1/4",
+      "value": 0.25
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 66,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "337/1280",
+      "value": 0.26328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 67,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3249/12800",
+      "value": 0.253828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 68,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "387/1600",
+      "value": 0.241875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 69,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2907/12800",
+      "value": 0.227109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 70,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3119/12800",
+      "value": 0.243671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 71,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3069/12800",
+      "value": 0.239765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 72,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1677/6400",
+      "value": 0.26203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 73,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1597/6400",
+      "value": 0.24953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 74,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "743/3200",
+      "value": 0.2321875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 75,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2927/12800",
+      "value": 0.228671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 76,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3113/12800",
+      "value": 0.243203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 77,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2811/12800",
+      "value": 0.219609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 78,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1457/6400",
+      "value": 0.22765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 79,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "103/400",
+      "value": 0.2575
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 80,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2829/12800",
+      "value": 0.221015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 81,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "2909/12800",
+      "value": 0.227265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 82,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1627/6400",
+      "value": 0.25421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 83,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "293/1280",
+      "value": 0.22890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 84,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "63/256",
+      "value": 0.24609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 85,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1743/6400",
+      "value": 0.27234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 86,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "713/3200",
+      "value": 0.2228125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 87,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "401/1600",
+      "value": 0.250625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 88,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1677/6400",
+      "value": 0.26203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 89,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3017/12800",
+      "value": 0.235703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 90,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "777/3200",
+      "value": 0.2428125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 91,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3083/12800",
+      "value": 0.240859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 92,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3269/12800",
+      "value": 0.255390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 93,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "551/2560",
+      "value": 0.215234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 94,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "843/3200",
+      "value": 0.2634375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 95,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3169/12800",
+      "value": 0.247578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 96,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "743/3200",
+      "value": 0.2321875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 97,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "39/160",
+      "value": 0.24375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 98,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1453/6400",
+      "value": 0.22703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 99,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "209/800",
+      "value": 0.26125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 100,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "441/1600",
+      "value": 0.275625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 101,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "193/800",
+      "value": 0.24125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 102,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2949/12800",
+      "value": 0.230390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 103,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1439/6400",
+      "value": 0.22484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 104,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3153/12800",
+      "value": 0.246328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 105,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3047/12800",
+      "value": 0.238046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 106,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3179/12800",
+      "value": 0.248359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 107,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2911/12800",
+      "value": 0.227421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 108,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1509/6400",
+      "value": 0.23578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 109,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "647/2560",
+      "value": 0.252734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 110,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "99/400",
+      "value": 0.2475
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 111,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "393/1600",
+      "value": 0.245625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 112,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3309/12800",
+      "value": 0.258515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 113,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2807/12800",
+      "value": 0.219296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 114,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1553/6400",
+      "value": 0.24265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 115,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "401/1600",
+      "value": 0.250625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 116,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "391/1600",
+      "value": 0.244375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 117,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "689/2560",
+      "value": 0.269140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 118,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "743/3200",
+      "value": 0.2321875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 119,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3289/12800",
+      "value": 0.256953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 120,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "23/100",
+      "value": 0.23
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 121,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3307/12800",
+      "value": 0.258359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 122,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1673/6400",
+      "value": 0.26140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 123,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1609/6400",
+      "value": 0.25140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 124,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1633/6400",
+      "value": 0.25515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 125,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3019/12800",
+      "value": 0.235859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 126,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2779/12800",
+      "value": 0.217109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 127,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3403/12800",
+      "value": 0.265859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 128,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3121/12800",
+      "value": 0.243828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 129,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "69/256",
+      "value": 0.26953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 130,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2881/12800",
+      "value": 0.225078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 3 margin",
+     "set": 131,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "2879/12800",
+      "value": 0.224921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 132,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3221/12800",
+      "value": 0.251640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 133,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "281/1280",
+      "value": 0.21953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 134,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1599/6400",
+      "value": 0.24984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 135,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "197/800",
+      "value": 0.24625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 136,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "629/2560",
+      "value": 0.245703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 137,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2991/12800",
+      "value": 0.233671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 138,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1471/6400",
+      "value": 0.22984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 139,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1773/6400",
+      "value": 0.27703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 140,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1647/6400",
+      "value": 0.25734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 141,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3449/12800",
+      "value": 0.269453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 142,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2979/12800",
+      "value": 0.232734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 143,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "599/2560",
+      "value": 0.233984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 144,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3323/12800",
+      "value": 0.259609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 145,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "1421/6400",
+      "value": 0.22203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 146,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1709/6400",
+      "value": 0.26703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 147,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1543/6400",
+      "value": 0.24109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 148,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3249/12800",
+      "value": 0.253828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 149,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2777/12800",
+      "value": 0.216953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 150,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "723/3200",
+      "value": 0.2259375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 3 margin",
+     "set": 151,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "347/1600",
+      "value": 0.216875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 152,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "761/3200",
+      "value": 0.2378125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 153,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1757/6400",
+      "value": 0.27453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 154,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3023/12800",
+      "value": 0.236171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 155,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3137/12800",
+      "value": 0.245078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 156,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1427/6400",
+      "value": 0.22296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 157,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1713/6400",
+      "value": 0.26765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 158,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "627/2560",
+      "value": 0.244921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 159,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1497/6400",
+      "value": 0.23390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 160,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1573/6400",
+      "value": 0.24578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 161,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "707/3200",
+      "value": 0.2209375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 162,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3213/12800",
+      "value": 0.251015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 163,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "93/400",
+      "value": 0.2325
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 164,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1483/6400",
+      "value": 0.23171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 165,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "823/3200",
+      "value": 0.2571875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 166,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3251/12800",
+      "value": 0.253984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 167,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "661/2560",
+      "value": 0.258203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 168,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "6/25",
+      "value": 0.24
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 169,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "629/2560",
+      "value": 0.245703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 170,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3181/12800",
+      "value": 0.248515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 171,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3199/12800",
+      "value": 0.249921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 172,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "583/2560",
+      "value": 0.227734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 173,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "2783/12800",
+      "value": 0.217421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 174,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "309/1280",
+      "value": 0.24140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 175,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "101/400",
+      "value": 0.2525
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 176,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1479/6400",
+      "value": 0.23109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 177,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "149/640",
+      "value": 0.2328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 178,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "1/4",
+      "value": 0.25
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 179,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "411/1600",
+      "value": 0.256875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 180,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2939/12800",
+      "value": 0.229609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 181,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "771/3200",
+      "value": 0.2409375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 182,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3069/12800",
+      "value": 0.239765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 183,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3087/12800",
+      "value": 0.241171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 184,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "197/800",
+      "value": 0.24625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 185,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1529/6400",
+      "value": 0.23890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 186,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3201/12800",
+      "value": 0.250078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 187,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "27/100",
+      "value": 0.27
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 188,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "161/640",
+      "value": 0.2515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 189,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3157/12800",
+      "value": 0.246640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 190,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "769/3200",
+      "value": 0.2403125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 191,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "633/2560",
+      "value": 0.247265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 192,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "39/200",
+      "value": 0.195
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 193,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "593/2560",
+      "value": 0.231640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 194,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3239/12800",
+      "value": 0.253046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 195,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3049/12800",
+      "value": 0.238203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 196,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "15/64",
+      "value": 0.234375
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 197,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3087/12800",
+      "value": 0.241171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 198,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3269/12800",
+      "value": 0.255390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 199,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3201/12800",
+      "value": 0.250078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 200,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3141/12800",
+      "value": 0.245390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 201,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3351/12800",
+      "value": 0.261796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 202,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "433/1600",
+      "value": 0.270625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 203,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "39/160",
+      "value": 0.24375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 204,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3353/12800",
+      "value": 0.261953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 205,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "801/3200",
+      "value": 0.2503125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 206,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2969/12800",
+      "value": 0.231953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 207,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1631/6400",
+      "value": 0.25484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 208,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "633/2560",
+      "value": 0.247265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 209,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3061/12800",
+      "value": 0.239140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 210,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1689/6400",
+      "value": 0.26390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 211,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "631/2560",
+      "value": 0.246484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 212,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "577/2560",
+      "value": 0.225390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 213,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1527/6400",
+      "value": 0.23859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 214,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1441/6400",
+      "value": 0.22515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 215,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "629/2560",
+      "value": 0.245703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 216,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "77/320",
+      "value": 0.240625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 217,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3203/12800",
+      "value": 0.250234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 218,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "787/3200",
+      "value": 0.2459375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 219,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3521/12800",
+      "value": 0.275078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 220,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1477/6400",
+      "value": 0.23078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 221,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1527/6400",
+      "value": 0.23859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 222,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "399/1600",
+      "value": 0.249375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 223,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3061/12800",
+      "value": 0.239140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 224,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1501/6400",
+      "value": 0.23453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 225,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3363/12800",
+      "value": 0.262734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 226,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "809/3200",
+      "value": 0.2528125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 227,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "781/3200",
+      "value": 0.2440625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 228,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "641/2560",
+      "value": 0.250390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 229,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3049/12800",
+      "value": 0.238203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 230,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3311/12800",
+      "value": 0.258671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 231,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3247/12800",
+      "value": 0.253671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 232,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "633/2560",
+      "value": 0.247265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 233,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3061/12800",
+      "value": 0.239140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 234,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "135/512",
+      "value": 0.263671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 235,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3019/12800",
+      "value": 0.235859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 236,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3081/12800",
+      "value": 0.240703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 237,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3219/12800",
+      "value": 0.251484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 238,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "763/3200",
+      "value": 0.2384375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 239,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3043/12800",
+      "value": 0.237734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 240,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "3087/12800",
+      "value": 0.241171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 241,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3303/12800",
+      "value": 0.258046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 242,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3299/12800",
+      "value": 0.257734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 243,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "327/1280",
+      "value": 0.25546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 244,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "3309/12800",
+      "value": 0.258515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 245,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "6/25",
+      "value": 0.24
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 246,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3399/12800",
+      "value": 0.265546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 247,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2899/12800",
+      "value": 0.226484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 248,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1631/6400",
+      "value": 0.25484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 249,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1581/6400",
+      "value": 0.24703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 250,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1591/6400",
+      "value": 0.24859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 251,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "29/128",
+      "value": 0.2265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 252,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1559/6400",
+      "value": 0.24359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 253,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3163/12800",
+      "value": 0.247109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 254,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2763/12800",
+      "value": 0.215859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 255,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3127/12800",
+      "value": 0.244296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 256,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "125/512",
+      "value": 0.244140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 257,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "781/3200",
+      "value": 0.2440625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 258,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3149/12800",
+      "value": 0.246015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 259,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2903/12800",
+      "value": 0.226796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 260,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "3143/12800",
+      "value": 0.245546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 261,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "699/2560",
+      "value": 0.273046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 262,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "17/64",
+      "value": 0.265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 263,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3191/12800",
+      "value": 0.249296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 264,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "583/2560",
+      "value": 0.227734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 265,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1479/6400",
+      "value": 0.23109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 266,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3207/12800",
+      "value": 0.250546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 267,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "51/200",
+      "value": 0.255
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 268,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3379/12800",
+      "value": 0.263984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 269,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "399/1600",
+      "value": 0.249375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 270,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "337/1600",
+      "value": 0.210625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 271,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "17/64",
+      "value": 0.265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 272,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "33/128",
+      "value": 0.2578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 273,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2983/12800",
+      "value": 0.233046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 274,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "323/1280",
+      "value": 0.25234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 275,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2963/12800",
+      "value": 0.231484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 276,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2889/12800",
+      "value": 0.225703125
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 277,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3213/12800",
+      "value": 0.251015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 278,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "297/1280",
+      "value": 0.23203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 279,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3137/12800",
+      "value": 0.245078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 280,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3159/12800",
+      "value": 0.246796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 281,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1583/6400",
+      "value": 0.24734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 282,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3109/12800",
+      "value": 0.242890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 283,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3003/12800",
+      "value": 0.234609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 284,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "817/3200",
+      "value": 0.2553125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 285,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "167/640",
+      "value": 0.2609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 286,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "293/1280",
+      "value": 0.22890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 287,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2969/12800",
+      "value": 0.231953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 288,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "783/3200",
+      "value": 0.2446875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 289,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "129/512",
+      "value": 0.251953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 290,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3257/12800",
+      "value": 0.254453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 291,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "1543/6400",
+      "value": 0.24109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 292,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1603/6400",
+      "value": 0.25046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 293,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "769/3200",
+      "value": 0.2403125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 294,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "309/1280",
+      "value": 0.24140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 295,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2923/12800",
+      "value": 0.228359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 296,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1527/6400",
+      "value": 0.23859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 297,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3091/12800",
+      "value": 0.241484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 298,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3183/12800",
+      "value": 0.248671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 299,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2973/12800",
+      "value": 0.232265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 300,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3249/12800",
+      "value": 0.253828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 301,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1549/6400",
+      "value": 0.24203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 302,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3351/12800",
+      "value": 0.261796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 303,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1451/6400",
+      "value": 0.22671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 304,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3057/12800",
+      "value": 0.238828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 305,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "817/3200",
+      "value": 0.2553125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 306,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1661/6400",
+      "value": 0.25953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 307,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "379/1600",
+      "value": 0.236875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 308,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "391/1600",
+      "value": 0.244375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 309,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1553/6400",
+      "value": 0.24265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 310,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3213/12800",
+      "value": 0.251015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 311,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2941/12800",
+      "value": 0.229765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 312,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "327/1280",
+      "value": 0.25546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 313,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3221/12800",
+      "value": 0.251640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 314,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "627/2560",
+      "value": 0.244921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 315,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3167/12800",
+      "value": 0.247421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 316,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3323/12800",
+      "value": 0.259609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 317,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3049/12800",
+      "value": 0.238203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 318,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3147/12800",
+      "value": 0.245859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 319,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3073/12800",
+      "value": 0.240078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 320,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3433/12800",
+      "value": 0.268203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 321,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "33/128",
+      "value": 0.2578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 322,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1/4",
+      "value": 0.25
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 323,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3053/12800",
+      "value": 0.238515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 324,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "149/640",
+      "value": 0.2328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 325,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "743/3200",
+      "value": 0.2321875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 326,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "101/400",
+      "value": 0.2525
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 327,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3701/12800",
+      "value": 0.289140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 328,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "199/800",
+      "value": 0.24875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 329,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3187/12800",
+      "value": 0.248984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 330,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3331/12800",
+      "value": 0.260234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 331,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1563/6400",
+      "value": 0.24421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 332,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "57/256",
+      "value": 0.22265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 333,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3609/12800",
+      "value": 0.281953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 334,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "733/3200",
+      "value": 0.2290625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 335,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3187/12800",
+      "value": 0.248984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 336,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3127/12800",
+      "value": 0.244296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 337,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "821/3200",
+      "value": 0.2565625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 338,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "599/2560",
+      "value": 0.233984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 339,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2813/12800",
+      "value": 0.219765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 340,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "769/3200",
+      "value": 0.2403125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 341,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1577/6400",
+      "value": 0.24640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 342,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1683/6400",
+      "value": 0.26296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 343,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3207/12800",
+      "value": 0.250546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 344,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "401/1600",
+      "value": 0.250625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 345,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "399/1600",
+      "value": 0.249375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 346,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "767/3200",
+      "value": 0.2396875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 347,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3153/12800",
+      "value": 0.246328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 348,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "309/1280",
+      "value": 0.24140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 349,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3281/12800",
+      "value": 0.256328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 350,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3259/12800",
+      "value": 0.254609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 351,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1677/6400",
+      "value": 0.26203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 352,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "789/3200",
+      "value": 0.2465625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 353,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3419/12800",
+      "value": 0.267109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 354,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "31/128",
+      "value": 0.2421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 355,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3193/12800",
+      "value": 0.249453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 356,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "421/1600",
+      "value": 0.263125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 357,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3113/12800",
+      "value": 0.243203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 358,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "91/400",
+      "value": 0.2275
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 359,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3161/12800",
+      "value": 0.246953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 360,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "37/160",
+      "value": 0.23125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 361,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3233/12800",
+      "value": 0.252578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 362,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1551/6400",
+      "value": 0.24234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 363,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3797/12800",
+      "value": 0.296640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 364,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3259/12800",
+      "value": 0.254609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 365,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3207/12800",
+      "value": 0.250546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 366,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2993/12800",
+      "value": 0.233828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 367,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1499/6400",
+      "value": 0.23421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 368,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "389/1600",
+      "value": 0.243125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 369,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1557/6400",
+      "value": 0.24328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 370,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3267/12800",
+      "value": 0.255234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 371,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "329/1280",
+      "value": 0.25703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 372,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1537/6400",
+      "value": 0.24015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 373,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "123/512",
+      "value": 0.240234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 374,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2911/12800",
+      "value": 0.227421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 375,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3441/12800",
+      "value": 0.268828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 376,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1457/6400",
+      "value": 0.22765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 377,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1631/6400",
+      "value": 0.25484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 378,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3439/12800",
+      "value": 0.268671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 379,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "881/3200",
+      "value": 0.2753125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 380,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3257/12800",
+      "value": 0.254453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 381,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "729/3200",
+      "value": 0.2278125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 382,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3127/12800",
+      "value": 0.244296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 383,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "383/1600",
+      "value": 0.239375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 384,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2979/12800",
+      "value": 0.232734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 385,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1463/6400",
+      "value": 0.22859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 386,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3427/12800",
+      "value": 0.267734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 387,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "767/3200",
+      "value": 0.2396875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 388,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "771/3200",
+      "value": 0.2409375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 389,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3029/12800",
+      "value": 0.236640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 390,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1539/6400",
+      "value": 0.24046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 391,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3329/12800",
+      "value": 0.260078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 392,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3099/12800",
+      "value": 0.242109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 393,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "763/3200",
+      "value": 0.2384375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 394,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "119/512",
+      "value": 0.232421875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 395,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1557/6400",
+      "value": 0.24328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 396,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3029/12800",
+      "value": 0.236640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 397,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3029/12800",
+      "value": 0.236640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 398,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3019/12800",
+      "value": 0.235859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 399,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1647/6400",
+      "value": 0.25734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 400,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "311/1280",
+      "value": 0.24296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 401,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "11/40",
+      "value": 0.275
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 402,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1533/6400",
+      "value": 0.23953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 403,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3069/12800",
+      "value": 0.239765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 404,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1363/6400",
+      "value": 0.21296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 405,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "93/320",
+      "value": 0.290625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 406,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3061/12800",
+      "value": 0.239140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 407,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "3161/12800",
+      "value": 0.246953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 408,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2761/12800",
+      "value": 0.215703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 409,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3251/12800",
+      "value": 0.253984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 410,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1473/6400",
+      "value": 0.23015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 411,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "849/3200",
+      "value": 0.2653125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 412,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "13/50",
+      "value": 0.26
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 413,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1657/6400",
+      "value": 0.25890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 414,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "207/800",
+      "value": 0.25875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 415,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "851/3200",
+      "value": 0.2659375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 416,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "111/400",
+      "value": 0.2775
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 417,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2857/12800",
+      "value": 0.223203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 418,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1521/6400",
+      "value": 0.23765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 419,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "647/2560",
+      "value": 0.252734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 420,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "135/512",
+      "value": 0.263671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 421,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "389/1600",
+      "value": 0.243125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 422,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3379/12800",
+      "value": 0.263984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 423,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "117/512",
+      "value": 0.228515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 424,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1729/6400",
+      "value": 0.27015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 425,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2773/12800",
+      "value": 0.216640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 426,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1553/6400",
+      "value": 0.24265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 427,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "65/256",
+      "value": 0.25390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 428,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3331/12800",
+      "value": 0.260234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 429,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "771/3200",
+      "value": 0.2409375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 430,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1539/6400",
+      "value": 0.24046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 431,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "339/1280",
+      "value": 0.26484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 432,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1559/6400",
+      "value": 0.24359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 433,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3401/12800",
+      "value": 0.265703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 434,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3473/12800",
+      "value": 0.271328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 435,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "887/3200",
+      "value": 0.2771875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 436,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "661/2560",
+      "value": 0.258203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 437,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "829/3200",
+      "value": 0.2590625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 438,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3033/12800",
+      "value": 0.236953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 439,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "189/800",
+      "value": 0.23625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 440,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1591/6400",
+      "value": 0.24859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 441,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "309/1280",
+      "value": 0.24140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 442,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "67/256",
+      "value": 0.26171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 443,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1623/6400",
+      "value": 0.25359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 444,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "361/1280",
+      "value": 0.28203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 445,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1319/6400",
+      "value": 0.20609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 446,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3171/12800",
+      "value": 0.247734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 447,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3059/12800",
+      "value": 0.238984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 448,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1719/6400",
+      "value": 0.26859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 449,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1539/6400",
+      "value": 0.24046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 450,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3389/12800",
+      "value": 0.264765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 451,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1667/6400",
+      "value": 0.26046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 452,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1541/6400",
+      "value": 0.24078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 453,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "29/128",
+      "value": 0.2265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 454,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3241/12800",
+      "value": 0.253203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 455,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2949/12800",
+      "value": 0.230390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 456,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1491/6400",
+      "value": 0.23296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 457,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3161/12800",
+      "value": 0.246953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 458,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "15/64",
+      "value": 0.234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 459,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3111/12800",
+      "value": 0.243046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 460,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "599/2560",
+      "value": 0.233984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 461,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3077/12800",
+      "value": 0.240390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 462,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1613/6400",
+      "value": 0.25203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 463,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2829/12800",
+      "value": 0.221015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 464,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3139/12800",
+      "value": 0.245234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 465,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "173/800",
+      "value": 0.21625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 466,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3143/12800",
+      "value": 0.245546875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "decisions don't settle",
+     "set": 467,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3069/12800",
+      "value": 0.239765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 468,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1359/6400",
+      "value": 0.21234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 469,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3191/12800",
+      "value": 0.249296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 470,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3047/12800",
+      "value": 0.238046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 471,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "69/320",
+      "value": 0.215625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 472,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2981/12800",
+      "value": 0.232890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 473,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1527/6400",
+      "value": 0.23859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 474,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "199/800",
+      "value": 0.24875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 475,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3057/12800",
+      "value": 0.238828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 476,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3327/12800",
+      "value": 0.259921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 477,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1609/6400",
+      "value": 0.25140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 478,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "643/2560",
+      "value": 0.251171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 479,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "599/2560",
+      "value": 0.233984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 480,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "739/3200",
+      "value": 0.2309375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 481,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "553/2560",
+      "value": 0.216015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 482,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3129/12800",
+      "value": 0.244453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 483,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "307/1280",
+      "value": 0.23984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 484,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2939/12800",
+      "value": 0.229609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 485,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1619/6400",
+      "value": 0.25296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 486,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "641/2560",
+      "value": 0.250390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 487,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3281/12800",
+      "value": 0.256328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 488,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "187/800",
+      "value": 0.23375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 489,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "889/3200",
+      "value": 0.2778125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 490,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1411/6400",
+      "value": 0.22046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 491,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3291/12800",
+      "value": 0.257109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 492,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "623/2560",
+      "value": 0.243359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 493,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "381/1600",
+      "value": 0.238125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 494,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3141/12800",
+      "value": 0.245390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 495,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1489/6400",
+      "value": 0.23265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 496,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3109/12800",
+      "value": 0.242890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 497,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3359/12800",
+      "value": 0.262421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 498,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1647/6400",
+      "value": 0.25734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 499,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "587/2560",
+      "value": 0.229296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 500,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3149/12800",
+      "value": 0.246015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 501,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1521/6400",
+      "value": 0.23765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 502,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "823/3200",
+      "value": 0.2571875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 503,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "191/800",
+      "value": 0.23875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 504,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1473/6400",
+      "value": 0.23015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 505,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3363/12800",
+      "value": 0.262734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 506,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3433/12800",
+      "value": 0.268203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 507,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1487/6400",
+      "value": 0.23234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 508,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "347/1280",
+      "value": 0.27109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 509,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1573/6400",
+      "value": 0.24578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 510,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1481/6400",
+      "value": 0.23140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 511,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "829/3200",
+      "value": 0.2590625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 512,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "767/3200",
+      "value": 0.2396875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 513,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "79/320",
+      "value": 0.246875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 514,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "647/2560",
+      "value": 0.252734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 515,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "773/3200",
+      "value": 0.2415625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 516,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3083/12800",
+      "value": 0.240859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 517,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1543/6400",
+      "value": 0.24109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 518,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2891/12800",
+      "value": 0.225859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 519,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3183/12800",
+      "value": 0.248671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 520,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "313/1280",
+      "value": 0.24453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 521,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "91/400",
+      "value": 0.2275
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 522,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "19/80",
+      "value": 0.2375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 523,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "209/800",
+      "value": 0.26125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 524,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1549/6400",
+      "value": 0.24203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 525,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "803/3200",
+      "value": 0.2509375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 526,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1617/6400",
+      "value": 0.25265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 527,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "769/3200",
+      "value": 0.2403125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 528,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "609/2560",
+      "value": 0.237890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 529,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3369/12800",
+      "value": 0.263203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 530,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "389/1600",
+      "value": 0.243125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 531,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "331/1280",
+      "value": 0.25859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 532,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "901/3200",
+      "value": 0.2815625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 533,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "73/256",
+      "value": 0.28515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 534,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3239/12800",
+      "value": 0.253046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 535,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "83/320",
+      "value": 0.259375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 536,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3109/12800",
+      "value": 0.242890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 537,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1539/6400",
+      "value": 0.24046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 538,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1543/6400",
+      "value": 0.24109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 539,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "361/1600",
+      "value": 0.225625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 540,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3043/12800",
+      "value": 0.237734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 541,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2967/12800",
+      "value": 0.231796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 542,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "191/800",
+      "value": 0.23875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 543,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3439/12800",
+      "value": 0.268671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 544,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "359/1280",
+      "value": 0.28046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 545,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3169/12800",
+      "value": 0.247578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 546,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3049/12800",
+      "value": 0.238203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 547,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3393/12800",
+      "value": 0.265078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 548,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "643/2560",
+      "value": 0.251171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 549,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "719/3200",
+      "value": 0.2246875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 550,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3041/12800",
+      "value": 0.237578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 551,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3419/12800",
+      "value": 0.267109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 552,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "1627/6400",
+      "value": 0.25421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 553,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "821/3200",
+      "value": 0.2565625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 554,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1511/6400",
+      "value": 0.23609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 555,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1601/6400",
+      "value": 0.25015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 556,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "841/3200",
+      "value": 0.2628125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 557,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3063/12800",
+      "value": 0.239296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 558,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2813/12800",
+      "value": 0.219765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 559,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3371/12800",
+      "value": 0.263359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 560,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1539/6400",
+      "value": 0.24046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 561,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "39/160",
+      "value": 0.24375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 562,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1503/6400",
+      "value": 0.23484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 563,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3321/12800",
+      "value": 0.259453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 564,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "569/2560",
+      "value": 0.222265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 565,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "693/2560",
+      "value": 0.270703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 566,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1553/6400",
+      "value": 0.24265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 567,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "91/400",
+      "value": 0.2275
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 568,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "571/2560",
+      "value": 0.223046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 569,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3041/12800",
+      "value": 0.237578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 570,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2959/12800",
+      "value": 0.231171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 571,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3289/12800",
+      "value": 0.256953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 572,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "613/2560",
+      "value": 0.239453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 573,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3293/12800",
+      "value": 0.257265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 574,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3171/12800",
+      "value": 0.247734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 575,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "97/400",
+      "value": 0.2425
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 576,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3023/12800",
+      "value": 0.236171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 577,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "617/2560",
+      "value": 0.241015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 578,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3133/12800",
+      "value": 0.244765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 579,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3441/12800",
+      "value": 0.268828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 580,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3127/12800",
+      "value": 0.244296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 581,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "421/1600",
+      "value": 0.263125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 582,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1629/6400",
+      "value": 0.25453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 583,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3453/12800",
+      "value": 0.269765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 584,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "807/3200",
+      "value": 0.2521875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 585,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3241/12800",
+      "value": 0.253203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 586,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1493/6400",
+      "value": 0.23328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 587,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "759/3200",
+      "value": 0.2371875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 588,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3177/12800",
+      "value": 0.248203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 589,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "115/512",
+      "value": 0.224609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 590,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "887/3200",
+      "value": 0.2771875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 591,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3057/12800",
+      "value": 0.238828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 592,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3673/12800",
+      "value": 0.286953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 593,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "103/400",
+      "value": 0.2575
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 594,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "129/512",
+      "value": 0.251953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 595,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3009/12800",
+      "value": 0.235078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 596,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1499/6400",
+      "value": 0.23421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 597,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "757/3200",
+      "value": 0.2365625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 598,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1491/6400",
+      "value": 0.23296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 599,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1673/6400",
+      "value": 0.26140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 600,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1461/6400",
+      "value": 0.22828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 601,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1497/6400",
+      "value": 0.23390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 602,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3117/12800",
+      "value": 0.243515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 603,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3027/12800",
+      "value": 0.236484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 604,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "861/3200",
+      "value": 0.2690625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 605,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3117/12800",
+      "value": 0.243515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 606,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "759/3200",
+      "value": 0.2371875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 607,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "279/1280",
+      "value": 0.21796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 608,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "123/512",
+      "value": 0.240234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 609,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3467/12800",
+      "value": 0.270859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 610,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3001/12800",
+      "value": 0.234453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 611,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3109/12800",
+      "value": 0.242890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 612,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2969/12800",
+      "value": 0.231953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 613,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1653/6400",
+      "value": 0.25828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 614,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2981/12800",
+      "value": 0.232890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 615,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "359/1600",
+      "value": 0.224375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 616,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "321/1280",
+      "value": 0.25078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 617,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1689/6400",
+      "value": 0.26390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 618,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "71/320",
+      "value": 0.221875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 619,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "157/640",
+      "value": 0.2453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 620,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1623/6400",
+      "value": 0.25359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 621,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "373/1600",
+      "value": 0.233125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 622,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "309/1280",
+      "value": 0.24140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 623,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3427/12800",
+      "value": 0.267734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 624,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3477/12800",
+      "value": 0.271640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 625,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "289/1280",
+      "value": 0.22578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 626,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3109/12800",
+      "value": 0.242890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 627,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3313/12800",
+      "value": 0.258828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 628,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "371/1600",
+      "value": 0.231875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 629,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1449/6400",
+      "value": 0.22640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 630,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "21/80",
+      "value": 0.2625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 631,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "169/640",
+      "value": 0.2640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 632,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "327/1280",
+      "value": 0.25546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 633,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "793/3200",
+      "value": 0.2478125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 634,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1389/6400",
+      "value": 0.21703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 635,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2919/12800",
+      "value": 0.228046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 636,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "613/2560",
+      "value": 0.239453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 637,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1547/6400",
+      "value": 0.24171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 638,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2959/12800",
+      "value": 0.231171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 639,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "803/3200",
+      "value": 0.2509375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 640,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1493/6400",
+      "value": 0.23328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 641,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2841/12800",
+      "value": 0.221953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 642,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2973/12800",
+      "value": 0.232265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 643,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1497/6400",
+      "value": 0.23390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 644,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1573/6400",
+      "value": 0.24578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 645,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3139/12800",
+      "value": 0.245234375
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 646,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1721/6400",
+      "value": 0.26890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 647,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "161/640",
+      "value": 0.2515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 648,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "73/320",
+      "value": 0.228125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 649,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3111/12800",
+      "value": 0.243046875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 650,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2949/12800",
+      "value": 0.230390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 651,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3049/12800",
+      "value": 0.238203125
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 652,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "303/1280",
+      "value": 0.23671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 653,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1573/6400",
+      "value": 0.24578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 654,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3329/12800",
+      "value": 0.260078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 655,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "2967/12800",
+      "value": 0.231796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 656,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1503/6400",
+      "value": 0.23484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 657,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "753/3200",
+      "value": 0.2353125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 658,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "601/2560",
+      "value": 0.234765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 659,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1441/6400",
+      "value": 0.22515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 660,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "189/800",
+      "value": 0.23625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 661,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "115/512",
+      "value": 0.224609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 662,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "759/3200",
+      "value": 0.2371875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 663,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "379/1600",
+      "value": 0.236875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 664,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2963/12800",
+      "value": 0.231484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 665,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "159/640",
+      "value": 0.2484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 666,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "337/1280",
+      "value": 0.26328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 667,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "571/2560",
+      "value": 0.223046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 668,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "119/512",
+      "value": 0.232421875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 669,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "387/1600",
+      "value": 0.241875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "decisions don't settle",
+     "set": 670,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3341/12800",
+      "value": 0.261015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 671,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3011/12800",
+      "value": 0.235234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 672,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1557/6400",
+      "value": 0.24328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 673,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3239/12800",
+      "value": 0.253046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 674,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3419/12800",
+      "value": 0.267109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 675,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3319/12800",
+      "value": 0.259296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 676,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "767/3200",
+      "value": 0.2396875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 677,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "823/3200",
+      "value": 0.2571875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 678,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "115/512",
+      "value": 0.224609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 679,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2879/12800",
+      "value": 0.224921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 680,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3181/12800",
+      "value": 0.248515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 681,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "93/400",
+      "value": 0.2325
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 682,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3077/12800",
+      "value": 0.240390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 683,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1573/6400",
+      "value": 0.24578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 684,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1633/6400",
+      "value": 0.25515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 685,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3249/12800",
+      "value": 0.253828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 686,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1703/6400",
+      "value": 0.26609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 687,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3331/12800",
+      "value": 0.260234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 688,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1/4",
+      "value": 0.25
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 689,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2999/12800",
+      "value": 0.234296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 690,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1701/6400",
+      "value": 0.26578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 691,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "213/800",
+      "value": 0.26625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 692,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3151/12800",
+      "value": 0.246171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 693,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1631/6400",
+      "value": 0.25484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 694,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2971/12800",
+      "value": 0.232109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 695,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2963/12800",
+      "value": 0.231484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 696,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "197/800",
+      "value": 0.24625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 697,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "1557/6400",
+      "value": 0.24328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 698,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1513/6400",
+      "value": 0.23640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 699,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "627/2560",
+      "value": 0.244921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 700,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "127/512",
+      "value": 0.248046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 701,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2853/12800",
+      "value": 0.222890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 702,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1639/6400",
+      "value": 0.25609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 703,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "189/800",
+      "value": 0.23625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 704,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1747/6400",
+      "value": 0.27296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 705,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2913/12800",
+      "value": 0.227578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 706,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1509/6400",
+      "value": 0.23578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 707,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "133/512",
+      "value": 0.259765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 708,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3277/12800",
+      "value": 0.256015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 709,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1643/6400",
+      "value": 0.25671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 710,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "87/400",
+      "value": 0.2175
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 711,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "721/2560",
+      "value": 0.281640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 712,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3073/12800",
+      "value": 0.240078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 713,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1563/6400",
+      "value": 0.24421875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 714,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "851/3200",
+      "value": 0.2659375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 715,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2917/12800",
+      "value": 0.227890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 716,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1491/6400",
+      "value": 0.23296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 717,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3089/12800",
+      "value": 0.241328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 718,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1799/6400",
+      "value": 0.28109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 719,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "27/100",
+      "value": 0.27
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 720,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2799/12800",
+      "value": 0.218671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 721,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "759/3200",
+      "value": 0.2371875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 722,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3457/12800",
+      "value": 0.270078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 723,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3141/12800",
+      "value": 0.245390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 724,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2911/12800",
+      "value": 0.227421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 725,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3101/12800",
+      "value": 0.242265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 726,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "301/1280",
+      "value": 0.23515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 727,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "371/1600",
+      "value": 0.231875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 728,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2971/12800",
+      "value": 0.232109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 729,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "347/1280",
+      "value": 0.27109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 730,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3103/12800",
+      "value": 0.242421875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 731,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3371/12800",
+      "value": 0.263359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 732,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "2961/12800",
+      "value": 0.231328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 733,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "161/640",
+      "value": 0.2515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 734,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3239/12800",
+      "value": 0.253046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 735,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1481/6400",
+      "value": 0.23140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 736,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "403/1600",
+      "value": 0.251875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 737,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3067/12800",
+      "value": 0.239609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 738,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "151/640",
+      "value": 0.2359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 739,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1487/6400",
+      "value": 0.23234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 740,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "679/2560",
+      "value": 0.265234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 741,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1549/6400",
+      "value": 0.24203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 742,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2969/12800",
+      "value": 0.231953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 743,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "349/1280",
+      "value": 0.27265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 744,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1567/6400",
+      "value": 0.24484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 745,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2969/12800",
+      "value": 0.231953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 746,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3449/12800",
+      "value": 0.269453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 747,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3143/12800",
+      "value": 0.245546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 748,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3097/12800",
+      "value": 0.241953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 749,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "787/3200",
+      "value": 0.2459375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 750,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3299/12800",
+      "value": 0.257734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 751,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "859/3200",
+      "value": 0.2684375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 752,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "793/3200",
+      "value": 0.2478125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 753,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "693/3200",
+      "value": 0.2165625
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 754,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1453/6400",
+      "value": 0.22703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 755,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1579/6400",
+      "value": 0.24671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 756,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "143/640",
+      "value": 0.2234375
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 757,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3063/12800",
+      "value": 0.239296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 758,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "621/2560",
+      "value": 0.242578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 759,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3071/12800",
+      "value": 0.239921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 760,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3031/12800",
+      "value": 0.236796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 761,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3233/12800",
+      "value": 0.252578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 762,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3371/12800",
+      "value": 0.263359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 763,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1503/6400",
+      "value": 0.23484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 764,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3497/12800",
+      "value": 0.273203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 765,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3037/12800",
+      "value": 0.237265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 766,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "853/3200",
+      "value": 0.2665625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 767,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3341/12800",
+      "value": 0.261015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 768,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "431/1600",
+      "value": 0.269375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 769,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "121/512",
+      "value": 0.236328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 770,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3109/12800",
+      "value": 0.242890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 771,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "201/800",
+      "value": 0.25125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 772,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "731/3200",
+      "value": 0.2284375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 773,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "929/3200",
+      "value": 0.2903125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 774,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2971/12800",
+      "value": 0.232109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 775,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3119/12800",
+      "value": 0.243671875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 776,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3073/12800",
+      "value": 0.240078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 777,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1591/6400",
+      "value": 0.24859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 778,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "179/640",
+      "value": 0.2796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 779,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1609/6400",
+      "value": 0.25140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 780,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3299/12800",
+      "value": 0.257734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 781,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3287/12800",
+      "value": 0.256796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 782,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1511/6400",
+      "value": 0.23609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 783,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "749/3200",
+      "value": 0.2340625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 784,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3579/12800",
+      "value": 0.279609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 785,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3297/12800",
+      "value": 0.257578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 786,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1661/6400",
+      "value": 0.25953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 787,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "49/200",
+      "value": 0.245
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 788,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3359/12800",
+      "value": 0.262421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 789,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2853/12800",
+      "value": 0.222890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 790,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "801/3200",
+      "value": 0.2503125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 791,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3001/12800",
+      "value": 0.234453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 792,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "199/800",
+      "value": 0.24875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 793,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2993/12800",
+      "value": 0.233828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 794,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3129/12800",
+      "value": 0.244453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 795,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1593/6400",
+      "value": 0.24890625
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 796,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3091/12800",
+      "value": 0.241484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 797,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2857/12800",
+      "value": 0.223203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 798,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "31/128",
+      "value": 0.2421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 799,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "773/3200",
+      "value": 0.2415625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 800,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1501/6400",
+      "value": 0.23453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 801,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3333/12800",
+      "value": 0.260390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 802,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1477/6400",
+      "value": 0.23078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 803,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1683/6400",
+      "value": 0.26296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 804,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1491/6400",
+      "value": 0.23296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 805,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "637/2560",
+      "value": 0.248828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 806,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "289/1280",
+      "value": 0.22578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 807,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "6/25",
+      "value": 0.24
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 808,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "673/2560",
+      "value": 0.262890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 809,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3153/12800",
+      "value": 0.246328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 810,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3407/12800",
+      "value": 0.266171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 811,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1643/6400",
+      "value": 0.25671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 812,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "757/3200",
+      "value": 0.2365625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 813,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1653/6400",
+      "value": 0.25828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 814,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "159/640",
+      "value": 0.2484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 815,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3277/12800",
+      "value": 0.256015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 816,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "809/3200",
+      "value": 0.2528125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 817,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3209/12800",
+      "value": 0.250703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 818,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3103/12800",
+      "value": 0.242421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 819,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "171/800",
+      "value": 0.21375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 820,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3189/12800",
+      "value": 0.249140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 821,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3391/12800",
+      "value": 0.264921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 822,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2781/12800",
+      "value": 0.217265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 823,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3253/12800",
+      "value": 0.254140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 824,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "399/1600",
+      "value": 0.249375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 825,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1573/6400",
+      "value": 0.24578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 826,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "125/512",
+      "value": 0.244140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 827,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "43/160",
+      "value": 0.26875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 828,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3173/12800",
+      "value": 0.247890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 829,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3349/12800",
+      "value": 0.261640625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 830,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "77/320",
+      "value": 0.240625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 831,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "719/3200",
+      "value": 0.2246875
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 832,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3319/12800",
+      "value": 0.259296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 833,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "619/2560",
+      "value": 0.241796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 834,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1609/6400",
+      "value": 0.25140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 835,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "293/1280",
+      "value": 0.22890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 836,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1491/6400",
+      "value": 0.23296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 837,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "367/1600",
+      "value": 0.229375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 838,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "731/2560",
+      "value": 0.285546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 839,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "311/1280",
+      "value": 0.24296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 840,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2941/12800",
+      "value": 0.229765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 841,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3017/12800",
+      "value": 0.235703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 842,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "803/3200",
+      "value": 0.2509375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 843,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "423/1600",
+      "value": 0.264375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 844,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "741/3200",
+      "value": 0.2315625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 845,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3127/12800",
+      "value": 0.244296875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 846,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "561/2560",
+      "value": 0.219140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 847,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1627/6400",
+      "value": 0.25421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 848,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3061/12800",
+      "value": 0.239140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 849,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "371/1600",
+      "value": 0.231875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 850,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3423/12800",
+      "value": 0.267421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 851,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "65/256",
+      "value": 0.25390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 852,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "707/3200",
+      "value": 0.2209375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 853,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3181/12800",
+      "value": 0.248515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 854,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2887/12800",
+      "value": 0.225546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 855,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3351/12800",
+      "value": 0.261796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 856,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1341/6400",
+      "value": 0.20953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 857,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "103/400",
+      "value": 0.2575
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 858,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3017/12800",
+      "value": 0.235703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 859,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "431/1600",
+      "value": 0.269375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 860,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3151/12800",
+      "value": 0.246171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 861,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1633/6400",
+      "value": 0.25515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 862,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3039/12800",
+      "value": 0.237421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 863,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "61/256",
+      "value": 0.23828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 864,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "443/1600",
+      "value": 0.276875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 865,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "13/50",
+      "value": 0.26
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 866,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "189/800",
+      "value": 0.23625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 867,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2839/12800",
+      "value": 0.221796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 868,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "1583/6400",
+      "value": 0.24734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 869,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3107/12800",
+      "value": 0.242734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 870,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "733/3200",
+      "value": 0.2290625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 871,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3411/12800",
+      "value": 0.266484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 872,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2991/12800",
+      "value": 0.233671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 873,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "803/3200",
+      "value": 0.2509375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 874,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3193/12800",
+      "value": 0.249453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 875,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3147/12800",
+      "value": 0.245859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 876,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3277/12800",
+      "value": 0.256015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 877,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2963/12800",
+      "value": 0.231484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 878,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "421/1600",
+      "value": 0.263125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 879,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1557/6400",
+      "value": 0.24328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 880,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "823/3200",
+      "value": 0.2571875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 881,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "77/320",
+      "value": 0.240625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 882,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1397/6400",
+      "value": 0.21828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 883,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3039/12800",
+      "value": 0.237421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 884,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1569/6400",
+      "value": 0.24515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 885,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "1493/6400",
+      "value": 0.23328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 886,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "53/200",
+      "value": 0.265
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 887,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3071/12800",
+      "value": 0.239921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 888,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3239/12800",
+      "value": 0.253046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 889,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "211/800",
+      "value": 0.26375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 890,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "713/3200",
+      "value": 0.2228125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 891,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "29/128",
+      "value": 0.2265625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 892,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "553/2560",
+      "value": 0.216015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 893,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "719/3200",
+      "value": 0.2246875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 894,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "407/1600",
+      "value": 0.254375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 895,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "821/3200",
+      "value": 0.2565625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 896,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1771/6400",
+      "value": 0.27671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 897,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "383/1600",
+      "value": 0.239375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 898,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2747/12800",
+      "value": 0.214609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 899,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3143/12800",
+      "value": 0.245546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 900,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "579/2560",
+      "value": 0.226171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 901,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3259/12800",
+      "value": 0.254609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 902,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "161/640",
+      "value": 0.2515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 903,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1761/6400",
+      "value": 0.27515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 904,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3427/12800",
+      "value": 0.267734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 905,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3023/12800",
+      "value": 0.236171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 906,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "437/1600",
+      "value": 0.273125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 907,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3031/12800",
+      "value": 0.236796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 908,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "833/3200",
+      "value": 0.2603125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 909,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2919/12800",
+      "value": 0.228046875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 910,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "703/2560",
+      "value": 0.274609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 911,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3401/12800",
+      "value": 0.265703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 912,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3009/12800",
+      "value": 0.235078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 913,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "377/1600",
+      "value": 0.235625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 914,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2891/12800",
+      "value": 0.225859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 915,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1403/6400",
+      "value": 0.21921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 916,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "567/2560",
+      "value": 0.221484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 917,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3187/12800",
+      "value": 0.248984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 918,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "129/512",
+      "value": 0.251953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 919,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "559/2560",
+      "value": 0.218359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 920,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1547/6400",
+      "value": 0.24171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 921,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "313/1280",
+      "value": 0.24453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 922,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "621/2560",
+      "value": 0.242578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 923,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3273/12800",
+      "value": 0.255703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 924,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3061/12800",
+      "value": 0.239140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 925,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "403/1600",
+      "value": 0.251875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 926,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "607/2560",
+      "value": 0.237109375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 927,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "133/512",
+      "value": 0.259765625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 928,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1487/6400",
+      "value": 0.23234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 929,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "197/800",
+      "value": 0.24625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 930,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "781/3200",
+      "value": 0.2440625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 931,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "747/3200",
+      "value": 0.2334375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 932,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "229/800",
+      "value": 0.28625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 933,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1477/6400",
+      "value": 0.23078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 934,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "65/256",
+      "value": 0.25390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 935,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3323/12800",
+      "value": 0.259609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 936,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3199/12800",
+      "value": 0.249921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 937,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "751/3200",
+      "value": 0.2346875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 938,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "363/1600",
+      "value": 0.226875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 939,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3281/12800",
+      "value": 0.256328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 940,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "91/400",
+      "value": 0.2275
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 941,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3171/12800",
+      "value": 0.247734375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 942,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1509/6400",
+      "value": 0.23578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 943,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1339/6400",
+      "value": 0.20921875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 944,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3381/12800",
+      "value": 0.264140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 945,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3337/12800",
+      "value": 0.260703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 946,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "125/512",
+      "value": 0.244140625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 947,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1601/6400",
+      "value": 0.25015625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 948,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "679/2560",
+      "value": 0.265234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 949,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3237/12800",
+      "value": 0.252890625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 950,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "157/640",
+      "value": 0.2453125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 951,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "297/1280",
+      "value": 0.23203125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 952,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "301/1280",
+      "value": 0.23515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 953,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3231/12800",
+      "value": 0.252421875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 954,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1483/6400",
+      "value": 0.23171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 955,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "827/3200",
+      "value": 0.2584375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 956,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "849/3200",
+      "value": 0.2653125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 957,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "149/640",
+      "value": 0.2328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 958,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2923/12800",
+      "value": 0.228359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 959,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "159/640",
+      "value": 0.2484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 960,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1709/6400",
+      "value": 0.26703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 961,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3337/12800",
+      "value": 0.260703125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 962,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3019/12800",
+      "value": 0.235859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 963,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3153/12800",
+      "value": 0.246328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 964,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "97/400",
+      "value": 0.2425
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 965,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1599/6400",
+      "value": 0.24984375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 966,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3329/12800",
+      "value": 0.260078125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 967,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "327/1280",
+      "value": 0.25546875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 968,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3309/12800",
+      "value": 0.258515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4b",
+     "set": 969,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "1463/6400",
+      "value": 0.22859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 970,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "837/3200",
+      "value": 0.2615625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 971,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "83/320",
+      "value": 0.259375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 972,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3217/12800",
+      "value": 0.251328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 973,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3093/12800",
+      "value": 0.241640625
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 974,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "751/3200",
+      "value": 0.2346875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 975,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "701/3200",
+      "value": 0.2190625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 976,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2923/12800",
+      "value": 0.228359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 977,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "47/200",
+      "value": 0.235
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 978,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3013/12800",
+      "value": 0.235390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 979,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "781/3200",
+      "value": 0.2440625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 980,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "15/64",
+      "value": 0.234375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 981,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "2903/12800",
+      "value": 0.226796875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 982,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "47/200",
+      "value": 0.235
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 983,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "641/2560",
+      "value": 0.250390625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 984,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "403/1600",
+      "value": 0.251875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "rule 4c",
+     "set": 985,
+     "verdict": "INCONCLUSIVE"
+    },
+    {
+     "floor": {
+      "exact": "363/1600",
+      "value": 0.226875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 986,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3437/12800",
+      "value": 0.268515625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 987,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "829/3200",
+      "value": 0.2590625
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 988,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "67/256",
+      "value": 0.26171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 989,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3021/12800",
+      "value": 0.236015625
+     },
+     "floor_mind": "B1n-mind",
+     "label": "",
+     "set": 990,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "151/640",
+      "value": 0.2359375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 991,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1547/6400",
+      "value": 0.24171875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 992,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3119/12800",
+      "value": 0.243671875
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 993,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3169/12800",
+      "value": 0.247578125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 994,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1639/6400",
+      "value": 0.25609375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 995,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3089/12800",
+      "value": 0.241328125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 996,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3211/12800",
+      "value": 0.250859375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 997,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "1661/6400",
+      "value": 0.25953125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 998,
+     "verdict": "GO"
+    },
+    {
+     "floor": {
+      "exact": "3027/12800",
+      "value": 0.236484375
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "decisions don't settle",
+     "set": 999,
+     "verdict": "NO-GO"
+    },
+    {
+     "floor": {
+      "exact": "3441/12800",
+      "value": 0.268828125
+     },
+     "floor_mind": "B1n-bot-r",
+     "label": "",
+     "set": 1000,
+     "verdict": "GO"
+    }
+   ],
+   "go": 837,
+   "go_share": {
+    "exact": "837/1000",
+    "value": 0.837
+   },
+   "passes": true,
+   "sets": 1000,
+   "size": 40
+  }
+ ],
+ "spreads": {
+  "between": {
+   "copy_accept": 0.1,
+   "d_check1": 0.1,
+   "d_learn": 0.1,
+   "fmn": 0.14049463146009955,
+   "lr_far": 0.1170917952110528,
+   "lr_h1": 0.11950568687473538,
+   "noticed": 0.1,
+   "q_sour": 0.1,
+   "settle": 0.1,
+   "sour_drop": 0.1
+  },
+  "source": {
+   "d_check1": {
+    "B1n-bot-r": 0.06866046939448685,
+    "B1n-bot-r within": 0.1901357945531834,
+    "B2e": 0.011123974833302798,
+    "measure": "d_beh_1"
+   },
+   "d_learn": {
+    "B1n-bot-r": 0.09464260178459524,
+    "B1n-bot-r within": 0.13431307789459118,
+    "B2e": 0.010327020863433609,
+    "measure": "d_learn_beh"
+   },
+   "fmn": {
+    "B1n-bot-r": 0.14049463146009955,
+    "B1n-bot-r within": 0.2937259889713919,
+    "B2e": 0.021027027028586807,
+    "measure": "fmn_beh"
+   },
+   "lr_far": {
+    "B1n-bot-r": 0.1170917952110528,
+    "B1n-bot-r within": 0.24687866265449931,
+    "B2e": 0.01565155788948233,
+    "measure": "lr_far"
+   },
+   "lr_h1": {
+    "B1n-bot-r": 0.11950568687473538,
+    "B1n-bot-r within": 0.14624940645653536,
+    "B2e": 0.01671687838648431,
+    "measure": "lr_h1"
+   },
+   "q_sour": {
+    "B1n-bot-r": 0.05651041252847063,
+    "B1n-bot-r within": 0.07236897483396126,
+    "B2e": 0.012053818491660024,
+    "measure": "dq_sour_beh"
+   },
+   "sour_drop": {
+    "B1n-bot-r": 0.0,
+    "B2e": 0.0,
+    "measure": "sour_drop_beh"
+   }
+  },
+  "within": {
+   "d_check1": 0.1901357945531834,
+   "d_learn": 0.13431307789459118,
+   "fmn": 0.2937259889713919,
+   "lr_far": 0.24687866265449931,
+   "lr_h1": 0.14624940645653536,
+   "q_sour": 0.07236897483396126
+  }
+ },
+ "what": "power check (section 7, step 4): a go/no-go check on the bench's design, not evidence"
+}
