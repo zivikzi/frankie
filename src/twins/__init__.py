@@ -1,1 +1,1 @@
-"""The tower twins of section 4 (TW2, TW7, OS01, OS10, K-F-NOWARM). Empty in Week 1."""
+"""The tower twins of section 4 (TW2, TW7), built from K-F's code. Week 3 builds TW7 in entry.py."""
