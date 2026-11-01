@@ -3,16 +3,24 @@
 The harness starts this file as a script, in a fresh interpreter with no site
 packages, an empty working directory and a scrubbed environment. It then:
 
-1. reads one line of setup from the harness (the mind's package root and the
-   directories NumPy and Numba live in);
+1. reads one line of setup from the harness (the mind's package root, the
+   packages the package may use, and the directories NumPy and Numba live
+   in);
 2. imports NumPy with its random and linear-algebra parts, which load
-   standard-library modules of their own (and Numba, if present);
+   standard-library modules of their own, and Numba, if present. Numba then
+   compiles one small loop of this file's own, so its compiler, LLVM and the
+   modules they load lazily are ready before the sandbox closes (KT-118);
 3. wraps the import statement, so the package's own modules may import only
-   NumPy, Numba and the package, even modules already loaded; and installs
-   an audit hook (PEP 578) that from then on refuses any import of a new
-   module outside those, any file written or opened outside the directories
-   it was given (os.open's write flags included), and any socket,
-   subprocess, process, signal, ctypes or file-system change;
+   NumPy, Numba, the package and the packages it may use (the twins use the
+   mind package, section 6, KT-117), and a used package's modules only NumPy, Numba
+   and that package, even modules already loaded; and installs an audit hook
+   (PEP 578) that from then on refuses any import of a new module outside
+   those, any file written or opened outside the directories it was given
+   (os.open's write flags included), and any socket, subprocess, process,
+   signal, ctypes or file-system change. The only exceptions are the few
+   events Numba raises while it compiles: llvmlite's text buffers, its look-up
+   of its own LLVM functions, and the unpickling of NumPy's array type and of
+   built-in exceptions (KT-118);
 4. only then imports the mind's entry module `<package>.entry`, so none of
    the mind's code runs outside the sandbox, not even at import;
 5. answers the harness's requests, one JSON line each, until told to quit.
@@ -23,10 +31,12 @@ either direction, so the mind can hand the harness no object and the harness
 hands the mind no world object, plan, key or label. The mind's own printing
 goes to the error stream, never into the protocol.
 
-This file imports only the standard library and NumPy. The harness imports its
-codec and state fingerprint from here, so both sides use one implementation.
+This file imports only the standard library and NumPy (and Numba, in the mind's
+own process). The harness imports its codec and state fingerprint from here, so
+both sides use one implementation.
 """
 
+import builtins
 import hashlib
 import json
 import math
@@ -199,25 +209,66 @@ _BANNED_EVENTS = frozenset({"sys._getframe", "sys._current_frames", "sys._curren
 _WRITE_FLAGS = os.O_WRONLY | os.O_RDWR | os.O_APPEND | os.O_CREAT | os.O_TRUNC   # os.open reports these, not a mode
 
 
-def _guard_imports(package, allowed_top):
-    """Every import statement in the package's own modules may name only NumPy, Numba or the package.
+def _guard_imports(allowed):
+    """Every import statement in a mind package's modules may name only what `allowed` gives that package.
 
+    allowed maps each package to the top-level names its modules may import:
+    NumPy, Numba, the package itself and, for the twins, the mind package.
     The audit hook's "import" event fires only for a module not yet loaded, so
     a module that is already loaded (os, sys and the like) would import with
     no event. This wraps the import statement itself, for code whose globals
-    belong to the package; NumPy's own lazy imports are left alone.
+    belong to one of the packages; NumPy's own lazy imports are left alone.
     """
-    import builtins
     real = builtins.__import__
 
     def guarded(name, globals=None, locals=None, fromlist=(), level=0):
         caller = (globals or {}).get("__name__", "") or ""
-        if caller == package or caller.startswith(package + "."):
-            if level != 0 or name.split(".")[0] not in allowed_top:
-                raise ImportError(f"the mind may not import {name}")
+        for package, top in allowed.items():
+            if caller == package or caller.startswith(package + "."):
+                if level != 0 or name.split(".")[0] not in top:
+                    raise ImportError(f"the {package} package may not import {name}")
         return real(name, globals, locals, fromlist, level)
 
     builtins.__import__ = guarded
+
+
+def _warm_numba(numba):
+    """Compile one small loop before the hook goes in (KT-118).
+
+    llvmlite reaches LLVM through ctypes and looks each LLVM function up the
+    first time it is used, and Numba loads parts of itself and of the standard
+    library on its first compile. Inside the hook all of that is refused, so a
+    mind could not compile anything. After this one compile, a later one needs
+    only the events NUMBA_EVENTS lets through.
+    """
+    def loop(a, s):
+        out = np.zeros(a.shape[0])
+        for i in range(a.shape[0]):
+            out[i] = out[i - 1] * s + a[i]
+        if s > 1.0:
+            raise ValueError("unused")
+        return out
+    numba.njit(loop)(np.arange(3.0), 0.5)
+
+
+# The events Numba's compiler raises after the warm-up (KT-118): llvmlite's text buffers to and from LLVM, and
+# the unpickling of the array type and exceptions it returns or raises. Each is allowed only in the form shown.
+NUMBA_EVENTS = frozenset({"ctypes.create_string_buffer", "ctypes.string_at", "ctypes.cdata"})
+NUMBA_SYMBOL_PREFIX = "LLVMPY_"            # llvmlite's own exported functions, looked up with ctypes.dlsym
+NUMBA_UNPICKLED = frozenset({"numpy", "numba"})
+
+
+def _numba_event(event, args) -> bool:
+    if event in NUMBA_EVENTS:
+        return True
+    if event == "ctypes.dlsym":
+        return len(args) > 1 and isinstance(args[1], str) and args[1].startswith(NUMBA_SYMBOL_PREFIX)
+    if event == "pickle.find_class" and len(args) > 1 and isinstance(args[0], str):
+        if args[0].split(".")[0] in NUMBA_UNPICKLED:
+            return True
+        found = vars(builtins).get(args[1]) if args[0] == "builtins" else None     # exception classes only
+        return isinstance(found, type) and issubclass(found, BaseException)
+    return False
 
 
 def _install_hook(allowed_roots, allowed_top):
@@ -242,6 +293,8 @@ def _install_hook(allowed_roots, allowed_top):
                 raise PermissionError(f"the mind's process may not open {path!r}")
             return
         if event in _BANNED_EVENTS or event.startswith(_BANNED_EVENT_PREFIXES):
+            if _numba_event(event, args):
+                return
             raise PermissionError(f"the mind's process may not use {event}")
 
     sys.addaudithook(hook)
@@ -307,6 +360,7 @@ def main():
     sys.stdout = sys.stderr       # the mind's own printing goes to the error stream
     setup = decode(proto_in.readline())
     package_root, package = setup["package_root"], setup["package"]
+    uses = list(setup.get("uses", []))
     for d in reversed(setup["library_dirs"]):
         sys.path.insert(0, d)
     sys.path.insert(0, package_root)
@@ -315,18 +369,24 @@ def main():
     for name in PRELOADED:              # NumPy's parts load stdlib modules lazily; load them before the hook
         __import__(name)
     try:
-        import numba  # noqa: F401
+        import numba
     except ImportError:
-        pass
-    allowed_top = {"numpy", "numba", "llvmlite", package}
+        numba = None
+    if numba is not None:
+        _warm_numba(numba)
+    libraries = {"numpy", "numba", "llvmlite"}
+    allowed = {package: libraries | {package} | set(uses)}
+    allowed.update({u: libraries | {u} for u in uses})
+    allowed_top = libraries | {package} | set(uses)
     roots = [package_root] + setup["library_dirs"] + setup["stdlib_dirs"]
-    _guard_imports(package, allowed_top)
+    _guard_imports(allowed)
     _install_hook(roots, allowed_top)             # before the mind's own code runs at all
     entry = __import__(package + ".entry", fromlist=["make"])
+    ours = [package] + uses
 
     def mind_modules():
         return [m for name, m in sorted(sys.modules.items())
-                if m is not None and (name == package or name.startswith(package + "."))]
+                if m is not None and any(name == p or name.startswith(p + ".") for p in ours)]
 
     proto_out.write(encode({"ok": True, "ready": True}) + "\n")
     proto_out.flush()

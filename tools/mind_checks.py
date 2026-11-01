@@ -30,8 +30,10 @@ tuning runs:
   mind observes before an eat, and no reading at all (FORBIDDEN 18);
 - taste values reach the mind only in land(), right after a decision that
   ended in an eat (FORBIDDEN 29);
-- memory is empty at birth, and every new candidate starts with every
-  relevance weight at 5 tenths (FORBIDDEN 20, M20);
+- memory is empty at birth, and every brand-new candidate starts with every
+  relevance weight at 5 tenths (FORBIDDEN 20, M20); a split's new kind
+  starts with its parent's weights instead, as they stand after the split's
+  +0.2 steps (KT-72, KT-120);
 - the chooser is satisficing, and every M47 fallback lists every option with
   cleared_bar = false (FORBIDDEN 13; checked on every decision by
   harness/protocol.py, counted here);
@@ -42,7 +44,11 @@ tuning runs:
 - a taste-blind stub is classed as not noticing the taste in 100% of runs
   (section 7, step 5). This one runs only on the stub.
 
-Usage: python tools/mind_checks.py [package_dir]   (default: the stub)
+Usage: python tools/mind_checks.py                        the stub
+       python tools/mind_checks.py PACKAGE_DIR LABEL [--spike-nano N]
+           a mind package (src/mind or src/twins) as one of its registered
+           configurations (harness/agents.py), such as TW7 or K-F. One that
+           thinks in spikes needs KT-27's per-spike cost in nano-units (KT-122).
 Exits 0 if every check passes, 1 if any fails, 2 if the word scans need review.
 """
 
@@ -365,7 +371,13 @@ def leak_check(spec, package_dir, plan) -> list:
 
 
 def birth_check(spec, package_dir, plan) -> list:
-    """Empty at birth, and every new candidate starts with equal weights of 5 tenths (FORBIDDEN 20, M20)."""
+    """Empty at birth, and every brand-new candidate starts with equal weights of 5 tenths (FORBIDDEN 20, M20).
+
+    A split's new kind copies its parent's weights after the split's +0.2
+    steps (KT-72), so it is checked against its parent instead. When the
+    parent was forgotten in the same write (KT-75), each weight must equal the
+    parent's before the write or be one step of 2 tenths above it (KT-120).
+    """
     from harness.run import birth_config
     out = []
     cache = ReadingCache(plan.noise_key)
@@ -377,22 +389,47 @@ def birth_check(spec, package_dir, plan) -> list:
     return out
 
 
+SPLIT_STEP_TENTHS = 2          # PLACEHOLDER-02's +0.2 step, in tenths (KT-94)
+
+
 class _DumpAfterWrite(RecordingHost):
     def __init__(self, inner, findings):
         super().__init__(inner)
         self.findings = findings
 
     def write(self, name):
+        before = {c["slot"]: c["weights_tenths"] for c in self.inner.dump(name)["candidates"]}
         w = self.inner.write(name)
-        made = {e["slot"] for e in w["events"] if e["type"] in ("new", "split")}
-        if made:
-            for c in self.inner.dump(name)["candidates"]:
-                if c["slot"] in made:
-                    weights = [x for x in c["weights_tenths"] if x is not None]
-                    if any(x != 5 for x in weights):
-                        self.findings.append(Finding("M20 equal weights", f"slot {c['slot']}",
-                                                     f"a new candidate's weights start at {sorted(set(weights))}"))
+        events = w["events"]
+        if any(e["type"] in ("new", "split") for e in events):
+            after = {c["slot"]: c["weights_tenths"] for c in self.inner.dump(name)["candidates"]}
+            for e in events:
+                if e["type"] == "new":
+                    self._check_new(e["slot"], after.get(e["slot"]))
+                elif e["type"] == "split":
+                    gone = any(f["type"] == "forget" and f["slot"] == e["parent_slot"] for f in events)
+                    self._check_split(e, after, before, gone)
         return w
+
+    def _check_new(self, slot, weights):
+        known = [x for x in weights or [] if x is not None]
+        if any(x != 5 for x in known):
+            self.findings.append(Finding("M20 equal weights", f"slot {slot}",
+                                         f"a new candidate's weights start at {sorted(set(known))}"))
+
+    def _check_split(self, e, after, before, parent_gone):
+        child, slot = after.get(e["slot"]), e["slot"]
+        if parent_gone:
+            parent = before.get(e["parent_slot"])
+            ok = child is not None and parent is not None and len(child) == len(parent) and all(
+                c == p or (c is not None and p is not None and 0 < c - p <= SPLIT_STEP_TENTHS)
+                for c, p in zip(child, parent))
+        else:
+            parent = after.get(e["parent_slot"])
+            ok = child is not None and child == parent
+        if not ok:
+            self.findings.append(Finding("KT-72 split copies its parent", f"slot {slot}",
+                                         f"a split's new kind starts at {child}, its parent holds {parent}"))
 
 
 def chooser_check(records) -> dict:
@@ -459,15 +496,47 @@ def run_checks(package_dir, spec, plans=None, taste_blind_plans=None) -> dict:
             "failed": [f for f in findings if not f.review], "review": [f for f in findings if f.review]}
 
 
+def registered_spec(package_dir, label, spike_nano=None):
+    """The registry's entry for one configuration of a mind package (harness/agents.py)."""
+    from harness.agents import tower_minds
+    specs = {s.label: s for s in tower_minds(spike_nano)}
+    if label not in specs:
+        raise ValueError(f"{label} is not a registered tower configuration ({', '.join(specs)})")
+    spec = specs[label]
+    if spec.entry != pathlib.Path(package_dir).resolve().name:
+        raise ValueError(f"{label} lives in the {spec.entry} package, not in {package_dir}")
+    if spec.after:
+        raise ValueError(f"{label} takes its cap from {spec.after}'s run, so it is checked as {spec.after}")
+    if spec.unit_nano is None:
+        raise ValueError(f"{label} thinks in spikes: give KT-27's per-spike cost with --spike-nano")
+    return spec
+
+
 def main(argv) -> int:
     from test_fixtures.stub import STUB_DIR, stub_spec
-    package_dir = pathlib.Path(argv[1]) if len(argv) > 1 else STUB_DIR
-    if package_dir.resolve() != STUB_DIR.resolve():
-        print("Only the stub can be checked until K-F's registry entry exists (Week 3).")
+    args = list(argv[1:])
+    spike_nano = None
+    if "--spike-nano" in args:
+        i = args.index("--spike-nano")
+        spike_nano = int(args[i + 1])
+        del args[i:i + 2]
+    if not args:
+        package_dir, spec = STUB_DIR, stub_spec()
+    elif len(args) == 2:
+        package_dir = pathlib.Path(args[0])
+        try:
+            spec = registered_spec(package_dir, args[1], spike_nano)
+        except ValueError as e:
+            print(e)
+            return 1
+    else:
+        print(__doc__)
         return 1
-    key = keys.tuning_set_key()
-    blind = [generate_run("tuning", key, f, 1) for f in range(1, 31)]
-    res = run_checks(package_dir, stub_spec(), taste_blind_plans=blind)
+    blind = None
+    if package_dir.resolve() == STUB_DIR.resolve():     # the taste-blind check runs on the stub only
+        key = keys.tuning_set_key()
+        blind = [generate_run("tuning", key, f, 1) for f in range(1, 31)]
+    res = run_checks(package_dir, spec, taste_blind_plans=blind)
     for f in res["findings"]:
         print(("REVIEW " if f.review else "FAIL   ") + str(f))
     print(f"chooser: {res['chooser']}")

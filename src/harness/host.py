@@ -9,7 +9,7 @@ hand the harness the same kind of answer (KT-93).
 - InProcessHost runs frozen bench code: the bots and B1n-mind (src/baselines).
 - SubprocessHost runs a mind package (src/mind, src/twins, or the stub in
   src/test_fixtures) in a fresh interpreter that can reach nothing but NumPy,
-  Numba and its own package (child.py). This is the run-time half of keeping
+  Numba, its own package and, for the twins, the mind package (child.py). This is the run-time half of keeping
   minds away from the world's objects, which the static import guard cannot
   give on its own (KT-89).
 """
@@ -105,10 +105,14 @@ def factory_from(entry: str):
     return getattr(importlib.import_module(module), name)
 
 
+# The packages a mind package may use, found beside it: the twins import K-F's code (section 6, KT-117)
+PACKAGE_USES = {"twins": ("mind",)}
+
+
 def _library_dirs():
     dirs = [str(pathlib.Path(np.__file__).resolve().parent.parent)]
     try:
-        import numba   # noqa: F401  (Week 3 adds it; the host only needs its directory)
+        import numba   # noqa: F401  (the host only needs its directory)
         d = str(pathlib.Path(numba.__file__).resolve().parent.parent)
         if d not in dirs:
             dirs.append(d)
@@ -128,7 +132,9 @@ class SubprocessHost:
     package_dir is the directory of the package to run (its name is the
     package's import name, `mind` for the mind package and the stub). Only its
     .py files are copied, into a fresh temporary directory, and only that copy
-    is put on the child's path. The child gets an empty working directory and
+    is put on the child's path. The twins package also gets a copy of the
+    mind package beside it (PACKAGE_USES), which its modules may import and
+    which may import only itself. The child gets an empty working directory and
     an environment holding nothing but a fixed hash seed (and, on Windows, the
     system root it needs to start).
     """
@@ -136,6 +142,7 @@ class SubprocessHost:
     def __init__(self, package_dir, hash_seed: str = "0"):
         package_dir = pathlib.Path(package_dir).resolve()
         self.package = package_dir.name
+        self.uses = PACKAGE_USES.get(self.package, ())
         self._proc = self._stderr = None
         self._tmp = tempfile.mkdtemp(prefix="frankie-mind-")
         try:
@@ -146,13 +153,17 @@ class SubprocessHost:
 
     def _start(self, package_dir, hash_seed):
         root = pathlib.Path(self._tmp, "root")
-        for src in sorted(package_dir.rglob("*.py")):
-            rel = src.relative_to(package_dir)
-            if "__pycache__" in rel.parts:
-                continue
-            dst = root / self.package / rel
-            dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(src, dst)
+        for name in (self.package,) + self.uses:
+            here = package_dir if name == self.package else package_dir.parent / name
+            if not here.is_dir():
+                raise MindError(f"the {self.package} package needs the {name} package beside it, at {here}")
+            for src in sorted(here.rglob("*.py")):
+                rel = src.relative_to(here)
+                if "__pycache__" in rel.parts:
+                    continue
+                dst = root / name / rel
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(src, dst)
         work = pathlib.Path(self._tmp, "work")
         work.mkdir()
         env = {"PYTHONHASHSEED": str(hash_seed), "PYTHONDONTWRITEBYTECODE": "1", "PYTHONIOENCODING": "utf-8"}
@@ -163,7 +174,7 @@ class SubprocessHost:
             [sys.executable, "-S", "-P", str(CHILD_SCRIPT)],
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=self._stderr,
             cwd=work, env=env, text=True, encoding="utf-8", bufsize=1)
-        self._send({"package_root": str(root), "package": self.package,
+        self._send({"package_root": str(root), "package": self.package, "uses": list(self.uses),
                     "library_dirs": _library_dirs(), "stdlib_dirs": _stdlib_dirs()})
         ready = self._receive()
         if not ready.get("ready"):
