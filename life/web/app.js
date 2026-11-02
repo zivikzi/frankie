@@ -8,7 +8,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 function report(level, msg, extra = {}) {
   try {
     fetch("/api/log", { method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ level, msg, ...extra, at: new Date().toISOString() }) });
+      body: JSON.stringify({ level, msg, ...extra, at: new Date().toISOString() }) }).catch(() => {}); // server away: drop it
   } catch (_) { /* nothing more we can do */ }
 }
 window.addEventListener("error", (e) => report("error", e.message, { src: e.filename, line: e.lineno, col: e.colno, stack: e.error && e.error.stack }));
