@@ -39,8 +39,8 @@ import numpy as np
 from mind import constants as K
 from mind.interface import TowerMind
 
-GAIN = 1                     # TW7's rate-unit gain (KT-28, start value)
-TAU_MS = 10                  # TW7's rate-unit time constant, in ms (KT-29, start value)
+GAIN = 0.25                  # TW7's rate-unit gain (KT-28, set on KT tuning set)
+TAU_MS = 10                  # TW7's rate-unit time constant, in ms (KT-29, set on KT tuning set)
 TW7 = "TW7"
 RATE = "rate"
 CHECK = "check"

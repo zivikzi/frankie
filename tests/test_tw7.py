@@ -22,6 +22,7 @@ from world import keys
 from world.run_plan import generate_run
 
 import twins.entry as tw
+from mind import constants as K
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -52,7 +53,7 @@ def test_a_whole_run_passes_every_interface_check(record):
     assert len(record.decisions) == C.DECISIONS_PER_RUN and not record.partial
     protocol.check_info(record.info, tower_minds(None)[-1])
     assert record.info["neuron"] == "rate" and record.info["chooser"] == "satisficing"
-    assert record.info["constants"]["detector_width_nw"] == [4, "KT-23"]
+    assert record.info["constants"]["detector_width_nw"] == [K.DETECTOR_WIDTH_NW, "KT-23"]
     assert record.birth_dump == {"candidates": []}                       # empty at birth (M09, FORBIDDEN 20)
 
 
@@ -100,9 +101,10 @@ def test_looks_with_no_outcome_change_nothing(plan):
     assert child.state_fingerprint(host._minds["a"]) == child.state_fingerprint(host._minds["b"])
 
 
-def test_k_f_refuses_to_run_until_it_has_a_per_spike_cost():
-    """K-F's spiking units exist since Week 4; KT-27 is set after the search, so until then it must be handed one."""
+def test_k_f_refuses_to_run_without_a_per_spike_cost(monkeypatch):
+    """KT-27 was registered after the search; with no per-spike cost at all, K-F must refuse rather than think free."""
     from mind import entry
+    monkeypatch.setattr(K, "SPIKE_NANO", None)
     with pytest.raises(ValueError, match="KT-27"):
         entry.make({"reserve_milli": 40000, "boldness": 0.3, "params": {}, "trait_order": list(range(22))})
 

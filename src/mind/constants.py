@@ -1,9 +1,9 @@
 """K-F's constants. Each is one number, shared by every trait and every layer (section 7, FORBIDDEN 28).
 
 Every line cites the row its number comes from. The tuned numbers (KT-19 to
-KT-27) hold the start values Aitzaz agreed for tuning on 1 Nov 2026. Only
-the logged search in Week 4 may change them, and until then every run uses
-these start values.
+KT-27) hold the values set on the KT tuning set on 2 Nov 2026: the setting
+the logged search ended on, which Aitzaz chose to keep though it reached no
+target. kill-test/TUNED.md lists them beside the start values they replace.
 """
 
 import numpy as np
@@ -62,17 +62,17 @@ MILLI_PER_UNIT = 1000        # one unit of energy (KT-92)
 HALF_MILLI_NANO = 500_000    # half a milli-unit: a cost rounds halves up (KT-48, KT-92)
 CHECK_NANO = 1_000_000       # one check costs 0.001 (B14, KT-45, KT-46, KT-92)
 
-# ------------------------------------------------------------------ the tuned list (section 7), at the agreed start values
+# ------------------------------------------------------------------ the tuned list (section 7), as set on the tuning set
 
-LEAK = 0.1                   # share of charge that fades per ms (KT-19, start value)
-THRESHOLD = 2.5              # charge at which a neuron fires (KT-20, start value)
-REFRACTORY_MS = 2            # rest after a spike, in ms (KT-21, start value)
-INHIBITION = 0.3125          # charge each spike takes off every neuron of every other group (KT-22, start value)
-DETECTOR_WIDTH_NW = 4        # detector width, in noise widths (KT-23, start value)
-COMMIT_MARGIN = 2            # the lead a winner needs, in activation (KT-24, start value)
-OBJECTION_THRESHOLD = 0.5    # mismatch, in weight, at which a layer objects (KT-25, start value)
-NEW_KIND_THRESHOLD = 0.5     # "unknown"'s steady input (KT-26, start value)
-SPIKE_NANO = None            # per-spike cost, in nano-units: set by KT-47's rule after the search (KT-27, KT-92)
+LEAK = 0.4                   # share of charge that fades per ms (KT-19, set on KT tuning set)
+THRESHOLD = 10               # charge at which a neuron fires (KT-20, set on KT tuning set)
+REFRACTORY_MS = 8            # rest after a spike, in ms (KT-21, set on KT tuning set)
+INHIBITION = 0.625           # charge each spike takes off every neuron of every other group (KT-22, set on KT tuning set)
+DETECTOR_WIDTH_NW = 5        # detector width, in noise widths (KT-23, set on KT tuning set)
+COMMIT_MARGIN = 2            # the lead a winner needs, in activation (KT-24, set on KT tuning set)
+OBJECTION_THRESHOLD = 2      # mismatch, in weight, at which a layer objects (KT-25, set on KT tuning set)
+NEW_KIND_THRESHOLD = 0.5     # "unknown"'s steady input (KT-26, set on KT tuning set)
+SPIKE_NANO = 2915888         # per-spike cost, in nano-units, by KT-47's rule (KT-27, KT-92, set on KT tuning set)
 
 OS07 = {"switch": "OS07", "setting": "habits off", "scope": "lifetime"}     # every bench run (section 5, KT-49)
 

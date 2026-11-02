@@ -14,6 +14,13 @@ from mind.memory import Kind, Memory
 from mind.tower import CENTRES, UNKNOWN, UNSETTLED, Race, fits
 
 W = 0.04
+START = {"leak": 0.1, "threshold": 2.5, "refractory_ms": 2, "inhibition": 0.3125, "detector_width_nw": 4,
+         "commit_margin": 2, "objection_threshold": 0.5, "new_kind_threshold": 0.5}     # TUNING_PLAN.md's start values
+
+
+def start(**changes):
+    """These hand-made cases were worked out at the agreed start values, not the values set later on the tuning set."""
+    return K.Settings(**dict(START, **changes))
 ORDER = list(range(K.N_TRAITS))           # the run's trait order: schema order in these cases
 POSITIONS = list(range(K.N_TRAITS))
 
@@ -48,7 +55,7 @@ class Scripted:
 
 
 def memory_of(*values, tenths=None):
-    m = Memory(K.Settings())
+    m = Memory(start())
     for i, v in enumerate(values):
         m.kinds[i] = Kind(np.asarray(v, dtype=float), W,
                           np.full(K.N_TRAITS, K.WEIGHT_START) if tenths is None else tenths[i], 1, True)
@@ -57,7 +64,7 @@ def memory_of(*values, tenths=None):
 
 def race(memory, values, script, taste_known=False, settings=None, after=False):
     units = Scripted(script).bind(len(memory.kinds) + 1)
-    r = Race(memory, values, taste_known, POSITIONS, settings or K.Settings(), units)
+    r = Race(memory, values, taste_known, POSITIONS, settings or start(), units)
     return r.run(after_eating=after), r, units
 
 
@@ -107,13 +114,13 @@ def test_a_tie_that_never_breaks_is_unsettled_and_names_no_kind():
 
 
 def test_an_empty_memory_ends_unknown_at_step_30():
-    m = Memory(K.Settings())
+    m = Memory(start())
     st, r, _ = race(m, flat(0.5), {"rest": [0.3]})
     assert (st.verdict, st.settle_step, st.checks) == (UNKNOWN, 30, 0)
 
 
 def test_unknown_alone_wins_once_it_stands_the_margin_above_rest():
-    st, _, _ = race(Memory(K.Settings()), flat(0.5), {"rest": [2.0]})
+    st, _, _ = race(Memory(start()), flat(0.5), {"rest": [2.0]})
     assert (st.verdict, st.settle_step) == (UNKNOWN, 6)
 
 
@@ -167,7 +174,7 @@ def test_attention_follows_the_runs_trait_order_on_ties():
     units = Scripted({"rest": [0.0, 0.0]}).bind(2)
     positions = list(range(K.N_TRAITS))
     positions[10], positions[6] = 0, 10          # trait 10 comes first in this run's order
-    r = Race(m, flat(0.5), False, positions, K.Settings(), units)
+    r = Race(m, flat(0.5), False, positions, start(), units)
     r.run()
     assert r.log["checked"]["parts"] == [7, 8, 10]
 
@@ -282,7 +289,7 @@ def test_a_third_objection_removes_the_leader():
 
 def test_a_mismatch_below_the_threshold_never_objects():
     m, values = _misfit_on_parts()
-    st, r, _ = race(m, values, {"rest": [5.0, 1.0, 0.0]}, settings=K.Settings(objection_threshold=0.75))
+    st, r, _ = race(m, values, {"rest": [5.0, 1.0, 0.0]}, settings=start(objection_threshold=0.75))
     assert r.log["objections"] == [] and st.verdict == 0
 
 
@@ -311,7 +318,7 @@ def test_the_log_names_the_last_leader_and_who_was_within_the_margin():
 
 def test_tw7_names_a_perfect_copy_and_calls_an_empty_memory_unknown():
     from twins.entry import RateMaker
-    s = K.Settings()
+    s = start()
     m = memory_of(flat(0.5), flat(0.2))
     r = Race(m, flat(0.5), False, POSITIONS, s, RateMaker().start(3, s))
     st = r.run()
@@ -322,7 +329,7 @@ def test_tw7_names_a_perfect_copy_and_calls_an_empty_memory_unknown():
 
 def test_rate_units_settle_toward_their_target_and_push_each_other_down():
     from twins.entry import RateUnits
-    s = K.Settings()
+    s = start()
     one = RateUnits(1, s, 1, 10)
     live = np.array([True])
     for _ in range(2000):

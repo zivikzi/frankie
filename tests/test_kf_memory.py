@@ -8,6 +8,10 @@ from harness.agents import tower_minds
 from mind import constants as K
 from mind.memory import Kind, Memory, outcome_class
 
+# These cases were worked out at the agreed start values (TUNING_PLAN.md), not the values set later on the tuning set
+START = K.Settings(leak=0.1, threshold=2.5, refractory_ms=2, inhibition=0.3125, detector_width_nw=4, commit_margin=2,
+                   objection_threshold=0.5, new_kind_threshold=0.5)
+
 W = 0.04                       # the start detector width, 4 noise widths (KT-23)
 GAIN, NOTHING, POISON = 15000, 0, -20000
 FORCED, CHOSEN = "designed-exposure", "chosen-eat"
@@ -21,7 +25,7 @@ def item(v=0.5, **at):
 
 
 def fresh():
-    return Memory(K.Settings())
+    return Memory(START)
 
 
 def test_outcome_classes_follow_the_sign():

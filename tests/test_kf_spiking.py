@@ -42,6 +42,11 @@ import mind_checks  # noqa: E402
 GRID = {"leak": (0.025, 0.05, 0.1, 0.2, 0.4), "threshold": (0.625, 1.25, 2.5, 5, 10),
         "refractory_ms": (0, 1, 2, 4, 8), "inhibition": (0.078, 0.156, 0.3125, 0.625, 1.25)}   # TUNING_PLAN.md
 POSITIONS = list(range(K.N_TRAITS))
+START = K.Settings(**{"leak": 0.1, "threshold": 2.5, "refractory_ms": 2, "inhibition": 0.3125,
+                      "detector_width_nw": 4, "commit_margin": 2, "objection_threshold": 0.5,
+                      "new_kind_threshold": 0.5})    # the agreed start values (TUNING_PLAN.md)
+
+
 BIRTH = {"reserve_milli": 40000, "boldness": 0.3, "trait_order": list(range(K.N_TRAITS))}
 
 
@@ -160,7 +165,7 @@ def test_a_group_that_is_not_live_is_held_at_rest_and_pushes_nothing():
 
 
 def test_every_spike_is_paid_for_unknown_included():
-    u = SpikingUnits(3, K.Settings())
+    u = SpikingUnits(3, START)
     made = np.zeros(3, dtype=np.int64)
     for _ in range(50):
         numba_step(u, [0.0, 0.0, K.NEW_KIND_THRESHOLD], [True, True, True])     # "unknown" alone has input
@@ -170,16 +175,17 @@ def test_every_spike_is_paid_for_unknown_included():
 
 # ------------------------------------------------------------------ the start values on hand-made cases
 
-def memory_of(*values):
-    m = Memory(K.Settings())
+def memory_of(*values, s=None):
+    s = s or START
+    m = Memory(s)
     for i, v in enumerate(values):
-        m.kinds[i] = Kind(np.asarray(v, dtype=float), K.Settings().detector_width,
+        m.kinds[i] = Kind(np.asarray(v, dtype=float), s.detector_width,
                           np.full(K.N_TRAITS, K.WEIGHT_START), 1, True)
     return m
 
 
 def settle(memory, values, s=None):
-    s = s or K.Settings()
+    s = s or START
     r = Race(memory, np.asarray(values, dtype=float), False, POSITIONS, s, SpikingUnits(len(memory.kinds) + 1, s))
     return r.run(), r
 
@@ -240,7 +246,7 @@ def test_k_f_runs_on_spiking_units_and_pays_per_spike():
 
 
 @pytest.mark.parametrize("params,why", [
-    ({}, "KT-27"), ({"spike_nano": -1}, "whole number"), ({"spike_nano": 1.5}, "whole number"),
+    ({"spike_nano": -1}, "whole number"), ({"spike_nano": 1.5}, "whole number"),
     ({"spike_nano": 0, "tuned": {"gain": 2}}, "closed list"), ({"spike_nano": 0, "tuned": {"leak": "0.1"}}, "one finite number"),
     ({"spike_nano": 0, "tuned": {"leak": True}}, "one finite number"),
     ({"spike_nano": 0, "tuned": {"leak": float("nan")}}, "one finite number"),
@@ -318,3 +324,17 @@ def test_the_mind_checks_pass_k_f_and_os10(plan):
             spec = dataclasses.replace(tower_minds(25_000)[3], params=params)
         res = mind_checks.run_checks(ROOT / "src" / "mind", spec, plans=[plan])
         assert res["failed"] == [] and res["review"] == [], [str(f) for f in res["failed"] + res["review"]]
+
+
+def test_the_registered_values_still_name_a_perfect_copy_and_settle_an_empty_memory():
+    """The values set on the tuning set (kill-test/TUNED.md) pass the same hand-made cases as the start values."""
+    v = an_object()
+    out, _ = settle(memory_of(v, s=K.Settings()), v, K.Settings())
+    assert out.verdict == 0
+    out, _ = settle(memory_of(s=K.Settings()), v, K.Settings())
+    assert out.verdict == UNKNOWN
+
+
+def test_the_registered_per_spike_cost_is_kt47s():
+    assert K.SPIKE_NANO == 2_915_888 and entry.make(dict(BIRTH, params={})).info()["constants"]["unit_nano"][0] == \
+        K.SPIKE_NANO
