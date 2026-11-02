@@ -214,3 +214,24 @@ def test_a_half_written_last_line_stops_the_resume_with_a_clear_message(tmp_path
     path.write_text('{"type": "begin", "n": 0}\n{"type": "floo')
     with pytest.raises(SystemExit, match="not a whole event"):
         tune.Log(path)
+
+
+def test_the_continuation_records_aitzazs_decision_word_for_word():
+    import tune_continue
+    d = tune_continue.DECISION
+    assert d["by"] == "Aitzaz" and d["when"] == "2026-11-02 10:53 UTC" and d["choice"] == "Run the kill test"
+    assert d["consequence"].startswith("I merge the search log and report into main, then freeze K-F at the setting")
+    assert d["consequence"].endswith("Expected: NO-GO, a pre-registered answer.")
+
+
+def test_the_continuation_needs_a_step_5_stop(tmp_path, monkeypatch):
+    import tune_continue
+    monkeypatch.setattr(tune, "commit_state", lambda: ("x", ""))
+    monkeypatch.setattr(tune, "code_state", lambda: {"src": "a"})
+
+    class Quiet:
+        stdout = ""
+    monkeypatch.setattr(tune.subprocess, "run", lambda *a, **k: Quiet())
+    path = tmp_path / "log.jsonl"
+    path.write_text(json.dumps({"type": "begin", "n": 0, "code": {"src": "a"}, "spreads": {}}) + "\n")
+    assert tune_continue.proceed(path, 1) == 1
