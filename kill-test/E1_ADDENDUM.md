@@ -64,7 +64,7 @@ Everything in `charter/KILL_TEST.md` v3 and bench v1.1 (`freeze/killtest-bench-v
 - every measure (section 8), every pass mark and GO rule (section 9), and the verdict order;
 - the frozen judge (`src/harness/judge.py`): its bootstrap, its seed, its subgroups, and nearest-rank reading;
 - the set size, **40 families** of 10 runs each (section 7's power check);
-- the key procedure (section 3, KT-14, KT-31): set A's key is the SHA-256 of the hash of Bitcoin block N + 6, where N is read from the timestamp Action's upgrades of this manifest's first proof;
+- the key procedure (section 3, KT-14, KT-31): set A's key is the SHA-256 of the hash of Bitcoin block N + 6, where N is read from the timestamp Action's upgrades of this manifest's first proof (`kill-test/read_set_a_key.py` applies section 3's rule; anyone can check it with the `ots` client and a block explorer);
 - the limit of at most two sets (section 3).
 
 **Where E1 takes K-F's place,** word for word:
@@ -129,6 +129,6 @@ These rows are frozen with this addendum. Aitzaz approves them together with the
 Set A's code manifest covers:
 - the bench (`freeze/killtest-bench-v1.1.sha256`'s paths);
 - `src/mind` (E1, and K-F's untouched code) and `src/twins`;
-- `kill-test/e1_kill_run.py` and this addendum.
+- `kill-test/e1_kill_run.py`, `kill-test/read_set_a_key.py` (which reads N from the committed proofs by section 3's rule, calendar by calendar) and this addendum.
 
 The manifest names set A, so it fixes set A's key. Pushing it to `main` starts the timestamp, and that cannot be undone.
