@@ -1,10 +1,10 @@
 """TW7 (K-F's tower, memory and drive on rate units) through the frozen harness, and the mind checks that can run now.
 
-The harness's subprocess host loads one package and lets it import only
-itself, NumPy and Numba, so the twins package cannot import K-F's code
-there yet (a bench fix, listed in the Week 3 pull request). These tests
-host TW7 in this process instead: every answer still passes every check in
-harness/protocol.py, and the run is the frozen run order of section 5.
+These tests host TW7 in this process, which is quicker: every answer still
+passes every check in harness/protocol.py, and the run is the frozen run
+order of section 5. Since bench v1.1, TW7 also runs in its own process
+beside a copy of K-F's code, and gives the same record there
+(tests/test_bench_v1_1.py).
 """
 
 import pathlib

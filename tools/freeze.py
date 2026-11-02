@@ -1,6 +1,7 @@
 """Write a freeze manifest: the SHA-256 of every file that decides a result (section 7, I04).
 
-    python tools/freeze.py bench OUT       the bench: world, harness, bots, fixtures, tools, the drive grid
+    python tools/freeze.py bench OUT       the bench: world, harness, bots, fixtures, tools, the drive grid,
+                                           and the tuning-set report
     python tools/freeze.py set A OUT       a kill-run set's code freeze (Week 5; names the set)
     python tools/freeze.py verify MANIFEST lists every file that differs from a manifest
 
@@ -18,8 +19,9 @@ import pathlib
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+# The bench, and since v1.1 the tuning-set report the power check reads (KT-124)
 BENCH = ("pyproject.toml", "uv.lock", "src/world", "src/harness", "src/baselines", "src/test_fixtures", "tools",
-         "tests/data/drive_grid.json", ".github/workflows/power-check.yml")
+         "tests/data/drive_grid.json", ".github/workflows/power-check.yml", "kill-test/results/tuning-bench.json")
 SET_CODE = BENCH + ("src/mind", "src/twins")
 SKIP_PARTS = ("__pycache__", ".pytest_cache", ".hypothesis")
 ROOTS_LINE = "# covers: "

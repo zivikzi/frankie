@@ -125,20 +125,28 @@ class Lineage:
         return lid
 
     def apply(self, events, item) -> str:
-        """Apply one write's events; returns the lineage id the eat is filed under."""
+        """Apply one write's events; returns the lineage id the eat is filed under.
+
+        A split may name a parent forgotten earlier in the same write: when
+        memory is full, forgetting comes after the child has copied its
+        parent and may pick the parent itself (KT-75, KT-121).
+        """
         filed = None
+        forgotten = {}
         for e in events:
             t, slot = e["type"], e["slot"]
             if t == "forget":
                 if slot not in self.slot_lid:
                     raise RunError(f"forget of empty slot {slot}")
                 lid = self.slot_lid.pop(slot)
+                forgotten[slot] = lid
                 self.log.append({"item": item, "type": t, "lid": lid, "slot": slot})
                 continue
             if t == "new":
                 lid = self._new_lid(slot, item, None)
             elif t == "split":
-                parent = self.lid(e["parent_slot"])
+                ps = e["parent_slot"]
+                parent = forgotten[ps] if ps in forgotten and ps not in self.slot_lid else self.lid(ps)
                 lid = self._new_lid(slot, item, parent)
             else:
                 lid = self.lid(slot)

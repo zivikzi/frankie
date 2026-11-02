@@ -27,6 +27,11 @@ It also refuses these disguises:
   at import, load libraries or hold the standard library; and any private
   attribute (`._x`) reached from a name bound to NumPy, Numba or something
   imported from them;
+- any part of Numba but `numba.njit` (KT-119): its extension, low-level and
+  object-mode parts (`numba.extending`, `numba.core`, `numba.cfunc`,
+  `numba.objmode` and the like) can emit native code or run Python that the
+  mind's process cannot watch, and `njit`'s `fastmath` (I05), `parallel` and
+  `cache` options, or options passed as `**`, are refused too;
 - a source file whose encoding is not UTF-8, since an encoding cookie can
   turn a comment into code;
 - any symlink in the package, and any file Python could import but this
@@ -74,6 +79,8 @@ FORBIDDEN_ATTRIBUTES = FORBIDDEN_NAMES | {
 }
 NUMPY_PARTS_REFUSED = {"tests", "testing", "conftest", "f2py", "ctypeslib", "distutils"}
 HARMLESS_DUNDERS = {"__all__", "__doc__", "__version__", "__slots__", "__debug__"}
+NUMBA_ALLOWED = {"njit"}                                 # the only part of Numba a mind uses (KT-119)
+NJIT_REFUSED_OPTIONS = {"fastmath", "parallel", "cache"}  # (I05, KT-119)
 SOURCE_SUFFIXES = {".py"}
 CACHE_FILE = re.compile(r"^(?P<stem>[^.]+)\.(?P<tag>[a-z0-9_-]+)(\.opt-[12])?\.pyc$")
 
@@ -96,6 +103,47 @@ def _numpy_bound_names(tree) -> set:
                 (node.module or "").split(".")[0] in ("numpy", "numba"):
             bound.update(alias.asname or alias.name for alias in node.names)
     return bound
+
+
+def _numba_names(tree) -> tuple:
+    """(names bound to the numba module itself, names bound to numba.njit)."""
+    modules, njit = set(), set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.name == "numba":
+                    modules.add(alias.asname or "numba")
+        elif isinstance(node, ast.ImportFrom) and not node.level and node.module == "numba":
+            njit.update(alias.asname or alias.name for alias in node.names if alias.name in NUMBA_ALLOWED)
+    return modules, njit
+
+
+def _numba_violations(tree) -> list:
+    """Every use of Numba other than numba.njit, and every njit option KT-119 refuses."""
+    out = []
+    modules, njit = _numba_names(tree)
+    why = "(the mind uses Numba only through numba.njit, KT-119)"
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.name.startswith("numba."):
+                    out.append((node.lineno, f"import {alias.name} {why}"))
+        elif isinstance(node, ast.ImportFrom) and not node.level and (node.module or "").split(".")[0] == "numba":
+            for alias in node.names:
+                if node.module != "numba" or alias.name not in NUMBA_ALLOWED:
+                    out.append((node.lineno, f"from {node.module} import {alias.name} {why}"))
+        elif isinstance(node, ast.Attribute) and isinstance(node.value, ast.Name) and node.value.id in modules \
+                and node.attr not in NUMBA_ALLOWED:
+            out.append((node.lineno, f"numba.{node.attr} {why}"))
+        elif isinstance(node, ast.Call):
+            f = node.func
+            is_njit = (isinstance(f, ast.Name) and f.id in njit) or \
+                (isinstance(f, ast.Attribute) and f.attr in NUMBA_ALLOWED and isinstance(f.value, ast.Name)
+                 and f.value.id in modules)
+            for kw in node.keywords if is_njit else ():
+                if kw.arg is None or kw.arg in NJIT_REFUSED_OPTIONS:
+                    out.append((node.lineno, f"njit's {kw.arg or '**'} option {why}"))
+    return out
 
 
 def _attribute_chain(node: ast.Attribute):
@@ -161,6 +209,7 @@ def violations(path: pathlib.Path) -> tuple:
     except (SyntaxError, ValueError, RecursionError, MemoryError) as e:
         return [(getattr(e, "lineno", 0) or 0, "a file the guard cannot parse")], []
     numpy_names = _numpy_bound_names(tree)
+    out += _numba_violations(tree)
     for node in ast.walk(tree):
         if isinstance(node, (ast.Import, ast.ImportFrom)):
             for alias in node.names:
