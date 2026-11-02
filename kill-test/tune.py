@@ -77,10 +77,10 @@ KF_GRID = (
     ("KT-25", "objection_threshold", (0.125, 0.25, 0.5, 1, 2)),
     ("KT-26", "new_kind_threshold", (0.125, 0.25, 0.5, 1, 2)),
 )
-KF_START = {"leak": K.LEAK, "threshold": K.THRESHOLD, "refractory_ms": K.REFRACTORY_MS,
-            "inhibition": K.INHIBITION, "detector_width_nw": K.DETECTOR_WIDTH_NW,
-            "commit_margin": K.COMMIT_MARGIN, "objection_threshold": K.OBJECTION_THRESHOLD,
-            "new_kind_threshold": K.NEW_KIND_THRESHOLD}
+# The agreed start values (TUNING_PLAN.md's table). mind.constants held them while the search ran (c0b0814) and
+# now holds the values set on the tuning set (kill-test/TUNED.md).
+KF_START = {"leak": 0.1, "threshold": 2.5, "refractory_ms": 2, "inhibition": 0.3125, "detector_width_nw": 4,
+            "commit_margin": 2, "objection_threshold": 0.5, "new_kind_threshold": 0.5}
 GAIN_START = 1                           # TW7's start values (KT-28, KT-29, TUNING_PLAN.md)
 TAU_START = 10
 TW7_GRID = (
