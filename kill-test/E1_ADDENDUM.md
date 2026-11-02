@@ -108,7 +108,19 @@ Each figure is the mean of 15 family means, 10 runs each. The floor is the bette
 | Noticed (E1-OS10 not noticing) | 0.993 (1.000) | 0.993 (1.000) | 0.50 (0.90) |
 | D at check 1 | −0.282 | −0.276 | below 0.15 |
 
-The dry run on all 30 tuning families, made by the same driver, gave: DRY_RUN.
+The dry run on all 30 tuning families, made by the same driver in the same order, gave **GO** (`kill-test/results/E1-dry-run-tuning.json`). It is not an independent check, since the odd half was used to choose E1:
+
+| Rule | Result |
+|---|---|
+| 1. Settle rate | 1.000 |
+| 2. CopyAccept | 0.999 |
+| 3. D_learn against the floor | 0.431 against B1n-bot-r's 0.2445; bootstrap 0 of 10,000 at or below 0 |
+| 4b. FarMinusNeutral | 0.508 |
+| 4c. LookReject | 0.863 / 0.893 |
+| 5. Sour test | sour drop 0.007, Q 0.823, noticed 0.993, E1-OS10 quiet 1.000 |
+| 7. D at check 1 | −0.279 |
+
+Rules 4, 4b and 4c held in every subgroup. Rule 6 held.
 
 ## 7. New rows (KT-132 to KT-138)
 
