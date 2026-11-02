@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frankie Lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Frankie Lab</h1>
+  <nav>
+    <button class="tab on" data-tab="watch">Watch a run</button>
+    <button class="tab" data-tab="score">Scoreboard</button>
+    <button class="tab" data-tab="variants">Variants tried</button>
+  </nav>
+</header>
+
+<main>
+<section id="watch" class="view on">
+  <div class="controls">
+    <label>Mind <select id="mind"></select></label>
+    <label>Family <select id="family"></select></label>
+    <label>Run <select id="run"></select></label>
+    <button id="load" class="primary">Load</button>
+    <span id="status" class="muted"></span>
+  </div>
+  <div class="controls stepper">
+    <button id="first" title="First">⏮</button>
+    <button id="prev" title="Previous (←)">◀</button>
+    <button id="play" title="Play / pause (space)">▶ Play</button>
+    <button id="next" title="Next (→)">▶</button>
+    <button id="last" title="Last">⏭</button>
+    <input id="slider" type="range" min="0" max="0" value="0">
+    <span id="stepinfo" class="muted"></span>
+    <label class="check"><input id="showchecks" type="checkbox" checked> show the checks</label>
+    <label class="check"><input id="reveal" type="checkbox"> reveal what it really is</label>
+  </div>
+
+  <div class="grid">
+    <div class="card" id="objcard">
+      <h2>The object <span id="phase" class="pill"></span></h2>
+      <svg id="pic" viewBox="0 0 320 260" role="img" aria-label="the object, drawn from its numbers"></svg>
+      <div id="role" class="role hidden"></div>
+      <div id="senses"></div>
+    </div>
+
+    <div class="card" id="numcard">
+      <h2>Its numbers, outside in</h2>
+      <div id="numbers"></div>
+    </div>
+
+    <div class="card" id="choicecard">
+      <h2>Verdict and choice</h2>
+      <div id="choice"></div>
+      <svg id="energy" viewBox="0 0 320 70"></svg>
+    </div>
+
+    <div class="card wide" id="thinkcard">
+      <h2>Thinking: which kinds it could be, and where each was ruled out</h2>
+      <div id="thinking"></div>
+    </div>
+
+    <div class="card wide" id="memcard">
+      <h2>Memory <span class="muted" id="memnote"></span></h2>
+      <div id="memory"></div>
+    </div>
+  </div>
+</section>
+
+<section id="score" class="view">
+  <div class="controls">
+    <label>Families <select id="half">
+      <option value="odd">search half (odd families: where E1 was developed)</option>
+      <option value="even">check half (even families: never tuned on)</option>
+    </select></label>
+    <span class="muted">Green meets the kill test's pass mark, red misses it. Every number comes from the frozen harness.</span>
+  </div>
+  <div id="board"></div>
+  <div class="card">
+    <h2>Learning curve: D after 1, 2, 4, 6 and 8 tastes</h2>
+    <p class="muted">D is the share of different-looking apples eaten while naming an apple kind, minus the share of look-alikes eaten. Higher is better. Bots are scored on eating alone.</p>
+    <svg id="curve" viewBox="0 0 720 320"></svg>
+    <div id="legend"></div>
+  </div>
+  <div class="card">
+    <h2>Run a batch yourself</h2>
+    <p class="muted">Runs one mind on 15 families × 10 runs and updates the scoreboard. A few seconds for bots and E1, a few minutes for K-F.</p>
+    <div class="controls">
+      <label>Mind <select id="bmind"></select></label>
+      <label>Families <select id="bhalf"><option value="odd">search half (odd)</option><option value="even">check half (even)</option></select></label>
+      <button id="brun" class="primary">Run</button>
+      <progress id="bprog" max="1" value="0"></progress>
+      <span id="bstatus" class="muted"></span>
+    </div>
+  </div>
+</section>
+
+<section id="variants" class="view">
+  <p class="muted">Every E1 variant tried while exploring, with its numbers. Variants were developed on the search half (odd families) only.</p>
+  <div id="vtable"></div>
+</section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
