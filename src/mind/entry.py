@@ -5,6 +5,10 @@ units (D12, mind.spiking), paying KT-27's per-spike cost (KT-46). Its birth
 parameters may switch on one of its off-switch versions, OS10 (taste out of
 memory and the verdict after eating, section 4). OS01 comes in Week 5.
 
+With the birth parameter "mind" set to "E1", it makes E1 instead (mind.e1,
+kill-test/E1_ADDENDUM.md, KT-132), and E1 reads the rest of the parameters
+itself. Without it, nothing below changes.
+
 The logged search of section 7 hands K-F each setting it tries through
 the birth parameters, as "tuned" (the closed list's own names, KT-19 to
 KT-26) and "spike_nano" (KT-27). Without them K-F runs on the values in
@@ -13,6 +17,7 @@ search), K-F refuses to run unless it is handed one (KT-126).
 """
 
 from mind import constants as K
+from mind import e1
 from mind.interface import TowerMind
 from mind.spiking import SPIKING, SpikingMaker
 
@@ -34,8 +39,13 @@ def _spike_nano(params):
     return nano
 
 
+MIND = "mind"
+
+
 def make(config):
     params = config["params"]
+    if params.get(MIND) == e1.E1:                      # E1, under kill-test/E1_ADDENDUM.md (KT-132)
+        return e1.make(config)
     unknown = sorted(set(params) - set(PARAMS))
     if unknown:
         raise ValueError(f"K-F takes no birth parameter {unknown}")

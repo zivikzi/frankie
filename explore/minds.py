@@ -36,15 +36,17 @@ ODD = tuple(range(1, 31, 2))            # where E1 is developed (the search half
 EVEN = tuple(range(2, 31, 2))           # reported as a check, never tuned on
 RUNS = 10
 
-# E1 variants: name -> E1 settings. "E1" is the variant with the best D_learn on the search half (odd families)
-# after the exploration logged in explore/results/variants.jsonl; the others switch one idea off.
-E1_BEST = {"tol_nw": 10, "threshold": 1.0, "stretch_down": 5, "merge_cutoff": 5, "merge_context": True,
-           "merge_widen": True}
+# E1 variants: name -> E1 settings. "E1" is E1 as frozen for the sealed test (src/mind/e1.py's defaults, KT-132):
+# "E1 ctx down5" from the Lab's exploration plus the sour fix (taste keeps its relevance, KT-135). The others switch
+# one idea off. Every variant tried is in explore/results/variants.jsonl.
 VARIANTS = {
-    "E1": dict(E1_BEST),
-    "E1 no merging": dict(E1_BEST, merge=False),
-    "E1 all at once": dict(E1_BEST, outside_in=False),
-    "E1 as first written": {},
+    "E1": {},
+    "E1-OS10": {"OS10": True},
+    "E1 no merging": {"merge": False},
+    "E1 all at once": {"outside_in": False},
+    "E1 without the sour fix": {"taste_keeps": False},
+    "E1 as first written": {"tol_nw": 3, "stretch_down": 1, "merge_cutoff": 4, "merge_context": False,
+                            "merge_widen": False, "taste_keeps": False},
 }
 
 
@@ -52,7 +54,8 @@ def e1_spec(name, params=None):
     params = dict(VARIANTS.get(name, {}) if params is None else params)
     return agents.AgentSpec(agent_type="E1", label=name, mind_class="tower", entry="e1:make", host="in-process",
                             pays_look=True, thinking_unit="check", unit_nano=C.CHECK_NANO, unit_row="B14",
-                            version=tuple(e1.version_of(name)), params=dict(params, name=name))
+                            version=tuple(e1.version_of(name, bool(params.get("OS10")))),
+                            params=dict(params, name=name))
 
 
 def spec(name, params=None):

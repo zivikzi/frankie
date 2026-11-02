@@ -21,7 +21,8 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import minds  # noqa: E402
 
 RESULTS = minds.ROOT / "explore" / "results"
-DEFAULT = ("B1n-bot-r", "B1n-mind", "B2e", "K-F", "E1", "E1 no merging", "E1 all at once", "E1 as first written")
+DEFAULT = ("B1n-bot-r", "B1n-mind", "B2e", "K-F", "E1", "E1-OS10", "E1 no merging", "E1 all at once",
+           "E1 without the sour fix", "E1 as first written")
 
 
 def run_mind(name, families, workers, params=None, progress=None):
