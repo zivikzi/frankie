@@ -28,6 +28,10 @@ Each group, "unknown" included, is one rate unit, updated every 1 ms substep:
 
 Everything else, from the layer timetable to the memory rule and the drive,
 is K-F's own code. TW7 pays 0.001 per check (B14, KT-45, KT-46).
+
+The logged search of section 7 hands TW7 K-F's picked values as "tuned"
+and each gain and time constant it tries as "rate" (KT-126). Without them
+TW7 runs on the values in mind.constants and in this file.
 """
 
 import numpy as np
@@ -87,8 +91,24 @@ def make_tw7(config, settings=None, maker=None):
     return TowerMind(config, maker or RateMaker(), CHECK, K.CHECK_NANO, RATE, [K.OS07], settings)
 
 
+def _rate_maker(given):
+    """TW7's own two numbers from the birth parameters, for the logged search (KT-28, KT-29, KT-126)."""
+    if not isinstance(given, dict) or not set(given) <= {"gain", "tau_ms"}:
+        raise ValueError("TW7's own setting names only its gain and time constant (section 7)")
+    for name, value in given.items():
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or value <= 0:
+            raise ValueError(f"{name} must be one number above 0 (section 7)")
+    return RateMaker(**given)
+
+
 def make(config):
-    twin = config["params"].get("twin")
-    if twin == TW7:
-        return make_tw7(config)
-    raise ValueError(f"no twin {twin!r} is built yet: TW2 comes in Week 5")
+    params = config["params"]
+    twin = params.get("twin")
+    if twin != TW7:
+        raise ValueError(f"no twin {twin!r} is built yet: TW2 comes in Week 5")
+    unknown = sorted(set(params) - {"twin", "tuned", "rate"})
+    if unknown:
+        raise ValueError(f"TW7 takes no birth parameter {unknown}")
+    settings = K.Settings.from_params(params["tuned"]) if "tuned" in params else None     # K-F's values (KT-126)
+    maker = _rate_maker(params["rate"]) if "rate" in params else None
+    return make_tw7(config, settings, maker)

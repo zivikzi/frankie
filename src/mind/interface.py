@@ -10,13 +10,14 @@ the outcome, the energy after it and the 4 tastes. Nothing else reaches it.
   the drive choose (section 5). It changes nothing the mind keeps: it only
   holds the decision for land() and write() (FORBIDDEN 9).
 - land() makes the verdict after eating, which costs nothing and changes no
-  choice or record (section 6, KT-66).
+  choice or record (section 6, KT-66). OS10's reads no taste (section 4).
 - write() applies the memory rule to the verdict committed before the eat
   (section 6). Its trigger is the mind's own reading of its pick: a skipped
   decision that was then eaten was forced (KT-97).
 
 The units each group runs on come from a maker with start(n_groups,
-settings): K-F's spiking units (Week 4) or TW7's rate units (twins package).
+settings): K-F's spiking units (mind.spiking) or TW7's rate units (twins
+package).
 """
 
 import numpy as np
@@ -31,7 +32,7 @@ DESIGNED = "designed-exposure"
 
 
 class TowerMind:
-    def __init__(self, config, units_maker, unit, unit_nano, neuron, version, settings=None):
+    def __init__(self, config, units_maker, unit, unit_nano, neuron, version, settings=None, taste_blind=False):
         self.reserve_milli = int(config["reserve_milli"])
         self.boldness = float(config["boldness"])
         order = [int(t) for t in config["trait_order"]]
@@ -46,7 +47,8 @@ class TowerMind:
         self.unit_nano = unit_nano
         self.neuron = neuron                    # "rate" or "spiking" (FORBIDDEN 27)
         self.version = [dict(v) for v in version]
-        self.memory = Memory(self.settings)     # empty at birth (M09)
+        self.taste_blind = taste_blind          # OS10: taste out of memory and the verdict after eating (section 4)
+        self.memory = Memory(self.settings, taste_blind)     # empty at birth (M09)
         self.untried_milli = 0                  # PLACEHOLDER-34's tally, logged only (KT-49)
         self.untried_eats = 0
         self.pending = None
@@ -88,7 +90,7 @@ class TowerMind:
             raise ValueError("an eat landed with no decision before it")
         values = self.pending["values"].copy()
         values[K.TASTE_FROM:] = np.asarray(taste, dtype=np.float64)
-        settle = self._race(values, True).run(after_eating=True)
+        settle = self._race(values, not self.taste_blind).run(after_eating=True)
         self.landed = {"values": values, "delta_milli": int(delta_milli),
                        "above": int(energy_after_milli) >= self.reserve_milli}
         return {"verdict": settle.verdict, "settle_step": settle.settle_step, "log": settle.log}
