@@ -278,7 +278,8 @@ def test_hidden_natures_do_not_change_what_the_mind_does_before_it_eats(name):
 
 
 def test_mind_modules_import_nothing_world_side():
-    allowed = {"numpy", "math", "mind", "life.config", "life.minds", "life.sim"}
+    allowed = {"numpy", "math", "mind", "life.config", "life.minds", "life.sim",
+               "json", "os", "pathlib", "time", "urllib"}                   # the last five: the LLM creature's plumbing
     for path in (ROOT / "life" / "minds").glob("*.py"):
         tree = ast.parse(path.read_text())
         for node in ast.walk(tree):
@@ -362,3 +363,94 @@ def test_the_server_starts_and_serves_the_page_and_the_world(tmp_path):
         server.shutdown()
         server.server_close()
     assert "new world seed=7" in (tmp_path / "server.log").read_text()
+
+
+# ------------------------------------------------------------------ the LLM creature (later, optional; fake LLM only)
+
+FORBIDDEN_WORDS = ("apple", "poison", "nourish", "fruit", "food", "forest", "meadow", "marsh", "rocky", "look-alike",
+                   "lookalike", "neutral", "context", "region", "fence", "river", "wall", " red", "green", "blue")
+
+
+def _llm_session(tmp_path, seed=8, ticks=500):
+    from life import sim
+    from life.minds import llm
+    s = Session(seed, ["wanderer"])                      # a real world; swap in the LLM creature's mind
+    c = s.creatures[0]
+    c.mind = llm.LLMCreature(seed, c.reserve, c.boldness, llm=llm.FakeLLM(), log_path=tmp_path / "run.jsonl")
+    c.name = "llm"
+    for _ in range(ticks):
+        if not c.body.alive:
+            break
+        s.step()
+    return s, c
+
+
+def test_llm_creature_runs_on_the_fake_and_saves_every_call(tmp_path):
+    s, c = _llm_session(tmp_path)
+    cost = c.mind.cost()
+    calls = [json.loads(l) for l in (tmp_path / "run.jsonl").read_text().splitlines()]
+    assert cost["calls"] == len(calls) > 0 and cost["model"] == "fake"
+    assert any(json.loads(x["answer"]["text"])["do"] == "approach" for x in calls)
+
+
+def test_llm_prompts_hold_only_neutral_numbers(tmp_path):
+    _llm_session(tmp_path)
+    for line in (tmp_path / "run.jsonl").read_text().splitlines():
+        prompt = json.loads(line)["prompt"].lower()
+        for w in FORBIDDEN_WORDS:
+            assert w not in prompt, f"the LLM was told {w!r}"
+    from life.minds.llm import SYSTEM
+    for w in FORBIDDEN_WORDS:
+        assert w not in SYSTEM.lower()
+
+
+def test_a_saved_llm_run_replays_identically_without_calling_anyone(tmp_path):
+    from life.minds import llm
+    s1, c1 = _llm_session(tmp_path, seed=9, ticks=400)
+    s2 = Session(9, ["wanderer"])
+    c2 = s2.creatures[0]
+    c2.mind = llm.LLMCreature(9, c2.reserve, c2.boldness, llm=llm.ReplayLLM(tmp_path / "run.jsonl"))
+    for _ in range(400):
+        if not c2.body.alive:
+            break
+        s2.step()
+    assert (c2.body.x, c2.body.z, c2.body.energy) == (c1.body.x, c1.body.z, c1.body.energy)
+
+
+def test_llm_request_is_built_from_the_environment_and_parsed(monkeypatch):
+    from life.minds import llm
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
+    monkeypatch.setenv("FRANKIE_LLM_MODEL", "model-from-env")
+    client = llm.AnthropicLLM()
+    req = client.request("hello")
+    body = json.loads(req.data)
+    assert req.full_url == llm.API_URL and req.get_header("X-api-key") == "test-key"
+    assert req.get_header("Anthropic-version") == llm.API_VERSION and body["model"] == "model-from-env"
+
+    class Fake:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def read(self):
+            return json.dumps({"content": [{"type": "thinking", "thinking": ""},
+                                           {"type": "text", "text": '{"do": "rest"}'}],
+                               "stop_reason": "end_turn", "usage": {"input_tokens": 10, "output_tokens": 3}}).encode()
+
+    monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout=None: Fake())
+    ans = client("hello")
+    assert ans["text"] == '{"do": "rest"}' and ans["input_tokens"] == 10 and llm.parse(ans["text"]) == {"do": "rest"}
+
+
+def test_llm_creature_is_unavailable_without_a_key(monkeypatch):
+    from life.minds import llm
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("FRANKIE_LLM_FAKE", raising=False)
+    assert not llm.available()
+    with pytest.raises(llm.LLMError):
+        llm.AnthropicLLM()
+    from life import sim
+    sim._load_minds()
+    assert not sim.CREATURES["llm"]["available"]()

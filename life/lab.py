@@ -168,7 +168,8 @@ class Live:
             elif c == "new":
                 seed = cmd.get("seed")
                 seed = int(seed) if seed not in (None, "") else None
-                creatures = [n for n in cmd.get("creatures", []) if n in sim.CREATURES][:2] or None
+                creatures = [n for n in cmd.get("creatures", [])
+                             if n in sim.CREATURES and sim.CREATURES[n]["available"]()][:2] or None
                 self.new_world(seed, creatures)
             elif c == "restart":
                 self.new_world(self.session.seed)
@@ -244,7 +245,8 @@ class Handler(SimpleHTTPRequestHandler):
                     out["live"] = LIVE.status()
                 return self._json(out)
             if url.path == "/api/creatures":
-                return self._json({n: {"label": v["label"], "colour": v["colour"]} for n, v in sim.CREATURES.items()})
+                return self._json({n: {"label": v["label"], "colour": v["colour"], "available": bool(v["available"]())}
+                                   for n, v in sim.CREATURES.items()})
             if url.path == "/api/results":
                 return self._json(results())
             if url.path == "/api/health":

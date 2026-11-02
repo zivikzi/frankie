@@ -54,6 +54,7 @@ Start options: `--seed N`, `--creature trial` (repeat it for two creatures), `--
 - **Trial and error:** remembers every item he ate exactly. He has the same body, drive and place memory as Frankie.
 - **The wanderer:** walks at random and eats anything he bumps into. He shows the luck level.
 - **Frankie, no merging** and **Frankie, no context:** Frankie with one of Aitzaz's ideas switched off.
+- **The LLM creature** (optional): the same body, with its choices made by a language model that is shown only numbers. It's greyed out unless `ANTHROPIC_API_KEY` and `FRANKIE_LLM_MODEL` are set. See "The LLM creature" in REPORT.md.
 
 ## The batch (the numbers in REPORT.md)
 

@@ -16,8 +16,8 @@ from life.world3d import World
 CREATURES = {}          # name -> (label, maker(seed, reserve, boldness)), filled by register()
 
 
-def register(name, label, maker, colour):
-    CREATURES[name] = {"label": label, "make": maker, "colour": colour}
+def register(name, label, maker, colour, available=lambda: True):
+    CREATURES[name] = {"label": label, "make": maker, "colour": colour, "available": available}
 
 
 def _load_minds():

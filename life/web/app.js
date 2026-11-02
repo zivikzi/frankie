@@ -506,8 +506,11 @@ async function loadCreatures() {
   const cs = await (await fetch("/api/creatures")).json();
   for (const [name, v] of Object.entries(cs)) {
     CREATURE_NAMES[name] = v.label;
-    $("c1").add(new Option(v.label, name));
-    $("c2").add(new Option(v.label, name));
+    for (const id of ["c1", "c2"]) {
+      const o = new Option(v.available ? v.label : v.label + " (needs an API key)", name);
+      o.disabled = !v.available;
+      $(id).add(o);
+    }
   }
   const st = await (await fetch("/api/state?objects=-2")).json();
   const running = st.live.creatures_running;

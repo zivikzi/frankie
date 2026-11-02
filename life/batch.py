@@ -44,6 +44,9 @@ def one(job):
     r["reserve"] = round(s.creatures[0].reserve, 2)
     r["boldness"] = round(s.creatures[0].boldness, 3)
     r["seconds"] = round(time.perf_counter() - t, 2)
+    mind = s.creatures[0].mind
+    if hasattr(mind, "cost"):
+        r["llm"] = mind.cost()
     return r
 
 
@@ -138,6 +141,11 @@ def summarise(runs, ticks):
             "lifespan_plain_worlds": _mean([r["lifespan"] for r in plain_worlds]),
             "n_obstacle_worlds": len(obstacle_worlds), "n_plain_worlds": len(plain_worlds),
         }
+        if any("llm" in r for r in rs):
+            out[name]["llm"] = {k: sum(r["llm"][k] for r in rs) for k in ("calls", "input_tokens", "output_tokens",
+                                                                          "refusals", "errors")}
+            out[name]["llm"]["model"] = rs[0]["llm"]["model"]
+            out[name]["llm"]["history_lines_budget"] = rs[0]["llm"]["history_lines_budget"]
     return out
 
 
@@ -150,8 +158,19 @@ def main(argv=None):
     ap.add_argument("--seed-file", default=None, help="re-run the seeds listed in this file (one per line, or a batch json)")
     ap.add_argument("--out", default=str(HERE / "results" / "batch.json"))
     ap.add_argument("--label", default="")
+    ap.add_argument("--llm-model", default=None, help="the model for the LLM creature (or set FRANKIE_LLM_MODEL)")
+    ap.add_argument("--llm-fake", action="store_true", help="run the LLM creature on the scripted fake (no API calls)")
     a = ap.parse_args(argv)
     names = [n.strip() for n in a.creatures.split(",") if n.strip()]
+    if a.llm_model:
+        os.environ["FRANKIE_LLM_MODEL"] = a.llm_model
+    if a.llm_fake:
+        os.environ["FRANKIE_LLM_FAKE"] = "1"
+    if "llm" in names:
+        from life.minds import llm
+        if not (a.llm_fake or llm.available()):
+            raise SystemExit("the LLM creature needs ANTHROPIC_API_KEY and a model (--llm-model or FRANKIE_LLM_MODEL), "
+                             "or --llm-fake")
     if a.seed_file:
         text = pathlib.Path(a.seed_file).read_text()
         seeds = json.loads(text)["seeds"] if text.lstrip().startswith("{") else [int(x) for x in text.split()]
@@ -174,9 +193,9 @@ def main(argv=None):
     summary = summarise(runs, a.ticks)
     out = {"started": started, "label": a.label, "ticks": a.ticks, "seeds": seeds, "creatures": names,
            "runs": len(runs), "seconds": round(time.time() - t0, 1), "summary": summary,
-           "per_run": [{k: r[k] for k in ("seed", "creature", "lifespan", "died", "food", "poison", "nothing",
+           "per_run": [{k: r.get(k) for k in ("seed", "creature", "lifespan", "died", "food", "poison", "nothing",
                                           "food_per_100", "looks", "looks_changed", "bumps", "walked", "world",
-                                          "reserve", "boldness", "eat_seq", "episodes", "ctx_eats", "windows")}
+                                          "reserve", "boldness", "eat_seq", "episodes", "ctx_eats", "windows", "llm")}
                        for r in runs]}
     p = pathlib.Path(a.out)
     p.parent.mkdir(parents=True, exist_ok=True)

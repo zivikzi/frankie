@@ -121,6 +121,24 @@ Everything is in `life/` on branch `claude/frankie-mvp`. It runs with `uv run py
 
   They found two bugs: a step aimed exactly at a fence post went through, and context fruit could spill into a third region. Both are fixed.
 
+## The LLM creature (later, optional; every choice untested)
+
+`life/minds/llm.py` is one more opponent, not Frankie: Frankie's mind never uses a language model.
+
+- **Body and senses:** the same as Frankie's. Each decision is put to the LLM as text holding only numbers ("[2] 3.4 m, +12 deg, t1=0.62 …"), its energy and reserve, and its history of eats with their energy changes and tastes.
+- **Nothing is named:** there is no "apple", "poison", "forest" or "red", so its training can't hand it this world's rules. A test checks every prompt for such words.
+- **Its memory is its prompt:** the last 40 lines of its eating history.
+- **When it's asked:** only at decision points.
+  - Something in view could be approached and it has no target. It's asked at most every 15 ticks, or at once when its energy crosses its reserve.
+  - It reaches its target: look, eat or leave.
+  - Its view is empty: wander or rest, every 100 ticks.
+  - It has bumped 10 times on the way to its target. Touch is a sense Frankie has too; Frankie just has no code that uses it.
+
+  Simple shared code walks it to what it chose.
+- **Plumbing:** the standard library's urllib, the key from `ANTHROPIC_API_KEY`, the model from `--llm-model` or `FRANKIE_LLM_MODEL` (none is written in the code). Every call (prompt, answer, tokens) is saved under `life/results/llm-runs/`, and `ReplayLLM` re-runs a saved race without paying.
+- **To race:** `ANTHROPIC_API_KEY=… uv run python life/batch.py --seeds 10 --creatures frankie,trial,llm --llm-model <model>`. The batch reports calls and tokens. The headline measure, how many eats it took before the poison share stayed under 10%, is the "settled" column.
+- **Expect** a strong LLM may well beat today's Frankie, and Frankie runs on a laptop CPU while the LLM uses a data centre.
+
 ## Labels: conventional or untested
 
 - **Conventional (infrastructure):**
@@ -146,7 +164,7 @@ Everything is in `life/` on branch `claude/frankie-mvp`. It runs with `uv run py
 - **"Believes is good"** uses the kind's "fed me" share against the bench's bar (0.9 − 0.3 × boldness), not the bench's "energy stayed above reserve" share.
 - **Two creatures side by side share one world and its food.** They aren't in two copies of it.
 - **The narration names regions ("in the forest").** Only the page does this, from where the object is. Frankie himself never knows a region's name.
-- **The LLM race** (later, optional) isn't built yet.
+- **The LLM race** (later, optional) is built, but has been run only against a scripted fake LLM. There's no API key on this computer, so no real race has happened. See "The LLM creature" below.
 
 ## Every batch run
 
