@@ -334,7 +334,7 @@ function drawEnergy(s) {
   g.append(svg("line", { x1: X(TRACE.reserve), x2: X(TRACE.reserve), y1: 12, y2: 46, stroke: "#c2255c", "stroke-width": 2 }));
   svgText(g, { x: X(TRACE.reserve), y: 10, "text-anchor": "middle", "font-size": 10, fill: "#c2255c" }, "reserve R");
   svgText(g, { x: 10, y: 62, "font-size": 11, fill: "currentColor" },
-    `energy: set to ${fmt(s.energy_set / 1000, 1)} → ${fmt(s.energy_choice / 1000, 2)} after looking and thinking` + (s.energy_after != null ? ` → ${fmt(s.energy_after / 1000, 1)} after eating` : ""));
+    `energy ${fmt(s.energy_set / 1000, 1)} → ${fmt(s.energy_choice / 1000, 2)} after thinking` + (s.energy_after != null ? ` → ${fmt(s.energy_after / 1000, 1)} after eating` : ""));
 }
 
 function rangeChart(k) {
@@ -389,7 +389,14 @@ const MARKS = [
   ["lr_far", "look-alikes refused (far half)", (v) => v >= 0.60, "≥ 0.60"],
   ["dq_sour", "Q after the sour apple", (v) => v >= 0.25, "≥ 0.25"],
   ["sour_drop", "sour drop", (v) => v <= 0.15, "≤ 0.15"],
+  ["noticed", "noticed the sour taste", (v) => v >= 0.50, "≥ 0.50 of runs"],
+  ["d_1", "D after 1 taste (leak check)", (v) => v < 0.15, "< 0.15"],
 ];
+const LINE = {
+  "B2e": ["#868e96", ""], "B1n-bot-r": ["#e03131", ""], "B1n-mind": ["#f08c00", ""], "K-F": ["#c2255c", ""],
+  "E1": ["#2f9e44", ""], "E1 all at once": ["#1c7ed6", "8 5"], "E1 no merging": ["#495057", ""],
+  "E1 as first written": ["#8d6e63", "2 4"],
+};
 const COLOURS = ["#3b5bdb", "#e8590c", "#2f9e44", "#c2255c", "#7048e8", "#0c8599", "#e67700", "#495057", "#a61e4d", "#5c940d"];
 
 async function loadBoard() {
@@ -412,13 +419,13 @@ async function loadBoard() {
     const tr = el("tr", {}, el("td", {}, el("b", {}, n), el("div", { class: "muted" }, `${m.runs} runs`)));
     for (const [key, , test] of MARKS) {
       const v = m[key];
-      if (v === undefined) { tr.append(el("td", { class: "muted" }, "—")); continue; }
+      if (v === undefined || (key === "noticed" && !("settle_rate" in m))) { tr.append(el("td", { class: "muted", title: "bots never taste" }, "—")); continue; }
       const ok = key === "d_learn" ? v >= dTarget : test(v);
       tr.append(el("td", { class: ok ? "ok" : "no" }, fmt(v)));
     }
     tbl.append(tr);
   }
-  box.append(el("div", { class: "card scroll" }, el("p", {}, `Trial and error's floor here: ${fmt(floor, 3)} (the better of B1n-bot-r and B1n-mind). To pass, D_learn needs ${fmt(dTarget, 3)}. B2e reads the hidden answer, so it shows the best possible score.`), tbl));
+  box.append(el("div", { class: "card scroll" }, el("p", {}, `Trial and error's floor here: ${fmt(floor, 3)} (the better of B1n-bot-r and B1n-mind). To pass, D_learn needs ${fmt(dTarget, 3)}. B2e reads the hidden answer, so it shows the best possible score (and fails the leak check, as it should).`), tbl));
   drawCurve(half, names, floor, dTarget);
 }
 
@@ -443,9 +450,9 @@ function drawCurve(half, names, floor, dTarget) {
   names.forEach((n, i) => {
     const m = half[n];
     if (m.d_1 === undefined) return;
-    const col = COLOURS[i % COLOURS.length];
+    const [col, dash] = LINE[n] || [COLOURS[i % COLOURS.length], ""];
     const pts = xs.map((c) => `${X(c)},${Y(m["d_" + c])}`).join(" ");
-    g.append(svg("polyline", { points: pts, fill: "none", stroke: col, "stroke-width": 2.5 }));
+    g.append(svg("polyline", { points: pts, fill: "none", stroke: col, "stroke-width": n === "E1" ? 4 : 2.5, "stroke-dasharray": dash }));
     for (const c of xs) g.append(svg("circle", { cx: X(c), cy: Y(m["d_" + c]), r: 3.5, fill: col }));
     leg.append(el("span", {}, el("i", { style: `background:${col}` }), n));
   });

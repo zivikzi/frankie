@@ -1,0 +1,100 @@
+{
+ "half": "even",
+ "mind": "E1",
+ "floor_mind": "B1n-mind",
+ "floor": 0.239375,
+ "d_learn": 0.45229166666666665,
+ "margin_over_floor": 0.21291666666666667,
+ "rule3_bootstrap_at_or_below_0_of_10000": 0,
+ "rule3_bootstrap_pass": true,
+ "bootstrap_means_at_or_below_floor_plus_0.15": 195,
+ "rule4": {
+  "4": {
+   "pass": true,
+   "values": {
+    "d_learn_strict": 0.45229166666666665
+   },
+   "subgroups": {
+    "d_learn_strict": [
+     [
+      "core: object layer",
+      100,
+      0.434375,
+      true
+     ],
+     [
+      "h1: new candidate",
+      150,
+      0.45229166666666665,
+      true
+     ]
+    ]
+   }
+  },
+  "4b": {
+   "pass": true,
+   "values": {
+    "fmn_strict": 0.5179166666666667
+   },
+   "subgroups": {
+    "fmn_strict": [
+     [
+      "core: object layer",
+      100,
+      0.4759375,
+      true
+     ],
+     [
+      "h1: new candidate",
+      150,
+      0.5179166666666667,
+      true
+     ]
+    ]
+   }
+  },
+  "4c": {
+   "pass": true,
+   "values": {
+    "lr_h1": 0.875,
+    "lr_far": 0.885
+   },
+   "subgroups": {
+    "lr_h1": [
+     [
+      "core: object layer",
+      100,
+      0.87,
+      true
+     ],
+     [
+      "h1: new candidate",
+      150,
+      0.875,
+      true
+     ]
+    ],
+    "lr_far": [
+     [
+      "core: object layer",
+      100,
+      0.8775,
+      true
+     ],
+     [
+      "h1: new candidate",
+      150,
+      0.885,
+      true
+     ]
+    ]
+   }
+  }
+ },
+ "rule1_settle": 1.0,
+ "rule2_copy": 1.0,
+ "rule5_sour_drop": -0.004166666666666667,
+ "rule5_q": 0.7858333333333334,
+ "rule5_noticed": 0.26,
+ "rule7_d1": -0.265
+}

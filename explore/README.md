@@ -9,6 +9,8 @@ Frankie Lab lets you watch a mind think, one decision at a time, in your own bro
 
 Everything runs on your computer. Nothing is sent anywhere.
 
+**Tonight's results** are in [RESULTS.md](RESULTS.md). In short, E1 beat trial and error on families it was never tuned on (D_learn 0.45 against 0.24), and merging kinds is what made the difference.
+
 ## Run it
 
 You need an internet connection only the first time.
