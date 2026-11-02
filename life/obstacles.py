@@ -163,10 +163,12 @@ class Obstacles:
     def blocks_move(self, x0, z0, x1, z1):
         """What, if anything, stops a step from (x0, z0) to (x1, z1): None, 'fence', 'wall' or 'river'."""
         if len(self.block_a):
-            near = _seg_dist(x1, z1, self.block_a[:, 0], self.block_a[:, 1], self.block_b[:, 0],
-                             self.block_b[:, 1]) < C.CREATURE_RADIUS
-            crossed = segments_cross((x0, z0), (x1, z1), self.block_a, self.block_b)
-            hit = near | crossed
+            a, b, r = self.block_a, self.block_b, C.CREATURE_RADIUS
+            near = _seg_dist(x1, z1, a[:, 0], a[:, 1], b[:, 0], b[:, 1]) < r
+            # a post (segment end) lying on the step's own path also blocks it
+            ends = (_seg_dist(a[:, 0], a[:, 1], x0, z0, x1, z1) < r) | (_seg_dist(b[:, 0], b[:, 1], x0, z0, x1, z1) < r)
+            crossed = segments_cross((x0, z0), (x1, z1), a, b)
+            hit = near | ends | crossed
             if hit.any():
                 k = int(np.argmax(hit))
                 n_fence = sum(len(f.a) for f in self.fences)

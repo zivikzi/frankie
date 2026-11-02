@@ -312,23 +312,33 @@ function updateCreatures(list) {
 function angleLerp(a, b, t) { const d = ((b - a + Math.PI * 3) % (Math.PI * 2)) - Math.PI; return a + d * t; }
 
 // ------------------------------------------------------------------ place memory on the map
+// A flag at the middle of each remembered square: green where he was fed more than poisoned, red where
+// poisoned more, yellow where even. Taller flags mean more memories there.
+const poleGeo = new THREE.CylinderGeometry(0.05, 0.05, 1, 6);
+const flagGeo = new THREE.BoxGeometry(0.9, 0.55, 0.04);
+const poleMat = new THREE.MeshLambertMaterial({ color: 0xeeeeee });
+const flagMats = { good: new THREE.MeshLambertMaterial({ color: 0x3fcf55 }), bad: new THREE.MeshLambertMaterial({ color: 0xe4574c }), even: new THREE.MeshLambertMaterial({ color: 0xe0c83a }) };
+let placesKey = "";
 function drawPlaces(list) {
   if (!placeGroup) return;
+  const on = $("places").checked;
+  const key = on ? JSON.stringify(list.map((c) => (c.memory && c.memory.places || []).map((p) => [p.x, p.z, p.fed, p.poisoned]))) : "off";
+  if (key === placesKey) return;
+  placesKey = key;
   placeGroup.clear();
-  if (!$("places").checked) return;
-  for (const c of list) {
-    const places = (c.memory && c.memory.places) || [];
-    for (const p of places) {
-      const net = p.fed - p.poisoned;
+  if (!on) return;
+  list.forEach((c, ci) => {
+    for (const p of (c.memory && c.memory.places) || []) {
       if (!p.fed && !p.poisoned) continue;
-      const colour = net > 0 ? 0x4ccf5c : net < 0 ? 0xe4574c : 0xd8c34a;
-      const ring = new THREE.Mesh(new THREE.RingGeometry(p.size * 0.42, p.size * 0.5, 24),
-        new THREE.MeshBasicMaterial({ color: colour, transparent: true, opacity: 0.75, side: THREE.DoubleSide, depthWrite: false }));
-      ring.rotation.x = -Math.PI / 2;
-      ring.position.set(p.x, heightAt(p.x, p.z) + 0.25, p.z);
-      placeGroup.add(ring);
+      const net = p.fed - p.poisoned;
+      const h = 1.6 + 0.35 * Math.min(p.fed + p.poisoned, 10);
+      const x = p.x + ci * 0.8, z = p.z, y = heightAt(x, z);
+      const pole = new THREE.Mesh(poleGeo, poleMat); pole.scale.y = h; pole.position.set(x, y + h / 2, z);
+      const flag = new THREE.Mesh(flagGeo, net > 0 ? flagMats.good : net < 0 ? flagMats.bad : flagMats.even);
+      flag.position.set(x + 0.45, y + h - 0.3, z);
+      placeGroup.add(pole, flag);
     }
-  }
+  });
 }
 
 // ------------------------------------------------------------------ the side panel
@@ -439,6 +449,11 @@ async function poll() {
     $("play").textContent = live.playing ? "Pause" : "Play";
     $("fast").checked = live.fast;
     $("auto").checked = live.auto;
+    if (document.activeElement !== $("c1") && document.activeElement !== $("c2")) {
+      $("c1").value = live.creatures_running[0];
+      $("c2").value = live.creatures_running[1] || "";
+    }
+    if (document.activeElement !== $("speed")) $("speed").value = String(live.speed);
     $("error").hidden = !live.error;
     $("error").textContent = live.error ? "The simulation stopped: " + live.error + " (details in life/logs/server.log)" : "";
     const now = performance.now();
@@ -468,6 +483,11 @@ $("new").onclick = () => {
   const cs = [$("c1").value, $("c2").value].filter(Boolean);
   control({ cmd: "new", seed: $("seed").value.trim(), creatures: cs });
   $("seed").value = "";
+};
+// Picking a creature restarts this same world (same seed) with the creatures picked.
+for (const id of ["c1", "c2"]) $(id).onchange = () => {
+  const cs = [$("c1").value, $("c2").value].filter(Boolean);
+  control({ cmd: "new", seed: worldSeed, creatures: cs });
 };
 document.addEventListener("keydown", (e) => {
   if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;

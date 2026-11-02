@@ -169,7 +169,8 @@ class Ecology:
                 return float(x), float(z)
         return None
 
-    def _patch_spots(self, cx, cz, count, kind, patch, behind=None, radius=C.PATCH_RADIUS, inside=None):
+    def _patch_spots(self, cx, cz, count, kind, patch, behind=None, radius=C.PATCH_RADIUS, inside=None, region=None):
+        """Up to `count` growing spots around (cx, cz); with `region`, only spots inside that region."""
         made = 0
         for _ in range(count * 20):
             if made >= count:
@@ -183,6 +184,8 @@ class Ecology:
                 ok = 1.0 <= x <= C.WORLD_SIZE - 1 and 1.0 <= z <= C.WORLD_SIZE - 1
             else:
                 ok = self.obstacles.free_spot(x, z, 0.8) and self.obstacles.behind(x, z) is None
+            if region is not None and self.terrain.region_at(x, z) != region:
+                ok = False
             if not ok or any(abs(x - s[0]) < 0.7 and abs(z - s[1]) < 0.7 for s in self.spots[-12:]):
                 continue
             self.spots.append((float(x), float(z), kind, patch, behind))
@@ -199,7 +202,7 @@ class Ecology:
             if cell is None:
                 continue
             size = int(self.rng.integers(C.PATCH_SIZE_LO, C.PATCH_SIZE_HI + 1))
-            self._patch_spots(cell[0], cell[1], size, kind, patch)
+            self._patch_spots(cell[0], cell[1], size, kind, patch, region=region)
             patch += 1
         # Rich food behind each fence: apples, the most nourishing thing in the world.
         apples = [k for k in self.kinds if k.role == "apple"]
@@ -238,8 +241,6 @@ class Ecology:
         values, _ = draw_member(Draws(self.stream, self.serial, 1), kind.base,
                                 context=(min(max(scene, 0.0), 1.0), min(max(host, 0.0), 1.0)))
         nature = kind.nature_in(region)
-        if kind.role == "context" and region not in kind.natures:
-            nature = NOTHING                    # (never happens: context fruit grows only in its two regions)
         obj = LifeObject(self.serial, kind, x, z, self.terrain.height_at(x, z), region, values, nature, patch,
                          behind=behind)
         obj.spot = spot
