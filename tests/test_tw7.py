@@ -100,10 +100,11 @@ def test_looks_with_no_outcome_change_nothing(plan):
     assert child.state_fingerprint(host._minds["a"]) == child.state_fingerprint(host._minds["b"])
 
 
-def test_k_f_itself_refuses_to_run_before_its_spiking_units_exist():
+def test_k_f_refuses_to_run_until_it_has_a_per_spike_cost():
+    """K-F's spiking units exist since Week 4; KT-27 is set after the search, so until then it must be handed one."""
     from mind import entry
-    with pytest.raises(ValueError, match="Week 4"):
-        entry.make({})
+    with pytest.raises(ValueError, match="KT-27"):
+        entry.make({"reserve_milli": 40000, "boldness": 0.3, "params": {}, "trait_order": list(range(22))})
 
 
 def test_only_tw7_is_built_among_the_twins():

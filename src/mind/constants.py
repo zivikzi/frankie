@@ -6,6 +6,8 @@ the logged search in Week 4 may change them, and until then every run uses
 these start values.
 """
 
+import numpy as np
+
 # ------------------------------------------------------------------ the trait schema (KT-01)
 
 N_TRAITS = 22                # traits per object, in schema order (KT-01)
@@ -37,6 +39,7 @@ OBJECTION_STEPS = 2          # a mismatch must hold at the ends of 2 steps in a 
 RESETS = 2                   # the 1st and 2nd objection reset the race; later ones remove the leader (PLACEHOLDER-13, KT-57)
 ATTENTION_TRAITS = 3         # traits parts and details each check (PLACEHOLDER-14, KT-54)
 GROUP_NEURONS = 8            # neurons per candidate group, spiking only (D12, section 6, KT-61)
+SHARE_STEP = 2               # neuron k of a group gets (2k + 1)/8 of the group's input (KT-61)
 
 # ------------------------------------------------------------------ memory (section 6, PLACEHOLDER-02 to -08)
 
@@ -69,7 +72,7 @@ DETECTOR_WIDTH_NW = 4        # detector width, in noise widths (KT-23, start val
 COMMIT_MARGIN = 2            # the lead a winner needs, in activation (KT-24, start value)
 OBJECTION_THRESHOLD = 0.5    # mismatch, in weight, at which a layer objects (KT-25, start value)
 NEW_KIND_THRESHOLD = 0.5     # "unknown"'s steady input (KT-26, start value)
-SPIKE_NANO = None            # per-spike cost: set by KT-47's rule in Week 4 (KT-27)
+SPIKE_NANO = None            # per-spike cost, in nano-units: set by KT-47's rule after the search (KT-27, KT-92)
 
 OS07 = {"switch": "OS07", "setting": "habits off", "scope": "lifetime"}     # every bench run (section 5, KT-49)
 
@@ -77,9 +80,10 @@ OS07 = {"switch": "OS07", "setting": "habits off", "scope": "lifetime"}     # ev
 class Settings:
     """The tuned numbers one tower runs with (KT-19 to KT-26).
 
-    Every run uses the start values above. Tests may make other settings to
-    check the logic on hand-made cases; Week 4's logged search is the only
-    other source of values.
+    Every run uses the values above. Tests may make other settings to check
+    the logic on hand-made cases, and the logged search of section 7 hands
+    each setting it tries to the mind as its own settings at birth (KT-97,
+    KT-126); nothing else may change them.
     """
 
     def __init__(self, leak=LEAK, threshold=THRESHOLD, refractory_ms=REFRACTORY_MS, inhibition=INHIBITION,
@@ -95,6 +99,25 @@ class Settings:
         self.objection_threshold = objection_threshold
         self.new_kind_threshold = new_kind_threshold
 
+    @classmethod
+    def from_params(cls, given):
+        """A setting the logged search tries, from the mind's birth parameters (KT-126).
+
+        Only the closed list's own names are taken, each as one number; any
+        other name stops the mind, so nothing outside the list can be set.
+        """
+        if not isinstance(given, dict) or not set(given) <= set(TUNED_NAMES):
+            raise ValueError(f"a setting may name only the closed list: {sorted(TUNED_NAMES)} (section 7)")
+        for name, value in given.items():
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not np.isfinite(value):
+                raise ValueError(f"{name} must be one finite number (section 7)")
+            if name == "refractory_ms":
+                if value != int(value) or value < 0:
+                    raise ValueError("the refractory period is a whole number of ms, 0 or more (KT-21)")
+            elif value <= 0:
+                raise ValueError(f"{name} must be above 0 (section 7)")
+        return cls(**given)
+
     def table(self):
         """The constants table info() reports: [value, row] (FORBIDDEN 28)."""
         return {"leak": [self.leak, "KT-19"], "threshold": [self.threshold, "KT-20"],
@@ -103,3 +126,8 @@ class Settings:
                 "commit_margin": [self.commit_margin, "KT-24"],
                 "objection_threshold": [self.objection_threshold, "KT-25"],
                 "new_kind_threshold": [self.new_kind_threshold, "KT-26"]}
+
+
+# The closed list's own names, in KT-19 to KT-26's order (section 7)
+TUNED_NAMES = ("leak", "threshold", "refractory_ms", "inhibition", "detector_width_nw", "commit_margin",
+               "objection_threshold", "new_kind_threshold")

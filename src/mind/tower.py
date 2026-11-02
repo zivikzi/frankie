@@ -50,6 +50,11 @@ One settle, as rows KT-51 to KT-66 fix it:
 - The verdict after eating runs the same rules for exactly 30 steps: a win
   settled by step 30, otherwise the step-30 rule (KT-66).
 
+Stability is logged at every step's end (KT-127): the leader, whether the
+two highest live groups are within the commit margin (a near-tie), every
+hold that broke, and why a settle ended unsettled. Nothing reads it but the
+reports.
+
 Thinking is measured in checks (KT-45): one candidate's fit on one trait,
 taken once when that test first switches on in the settle, and again for a
 candidate a reset brings back. Spiking units also report their spikes
@@ -72,6 +77,9 @@ DETAILS = "details"
 OBJECTING = (PARTS, DETAILS)                    # only parts and details object (KT-56)
 RESET = "reset"
 REMOVED = "removed"
+LEADS_UNKNOWN = "a candidate leads unknown at step 30 with no hold"     # why a settle ended unsettled (KT-127)
+HOLD_BROKE = "a hold begun by step 30 broke after it"                    # (KT-64, KT-127)
+HOLD_AT_30 = "a hold was still running when the verdict after eating ended at step 30"     # (KT-66, KT-127)
 
 # (name, first trait, end, the step it switches on at), outside in (KT-51)
 LAYERS = ((CONTEXT, 0, K.OBJECT_FROM, K.CONTEXT_STEP), (OBJECT, K.OBJECT_FROM, K.PARTS_FROM, K.OBJECT_STEP),
@@ -140,7 +148,8 @@ class Race:
         self.checked = {}                                   # layer -> the traits it checks
         self.checks = 0
         self.inputs = np.zeros(n + 1)
-        self.log = {"checked": {}, "eliminated": [], "objections": []}
+        self.log = {"checked": {}, "eliminated": [], "objections": [], "leaders": [], "near_ties": 0,
+                    "holds_broken": [], "unsettled_why": None}
 
     # ------------------------------------------------------------ inputs and layers
 
@@ -274,6 +283,7 @@ class Race:
             reset = False
             # 1. objections (KT-56, KT-57)
             leader = self._leader(a)
+            self._log_stability(leader, a)
             if leader is None or leader == self.unknown or leader != streak_leader:
                 streak = {layer: 0 for layer in OBJECTING}
             streak_leader = leader
@@ -299,6 +309,7 @@ class Race:
             if hold is not None:
                 winner, won_at = hold
                 if reset or not self._strictly_highest(winner, a):
+                    self.log["holds_broken"].append([step, self._name(winner)])
                     hold = None
                 elif step == won_at + K.HOLD_STEPS:
                     return self._result(self._name(winner), step, a)
@@ -312,10 +323,26 @@ class Race:
             if hold is None and step <= K.LAST_WIN_STEP and lead_steps >= K.WIN_STEPS:
                 hold = (lead_group, step)
             if step == K.LAST_WIN_STEP and (after_eating or hold is None):
-                return self._result(self._step_30(a), step, a)
+                verdict = self._step_30(a)
+                if verdict == UNSETTLED:
+                    self.log["unsettled_why"] = LEADS_UNKNOWN if hold is None else HOLD_AT_30
+                return self._result(verdict, step, a)
             if step > K.LAST_WIN_STEP and hold is None:
+                self.log["unsettled_why"] = HOLD_BROKE
                 return self._result(UNSETTLED, step, a)
         raise RuntimeError("a hold begun by step 30 always ends by step 34")
+
+    def _log_stability(self, leader, a):
+        """Stability on near-ties (section 11, KT-127): logged only, read by nothing in the mind.
+
+        Each step's end adds its leader (a slot, "unknown", or None on a tie) and
+        adds 1 to near_ties when the two highest live groups are less than the
+        commit margin apart.
+        """
+        self.log["leaders"].append(None if leader is None else self._name(leader))
+        tops = sorted((float(a[g]) for g in range(self.n + 1) if self.live[g]), reverse=True)
+        if len(tops) > 1 and tops[0] - tops[1] < self.s.commit_margin:
+            self.log["near_ties"] += 1
 
     def _step_30(self, a):
         """No hold running at step 30: "unknown" unless some candidate leads it by the margin (KT-10, KT-64)."""

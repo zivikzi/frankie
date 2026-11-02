@@ -36,6 +36,8 @@ After each eat, the write works from the verdict committed before the eat
   twentieths, to at least 0, and the eat goes on its record; its ranges and
   weights stay as they are (M13, KT-73).
 - No two kinds ever merge (KT-74).
+- OS10 (section 4) stores no taste at all: none in storage, stretch, blame
+  or splits (KT-77). Its kinds dump no taste range and no taste weight.
 - A new kind or split child takes the lowest empty slot. When memory already
   holds 48 kinds, one is forgotten first, after a split child has copied its
   parent: the one with the fewest confirmed wins, then the oldest last
@@ -95,8 +97,9 @@ class Kind:
 
 
 class Memory:
-    def __init__(self, settings):
+    def __init__(self, settings, taste_blind=False):
         self.width = settings.detector_width
+        self.taste_blind = taste_blind           # OS10: no taste in storage, stretch, blame or splits (KT-77)
         self.kinds = {}                          # slot -> Kind
         self.writes = 0                          # eats written so far, the clock for "oldest last win"
 
@@ -131,7 +134,9 @@ class Memory:
         "unsettled". values are the decision's 18 readings and the eat's 4
         tastes, in schema order (KT-35).
         """
-        values = np.asarray(values, dtype=np.float64)
+        values = np.array(values, dtype=np.float64)
+        if self.taste_blind:                               # OS10 stores no taste at all (KT-77)
+            values[K.TASTE_FROM:] = np.nan                 # a missing taste is never outside, never stretched
         self.writes += 1
         cls = outcome_class(delta_milli)
         events = []
@@ -173,9 +178,11 @@ class Memory:
         out = []
         for slot in self.slots():
             k = self.kinds[slot]
-            out.append({"slot": slot, "ranges": [[float(lo), float(hi)] for lo, hi in zip(k.lo, k.hi)],
-                        "weights_tenths": [int(t) for t in k.tenths], "reliability": k.reliability_share(),
-                        "eats": len(k.eats)})
+            stored = [not (np.isnan(lo) or np.isnan(hi)) for lo, hi in zip(k.lo, k.hi)]
+            out.append({"slot": slot,
+                        "ranges": [[float(lo), float(hi)] if ok else None for lo, hi, ok in zip(k.lo, k.hi, stored)],
+                        "weights_tenths": [int(t) if ok else None for t, ok in zip(k.tenths, stored)],
+                        "reliability": k.reliability_share(), "eats": len(k.eats)})
         return {"candidates": out}
 
 
