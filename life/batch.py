@@ -91,13 +91,9 @@ def summarise(runs, ticks):
                            "poison_share": round(sum(1 for x in seg if x == "p") / len(seg), 4),
                            "food_share": round(sum(1 for x in seg if x == "f") / len(seg), 4)})
         settle = [settled_after(r["eat_seq"]) for r in rs]
-        # the context rule: context-fruit eats in its bad region, early against late in each life
-        ctx_early, ctx_late = [], []
-        for r in rs:
-            ce = r["ctx_eats"]
-            half = len(ce) // 2
-            ctx_early += [n for _, n in ce[:half]] if len(ce) >= 2 else []
-            ctx_late += [n for _, n in ce[half:]] if len(ce) >= 2 else []
+        # the context rule: is a context-fruit eat in the region where it poisons? his first one against later ones
+        ctx_early = [r["ctx_eats"][0][1] for r in rs if r["ctx_eats"]]
+        ctx_late = [n for r in rs for _, n in r["ctx_eats"][1:]]
         looks = sum(r["looks_judged"] for r in rs)
         changed = sum(r["looks_changed"] for r in rs)
         eps = [e for r in rs for e in r["episodes"]]
@@ -131,7 +127,7 @@ def summarise(runs, ticks):
             "looks_judged": looks,
             "ctx_bad_share_early": round(sum(1 for n in ctx_early if n == "poison") / len(ctx_early), 4) if ctx_early else None,
             "ctx_bad_share_late": round(sum(1 for n in ctx_late if n == "poison") / len(ctx_late), 4) if ctx_late else None,
-            "ctx_eats": len(ctx_early) + len(ctx_late),
+            "ctx_eats": len(ctx_early) + len(ctx_late), "ctx_first_n": len(ctx_early), "ctx_later_n": len(ctx_late),
             "episodes_all": ep_stats(eps),
             "episodes_first": ep_stats(first),
             "episodes_later": ep_stats(later),

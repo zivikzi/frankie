@@ -56,12 +56,19 @@ class Recorder:
                 ep["reached"] = True
                 del self.open[key]
         # open
+        river = obs.river
+        my_side = river.side(b.x, b.z) if river is not None else 0
         for ref in b.seen_ids:
             obj = eco.objects.get(ref)
-            if obj is None or obj.behind is None:
+            if obj is None:
                 continue
-            key = (obj.behind[0], obj.behind[1] if obj.behind[0] == "fence" else 0)
-            if key in self.open or self._reached(key):
+            if obj.behind is not None and obj.behind[0] == "fence":
+                key = ("fence", obj.behind[1])
+            elif river is not None and river.side(obj.x, obj.z) != my_side and obj.nature == "nourish":
+                key = ("river", river.side(obj.x, obj.z))      # good food across the river, from this side
+            else:
+                continue
+            if key in self.open or self._reached(key) or not self._clear_of(key):
                 continue
             ep = {"obstacle": key[0], "id": key[1], "order": len(self.episodes) + 1, "start": tick,
                   "walked0": round(b.walked, 2), "start_dist": round(math.hypot(obj.x - b.x, obj.z - b.z), 2),
@@ -69,14 +76,21 @@ class Recorder:
             self.episodes.append(ep)
             self.open[key] = ep
 
+    def _clear_of(self, key, margin=4.0):
+        """An episode starts only when the creature is at least `margin` metres outside the fence or off the bank."""
+        b, obs = self.body, self.world.obstacles
+        if key[0] == "fence":
+            f = next(f for f in obs.fences if f.id == key[1])
+            return math.hypot(b.x - f.cx, b.z - f.cz) > f.radius + margin
+        return abs(obs.river.offset(b.x, b.z)) > C.RIVER_HALF_WIDTH + margin
+
     def _reached(self, key):
         b, obs = self.body, self.world.obstacles
         if key[0] == "fence":
             f = next(f for f in obs.fences if f.id == key[1])
             return f.inside(b.x, b.z, margin=0.5)
         river = obs.river
-        side = self.world.ecology.river_food_side
-        return river.side(b.x, b.z) == side and abs(river.offset(b.x, b.z)) > C.RIVER_HALF_WIDTH
+        return river.side(b.x, b.z) == key[1] and abs(river.offset(b.x, b.z)) > C.RIVER_HALF_WIDTH
 
     # -------------------------------------------------------------- summary
 
@@ -98,7 +112,6 @@ class Recorder:
             "food_per_100": round(100.0 * len(food) / max(life, 1), 4),
             "poison_share": round(len(poison) / len(self.eats), 4) if self.eats else None,
             "windows": windows,                                   # [eats, poison eats] per 50 ticks
-            "eat_natures": [e["nature"][0] for e in self.eats],   # n / p / n(othing) as letters: f, p, 0
             "eat_seq": ["f" if e["nature"] == "nourish" else "p" if e["nature"] == "poison" else "0"
                         for e in self.eats],
             "ctx_eats": [[e["tick"], e["nature"]] for e in ctx],
