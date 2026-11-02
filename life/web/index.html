@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frankie's World</title>
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three-0.170.0/three.module.min.js",
+    "three/addons/controls/OrbitControls.js": "./vendor/three-0.170.0/OrbitControls.js"
+} }
+</script>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="dot"></span>Frankie's world</div>
+  <nav class="tabs">
+    <button class="tab active" data-view="world">World</button>
+    <button class="tab" data-view="results">Results</button>
+  </nav>
+  <div class="controls">
+    <button id="play" title="Play or pause (space)">Pause</button>
+    <button id="step" title="One tick (.)">Step</button>
+    <label>Speed <select id="speed">
+      <option value="1">1/s</option><option value="2">2/s</option><option value="5">5/s</option>
+      <option value="10" selected>10/s</option><option value="20">20/s</option><option value="50">50/s</option>
+      <option value="100">100/s</option></select></label>
+    <label class="chk" title="Run as fast as the computer can"><input type="checkbox" id="fast"> Fast forward</label>
+    <label class="chk" title="Stop drawing the 3D view while fast forwarding"><input type="checkbox" id="nodraw"> Skip drawing</label>
+    <span class="sep"></span>
+    <label>Creature <select id="c1"></select></label>
+    <label>vs <select id="c2"><option value="">nobody</option></select></label>
+    <label>Seed <input id="seed" type="text" inputmode="numeric" placeholder="random" size="11"></label>
+    <button id="new" title="A new world with this seed (blank: a fresh random seed)">New world</button>
+    <label class="chk" title="When everyone has died, start a fresh random world"><input type="checkbox" id="auto" checked> Keep going</label>
+    <span class="sep"></span>
+    <label class="chk"><input type="checkbox" id="follow" checked> Follow</label>
+    <label class="chk" title="Show where Frankie remembers being fed (green) or poisoned (red)"><input type="checkbox" id="places" checked> Place memory</label>
+  </div>
+</header>
+
+<main id="world-view">
+  <div id="stage">
+    <canvas id="three"></canvas>
+    <div id="hud">
+      <div><b>Seed</b> <span id="hud-seed">–</span> · <b>Tick</b> <span id="hud-tick">0</span> · <span id="hud-status"></span></div>
+      <div id="hud-legend"></div>
+    </div>
+    <div id="ticker"></div>
+    <div id="error" hidden></div>
+  </div>
+  <aside id="panel"></aside>
+</main>
+
+<main id="results-view" hidden>
+  <div id="results"></div>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
