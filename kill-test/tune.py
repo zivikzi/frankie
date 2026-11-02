@@ -34,8 +34,8 @@ even ones, 10 runs each (TUNING_PLAN.md, step 1). Every run is the frozen
 harness's run (harness/run.py) on the tuning set's own plans. While the
 search runs, the minds are hosted in the tool's own worker processes, which
 gives the same records as their own sandboxed process (KT-93, tested in
-tests/test_kf_spiking.py); step 6's measurement and both checks run them in
-their own process, as the kill run does (KT-129).
+tests/test_kf_spiking.py); both checks run them in their own process, as
+the kill run does (KT-129).
 """
 
 import argparse
@@ -175,10 +175,11 @@ def stability(rec) -> dict:
         if d["mind"]["verdict"] == "unsettled":
             out["unsettled"] += 1
             out["hold_broke" if lg["unsettled_why"].startswith("a hold") else "leads_unknown"] += 1
-        runs = []
-        for g in lg["leaders"]:
-            if g is not None and (not runs or runs[-1] != g):
+        runs, last = [], None
+        for g in lg["leaders"]:                  # a tie means no group leads (KT-56), so it breaks a lead
+            if g is not None and g != last:
                 runs.append(g)
+            last = g
         if len(runs) > len(set(runs)):           # a group led, lost the lead and led again
             out["oscillating"] += 1
     return out
@@ -192,8 +193,7 @@ def _one(job):
     rec = run_one(plan, spec, ReadingCache(plan.noise_key), package_dir=package)
     used = [d["mind"]["thinking"]["count"] for d in rec.decisions.values()]
     checks = [d["mind"]["log"]["checks"] for d in rec.decisions.values()]
-    costly = max(d["thinking_milli"] for d in rec.decisions.values())
-    return family, run, bench.core_placement(plan.family), scoring.measures(rec), stability(rec), used, checks, costly
+    return family, run, bench.core_placement(plan.family), scoring.measures(rec), stability(rec), used, checks
 
 
 def run_trial(trial, families, workers):
@@ -203,16 +203,34 @@ def run_trial(trial, families, workers):
             done = list(pool.map(_one, jobs, chunksize=1))
     else:
         done = [_one(j) for j in jobs]
-    runs, core_of, stab, used, checks, costly = {}, {}, {}, [], [], 0
-    for f, r, core, m, s, u, c, top in done:
+    runs, core_of, stab, used, checks = {}, {}, {}, [], []
+    for f, r, core, m, s, u, c in done:
         runs[(f, r)] = m
         core_of[f] = core
         for k, v in s.items():
             stab[k] = stab.get(k, 0) + v
         used += u
         checks += c
-        costly = max(costly, top)
-    return runs, core_of, stab, used, checks, costly
+    return runs, core_of, stab, used, checks
+
+
+def kt47_nano(median_spikes, median_checks) -> int:
+    """KT-47's per-spike cost: 0.001 x median checks / median spikes, in whole nano-units, halves up (KT-92)."""
+    exact = Fraction(K.CHECK_NANO) * Fraction(median_checks) / Fraction(median_spikes)
+    return int(exact + Fraction(1, 2))
+
+
+def costliest(trial, used, med_spikes, med_checks) -> dict:
+    """The decision that thinks most, and what it would cost at this setting's own KT-47 rate (KT-126).
+
+    A cost can change a choice only when one decision's thinking nears 10 units
+    (skip's test, KT-48), so this shows whether paying 0 per spike during the
+    search could have changed anything.
+    """
+    top = max(used)
+    nano = K.CHECK_NANO if trial.mind == "TW7" else (trial.spike_nano or kt47_nano(med_spikes, med_checks))
+    return {"most_in_one_decision": top, "unit_nano": nano,
+            "milli": (2 * top * nano + K.NANO_PER_MILLI) // (2 * K.NANO_PER_MILLI)}
 
 
 def median(xs) -> Fraction:
@@ -276,7 +294,13 @@ class Log:
 
     def __init__(self, path):
         self.path = pathlib.Path(path)
-        self.old = [json.loads(line) for line in self.path.read_text().splitlines()] if self.path.exists() else []
+        self.old = []
+        for k, line in enumerate(self.path.read_text().splitlines() if self.path.exists() else []):
+            try:
+                self.old.append(json.loads(line))
+            except json.JSONDecodeError:
+                raise SystemExit(f"line {k + 1} of {self.path} is not a whole event (a run stopped while "
+                                 "writing it?): remove it by hand, note why in the commit, and run again")
         self.n = 0
         self.measured = {e["trial"]: e for e in self.old if e["type"] == "setting" and "measures" in e}
 
@@ -312,7 +336,7 @@ def _line(e):
 def code_state():
     """The code a log belongs to: git's ids for src/ and this tool at HEAD (KT-130)."""
     ids = {}
-    for path in ("src", "kill-test/tune.py", "uv.lock"):
+    for path in ("src", "kill-test/tune.py", "uv.lock", "kill-test/results/tuning-bench.json"):
         ids[path] = subprocess.run(["git", "rev-parse", f"HEAD:{path}"], cwd=ROOT, capture_output=True,
                                    text=True).stdout.strip()
     return ids
@@ -320,7 +344,8 @@ def code_state():
 
 def commit_state():
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-    dirty = subprocess.run(["git", "status", "--porcelain", "src", "kill-test/tune.py", "uv.lock", "pyproject.toml"],
+    dirty = subprocess.run(["git", "status", "--porcelain", "src", "kill-test/tune.py", "uv.lock", "pyproject.toml",
+                            "kill-test/results/tuning-bench.json"],
                            cwd=ROOT, capture_output=True, text=True).stdout.strip()
     return head, dirty
 
@@ -357,23 +382,40 @@ class Search:
         if logged is not None and not keep_runs:
             runs = None
             measures, tg = unplain(logged["measures"]), unplain(logged["targets"])
-            stab, kt47, costly, core_of = logged["stability"], unplain(logged["kt47"]), logged["costliest_milli"], None
+            stab, kt47, costly, core_of = logged["stability"], unplain(logged["kt47"]), logged["costliest"], None
         else:
-            runs, core_of, stab, used, checks, costly = run_trial(trial, families, self.workers)
+            runs, core_of, stab, used, checks = run_trial(trial, families, self.workers)
             tg = targets(runs, core_of, f["floor"], self.spreads)
             measures = {fld: judge.set_mean(runs, fld) for fld in
                         ("settle_rate", "copy_accept", "d_learn_strict", "fmn_strict", "lr_h1", "lr_far",
                          "dq_sour_strict", "sour_drop_strict", "noticed", "d_strict_1", "d_learn_beh",
                          "dq_s8_strict", "dq_sweet_strict")}
             kt47 = {"median_spikes": median(used), "median_checks": median(checks)}
+            costly = costliest(trial, used, kt47["median_spikes"], kt47["median_checks"])
         event = dict(what, type="setting", trial=key, mind=trial.mind, half=trial.half, hosting=trial.hosting,
                      setting=dict(trial.setting), rate=dict(trial.rate), spike_nano=trial.spike_nano,
                      families=list(families), runs_per_family=RUNS, measures=measures, targets=tg,
-                     stability=stab, kt47=kt47, costliest_milli=costly, floor=f["floor"],
+                     stability=stab, kt47=kt47, costliest=costly, floor=f["floor"],
                      seconds=round(time.time() - t0, 1), commit=self.commit)
         out = self.log.add(event)
         self.seen[key] = out
         return tg, runs
+
+    def repeats(self, logged) -> bool:
+        """On a resume, the last setting the log measured is run again and must give the same numbers (KT-130)."""
+        families = tuple(logged["families"])
+        setting = tuple((name, logged["setting"][name]) for _, name, _ in KF_GRID)       # the log sorts keys
+        rate = tuple((name, logged["rate"][name]) for _, name, _ in TW7_GRID if name in logged["rate"])
+        trial = Trial(logged["mind"], setting, rate=rate, spike_nano=logged["spike_nano"], half=logged["half"],
+                      hosting=logged["hosting"])
+        if trial.key() != logged["trial"]:
+            print("the log's last measured setting does not rebuild to its own trial key")
+            return False
+        runs, core_of, stab, used, checks = run_trial(trial, families, self.workers)
+        tg = targets(runs, core_of, Fraction(logged["floor"]["exact"]), self.spreads)
+        same = plain(tg) == logged["targets"] and stab == logged["stability"]
+        print(f"resume: setting {logged['n']} measured again: {'the same' if same else 'DIFFERENT'}", flush=True)
+        return same
 
     def leak_stop(self, tg) -> bool:
         if tg["d_check1"] >= LEAK_STOP:
@@ -382,7 +424,7 @@ class Search:
             return True
         return False
 
-    def coordinate(self, mind, grid, start, passes, fixed=(), rate_mode=False, spike_nano=0):
+    def coordinate(self, mind, grid, start, passes, fixed=(), rate_mode=False, spike_nano=0, label="start"):
         """Steps 2 to 5: passes through the grid one number at a time.
 
         Returns (values, passes used, how): how is "pick" when a setting reached
@@ -396,7 +438,7 @@ class Search:
                 return Trial(mind, tuple(fixed), rate=tuple(values.items()))
             return Trial(mind, tuple(values.items()), spike_nano=spike_nano)
 
-        tg, _ = self.measure(trial(current), {"step": "start" if passes.start == 1 else "pass start"})
+        tg, _ = self.measure(trial(current), {"step": label})
         if self.leak_stop(tg):
             return current, passes.start - 1, "leak"
         best_tg = tg
@@ -453,7 +495,7 @@ class Search:
         med_spikes, med_checks = Fraction(e["kt47"]["median_spikes"]["exact"]), \
             Fraction(e["kt47"]["median_checks"]["exact"])
         exact = Fraction(K.CHECK_NANO) * med_checks / med_spikes
-        nano = int(exact + Fraction(1, 2))                  # whole nano-units, halves up (KT-92)
+        nano = kt47_nano(med_spikes, med_checks)            # whole nano-units, halves up (KT-92)
         self.log.add({"type": "kt27", "median_spikes": med_spikes, "median_checks": med_checks,
                       "spike_nano_exact": exact, "spike_nano": nano})
         return nano
@@ -471,6 +513,8 @@ def run(log_path, workers) -> int:
         return 1
     spreads = json.loads((ROOT / "kill-test" / "results" / "tuning-bench.json").read_text())["mk10_spreads"]["between"]
     s = Search(log, workers, spreads, head)
+    if log.measured and not s.repeats(list(log.measured.values())[-1]):
+        return 1
     log.add({"type": "begin", "code": code, "search": list(SEARCH), "kept_back": list(KEPT_BACK),
              "runs_per_family": RUNS, "max_passes": MAX_PASSES, "spreads": spreads})
     s.floor("search")
@@ -489,7 +533,8 @@ def run(log_path, workers) -> int:
         if passes >= MAX_PASSES:
             log.add({"type": "stop", "why": "KT-27 knocked a target out and all 3 passes are used (step 6)"})
             return 2
-        pick, more, how = s.coordinate("K-F", KF_GRID, pick, range(passes + 1, passes + 2), spike_nano=nano)
+        pick, more, how = s.coordinate("K-F", KF_GRID, pick, range(passes + 1, passes + 2), spike_nano=nano,
+                                       label="extra pass start")
         if how != "pick":
             if how == "passes":
                 log.add({"type": "stop", "why": "step 6's extra pass found no setting reaching every target"})
@@ -502,8 +547,7 @@ def run(log_path, workers) -> int:
     tw7_start = {"gain": GAIN_START, "tau_ms": TAU_START}                    # step 8
     tw7, tw7_passes, how = s.coordinate("TW7", TW7_GRID, tw7_start, range(1, passes + 1),
                                         fixed=tuple(pick.items()), rate_mode=True)
-    if how == "leak":
-        log.add({"type": "stop", "why": "TW7 showed D at check 1 of 0.15 or more: to trace with Aitzaz"})
+    if how == "leak":                                                         # logged by the leak stop
         return 2
     ok7, _ = s.check("TW7", pick, tw7, 0, os10_runs=os10_runs)
     log.add({"type": "done", "pick": pick, "spike_nano": nano, "passes": passes, "tw7": tw7,

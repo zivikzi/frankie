@@ -96,8 +96,8 @@ def _rate_maker(given):
     if not isinstance(given, dict) or not set(given) <= {"gain", "tau_ms"}:
         raise ValueError("TW7's own setting names only its gain and time constant (section 7)")
     for name, value in given.items():
-        if isinstance(value, bool) or not isinstance(value, (int, float)) or value <= 0:
-            raise ValueError(f"{name} must be one number above 0 (section 7)")
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not np.isfinite(value) or value <= 0:
+            raise ValueError(f"{name} must be one finite number above 0 (section 7)")
     return RateMaker(**given)
 
 

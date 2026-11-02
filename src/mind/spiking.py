@@ -11,8 +11,8 @@ order (KT-60, KT-59, KT-61, KT-125):
 
 1. Its charge decays toward rest: charge x (1 - leak) (KT-19).
 2. It is pushed down: the inhibition strength (KT-22) times the spikes every
-   other live group made in the substep before (KT-59). Charge may fall
-   below rest and leaks back.
+   other group that is live now made in the substep before (KT-59). Charge
+   may fall below rest and leaks back.
 3. If it is still resting after a spike, it ignores its input and one more
    millisecond of its rest passes. Otherwise it adds its share of the
    group's steady input, (2k + 1)/8 of it (KT-61), and if its charge has
@@ -53,7 +53,8 @@ def _substep(charge, resting, trace, pending, inputs, live, keep, threshold, ref
     groups, neurons = charge.shape
     total = 0
     for g in range(groups):
-        total += pending[g]
+        if live[g]:
+            total += pending[g]
     made = 0
     for g in range(groups):
         if not live[g]:
@@ -85,7 +86,8 @@ def _substep(charge, resting, trace, pending, inputs, live, keep, threshold, ref
 
 def substep_reference(charge, resting, trace, pending, inputs, live, keep, threshold, refractory, inhibition):
     """The same substep with NumPy's whole-array operations (section 6). Returns new arrays and the spikes made."""
-    total = int(np.sum(pending))
+    on = np.asarray(live, dtype=bool)
+    total = int(np.sum(pending[on]))
     push = inhibition * (total - pending)
     x = charge * keep - push[:, None]
     still = resting > 0
@@ -96,7 +98,7 @@ def substep_reference(charge, resting, trace, pending, inputs, live, keep, thres
     resting = np.where(still, resting - 1, np.where(fire, refractory, 0)).astype(np.int64)
     fired = fire.sum(axis=1).astype(np.int64)
     trace = trace * K.TRACE_DECAY + fired
-    off = ~np.asarray(live, dtype=bool)
+    off = ~on
     x[off] = 0.0
     resting[off] = 0
     trace[off] = 0.0

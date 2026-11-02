@@ -184,3 +184,33 @@ def test_the_log_replays_and_refuses_a_different_history(tmp_path):
     third = tune.Log(path)
     with pytest.raises(SystemExit, match="not replaying"):
         third.add({"type": "begin", "x": Fraction(1, 2)})
+
+
+class Rec:
+    def __init__(self, logs):
+        self.decisions = {k: {"mind": {"verdict": 0, "log": dict(last_step=len(lg), near_ties=0, holds_broken=[],
+                                                                  unsettled_why=None, leaders=lg)}}
+                          for k, lg in enumerate(logs)}
+
+
+def test_a_tie_breaks_a_lead_so_leading_again_after_one_is_oscillating():
+    rec = Rec([[None, 3, 3, None, 3], [None, 3, 3, 4, 4], [3, 4, 3], [None, None, "unknown", "unknown"]])
+    assert tune.stability(rec)["oscillating"] == 2          # the first (lost to a tie) and the third
+
+
+def test_the_costliest_decision_is_priced_at_the_settings_own_kt47_rate():
+    t = tune.Trial("K-F", tuple(tune.KF_START.items()))
+    c = tune.costliest(t, [10, 2000, 30], Fraction(1000), Fraction(500))
+    assert c == {"most_in_one_decision": 2000, "unit_nano": 500_000, "milli": 1000}
+    paid = tune.Trial("K-F", tuple(tune.KF_START.items()), spike_nano=7)
+    assert tune.costliest(paid, [3], Fraction(1), Fraction(1))["unit_nano"] == 7
+    tw7 = tune.Trial("TW7", tuple(tune.KF_START.items()), rate=(("gain", 1), ("tau_ms", 10)))
+    assert tune.costliest(tw7, [600], Fraction(1), Fraction(1)) == {"most_in_one_decision": 600,
+                                                                    "unit_nano": 1_000_000, "milli": 600}
+
+
+def test_a_half_written_last_line_stops_the_resume_with_a_clear_message(tmp_path):
+    path = tmp_path / "log.jsonl"
+    path.write_text('{"type": "begin", "n": 0}\n{"type": "floo')
+    with pytest.raises(SystemExit, match="not a whole event"):
+        tune.Log(path)

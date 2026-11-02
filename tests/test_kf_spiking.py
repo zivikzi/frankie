@@ -148,11 +148,15 @@ def test_a_group_that_is_not_live_is_held_at_rest_and_pushes_nothing():
     numba_step(u, [8.0, 0.1], [True, True])
     numba_step(u, [8.0, 0.1], [False, True])         # group 0 eliminated: its pending spikes are dropped
     assert float(u.trace[0]) == 0.0 and int(u.pending[0]) == 0 and not u.charge[0].any()
+    assert float(u.charge[1, 7]) == 0.1 * SHARES[7] * 0.5 + 0.1 * SHARES[7]      # and pushes no one down
     u2 = SpikingUnits(2, s)
     numba_step(u2, [8.0, 0.1], [True, True])
     u2.rest(0)                                       # a knock-down: pending spikes go too (KT-125)
     numba_step(u2, [0.0, 0.1], [True, True])
     assert float(u2.charge[1, 7]) == 0.1 * SHARES[7] * 0.5 + 0.1 * SHARES[7]
+    state = (np.zeros((2, 8)), np.zeros((2, 8), dtype=np.int64), np.zeros(2), np.array([8, 0], dtype=np.int64))
+    out = substep_reference(*state, np.array([8.0, 0.1]), np.array([False, True]), 0.5, 1.0, 2, 0.25)
+    assert float(out[0][1, 7]) == 0.1 * SHARES[7]    # the reference agrees: a switched-off group pushes nothing
 
 
 def test_every_spike_is_paid_for_unknown_included():
@@ -237,8 +241,13 @@ def test_k_f_runs_on_spiking_units_and_pays_per_spike():
 
 @pytest.mark.parametrize("params,why", [
     ({}, "KT-27"), ({"spike_nano": -1}, "whole number"), ({"spike_nano": 1.5}, "whole number"),
-    ({"spike_nano": 0, "tuned": {"gain": 2}}, "closed list"), ({"spike_nano": 0, "tuned": {"leak": "0.1"}}, "one number"),
-    ({"spike_nano": 0, "tuned": {"leak": True}}, "one number"), ({"spike_nano": 0, "OS01": "cap"}, "Week 5"),
+    ({"spike_nano": 0, "tuned": {"gain": 2}}, "closed list"), ({"spike_nano": 0, "tuned": {"leak": "0.1"}}, "one finite number"),
+    ({"spike_nano": 0, "tuned": {"leak": True}}, "one finite number"),
+    ({"spike_nano": 0, "tuned": {"leak": float("nan")}}, "one finite number"),
+    ({"spike_nano": 0, "tuned": {"threshold": float("inf")}}, "one finite number"),
+    ({"spike_nano": 0, "tuned": {"refractory_ms": 1.5}}, "whole number"),
+    ({"spike_nano": 0, "tuned": {"refractory_ms": -1}}, "whole number"),
+    ({"spike_nano": 0, "tuned": {"commit_margin": 0}}, "above 0"), ({"spike_nano": 0, "OS01": "cap"}, "Week 5"),
     ({"spike_nano": 0, "habits": 1}, "no birth parameter")])
 def test_k_f_refuses_what_it_may_not_take(params, why):
     with pytest.raises(ValueError, match=why):

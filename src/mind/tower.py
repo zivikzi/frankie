@@ -79,6 +79,7 @@ RESET = "reset"
 REMOVED = "removed"
 LEADS_UNKNOWN = "a candidate leads unknown at step 30 with no hold"     # why a settle ended unsettled (KT-127)
 HOLD_BROKE = "a hold begun by step 30 broke after it"                    # (KT-64, KT-127)
+HOLD_AT_30 = "a hold was still running when the verdict after eating ended at step 30"     # (KT-66, KT-127)
 
 # (name, first trait, end, the step it switches on at), outside in (KT-51)
 LAYERS = ((CONTEXT, 0, K.OBJECT_FROM, K.CONTEXT_STEP), (OBJECT, K.OBJECT_FROM, K.PARTS_FROM, K.OBJECT_STEP),
@@ -324,7 +325,7 @@ class Race:
             if step == K.LAST_WIN_STEP and (after_eating or hold is None):
                 verdict = self._step_30(a)
                 if verdict == UNSETTLED:
-                    self.log["unsettled_why"] = LEADS_UNKNOWN
+                    self.log["unsettled_why"] = LEADS_UNKNOWN if hold is None else HOLD_AT_30
                 return self._result(verdict, step, a)
             if step > K.LAST_WIN_STEP and hold is None:
                 self.log["unsettled_why"] = HOLD_BROKE

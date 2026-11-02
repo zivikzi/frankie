@@ -6,6 +6,8 @@ the logged search in Week 4 may change them, and until then every run uses
 these start values.
 """
 
+import numpy as np
+
 # ------------------------------------------------------------------ the trait schema (KT-01)
 
 N_TRAITS = 22                # traits per object, in schema order (KT-01)
@@ -107,8 +109,13 @@ class Settings:
         if not isinstance(given, dict) or not set(given) <= set(TUNED_NAMES):
             raise ValueError(f"a setting may name only the closed list: {sorted(TUNED_NAMES)} (section 7)")
         for name, value in given.items():
-            if isinstance(value, bool) or not isinstance(value, (int, float)):
-                raise ValueError(f"{name} must be one number (section 7)")
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not np.isfinite(value):
+                raise ValueError(f"{name} must be one finite number (section 7)")
+            if name == "refractory_ms":
+                if value != int(value) or value < 0:
+                    raise ValueError("the refractory period is a whole number of ms, 0 or more (KT-21)")
+            elif value <= 0:
+                raise ValueError(f"{name} must be above 0 (section 7)")
         return cls(**given)
 
     def table(self):
